@@ -32,7 +32,7 @@ public class Controller implements Initializable {
         this.env = new Environnement(800, 800);
         this.env.getActeurs().addListener(new Observateur(pane));
         affichermap();
-        this.acteur = new ActeurEnMouvement(50, 50, 5, env, 40);
+        this.acteur = new ActeurEnMouvement(50, 50, 5, env, 40,3);
         this.env.ajouter(acteur);
         initAnimation();
         pane.setFocusTraversable(true);
