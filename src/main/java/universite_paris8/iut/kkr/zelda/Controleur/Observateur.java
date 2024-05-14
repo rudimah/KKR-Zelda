@@ -1,4 +1,4 @@
-package universite_paris8.iut.kkr.zelda.modele;
+package universite_paris8.iut.kkr.zelda.Controleur;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import universite_paris8.iut.kkr.zelda.modele.Acteur;
 
 public class Observateur implements ListChangeListener<Acteur> {
     private Pane panneauJeu;

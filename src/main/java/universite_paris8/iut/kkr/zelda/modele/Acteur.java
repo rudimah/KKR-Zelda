@@ -44,13 +44,6 @@ public abstract class Acteur {
 	}
 
 
-
-
-	/*
-        //permet de savoir si une action probabiliste se réalise
-
-        public abstract void agit();
-    */
 	@Override
 	public String toString() {
 		return "x=" + x + ", y=" + y + ", id=" + id ;
