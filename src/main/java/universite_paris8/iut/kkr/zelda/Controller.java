@@ -79,7 +79,7 @@ public class Controller implements Initializable {
                         imageView.setImage(image);
                         break;
                     case 1:
-                        Image image1 = new Image("file://home/etudiants/info/hrahman/Téléchargements/grass.png");
+                        Image image1 = new Image("file://home/etudiants/info/hrahman/Téléchargements/gras.png");
                         imageView.setImage(image1);
                 }
                 this.tilepane.getChildren().add(imageView);
