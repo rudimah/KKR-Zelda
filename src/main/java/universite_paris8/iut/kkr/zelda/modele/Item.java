@@ -7,8 +7,11 @@ public class Item {
     private IntegerProperty x;
     private IntegerProperty y;
     private boolean estRamassé;
+    public static int compteur=0;
+    private String id;
 
     public Item(String nom, int x,int y){
+        this.id = "Item"+compteur;
         this.nom = nom;
         this.x.setValue(x);
         this.y.setValue(y);
@@ -26,4 +29,6 @@ public class Item {
     public boolean EstRamassé() {return estRamassé;}
 
     public void setEstRamassé(boolean estRamassé) {this.estRamassé = estRamassé;}
+
+    public String getId() {return id;}
 }
