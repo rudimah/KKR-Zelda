@@ -75,7 +75,7 @@ public class Controller implements Initializable {
                 switch (map[x][y]){
 
                     case 9:
-                        Image image = new Image("file:/home/etudiants/info/hrahman/IdeaProjects/Jeu/src/main/java/universite_paris8/iut/kkr/zelda/image/grass.png");
+                        Image image = new Image("file:src/main/java/universite_paris8/iut/kkr/zelda/image/grass.png");
                         imageView.setImage(image);
                         break;
                     case 1:
