@@ -25,9 +25,8 @@ public class Controleur implements Initializable {
     private TilePane tilepane;
     @FXML
     private Pane panneauDeJeu;
-
-
     private  TerrainVue terrainVue;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.env = new Environnement(800, 800);
