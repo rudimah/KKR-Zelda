@@ -6,17 +6,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-
-public class GameMenu extends Application {
+public class MenuDebut extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("GameMenu.fxml"));
         primaryStage.setTitle("Menu Principal");
-        primaryStage.setScene(new Scene(root, 800, 445));
+        primaryStage.setScene(new Scene(root, 800, 800));
         primaryStage.show();
     }
 

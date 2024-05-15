@@ -21,21 +21,31 @@ public class ControleurMenu implements Initializable {
 
     @FXML
     public void gererBoutonJouer(ActionEvent event) {
+        System.out.println("Lancement du jeu...");
         try {
             Main main = new Main();
             main.start(new Stage());
             Scene scene = ((Stage)((javafx.scene.Node)event.getSource()).getScene().getWindow()).getScene();
-            // Fermez la fenêtre actuelle
             Stage stage = (Stage) scene.getWindow();
             stage.close();
         } catch (IOException e) {
             e.printStackTrace();
-            // Gérer l'exception selon vos besoins
         }
     }
+
+    @FXML
+    public void gererBoutonRegles(ActionEvent event){
+        System.out.println("Affichage des règles...");
+    }
+
     @FXML
     public void gererBoutonCredits(ActionEvent event){
         System.out.println("Affichage des crédits en cours...");
+    }
+
+    @FXML
+    public void gererBoutonQuitter(ActionEvent event){
+        System.out.println("Fermeture du jeu...");
     }
 
     @Override
