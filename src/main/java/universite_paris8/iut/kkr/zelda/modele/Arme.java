@@ -1,6 +1,6 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-public class Arme extends Item{
+public class Arme extends Objet {
     private int ptAttaque;
 
     public Arme(String nom, int ptAttaque,int x, int y){
