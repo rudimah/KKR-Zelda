@@ -16,14 +16,13 @@ public class Environnement {
 			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
 			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
 			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,1,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
+			{9,9,9,9,9,9,9,9,9,9,9,9,1,1,9,9,9,9,9,9,9,9,9,9,9,9,9},
 			{9,9,9,9,9,9,9,9,9,9,9,9,1,1,9,9,9,9,9,9,9,9,9,9,9,9,9},
 
-			{9,9,1,1,1,1,1,1,1,1,9,9,9,1,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,1,1,9,9,9,1,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,1,1,9,9,9,1,9,9,9,9,9,9,9,9,9,9,9,9,9},
-
+			{9,9,9,1,1,1,1,1,1,1,9,9,1,1,9,9,9,9,9,9,9,9,9,9,9,9,9},
+			{9,9,9,1,1,1,1,1,1,1,9,9,1,1,9,9,9,9,9,9,9,9,9,9,9,9,9},
 			{9,9,9,9,9,9,9,9,1,1,1,1,1,1,9,9,9,9,9,9,9,9,9,9,9,9,9},
+
 			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
 			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
 			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
@@ -37,12 +36,13 @@ public class Environnement {
 			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
 			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
 			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
+			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,1,1,1,1,1,1},
+			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,1,1,1,1,1,1},
+			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,1,9,9,9,9,9},
+			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,1,9,9,9,9,9},
+			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,1,9,9,9,9,9},
+			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,1,9,9,9,9,9},
+			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,1,9,9,9,9,9},
 
 	};
 
@@ -74,22 +74,53 @@ public class Environnement {
 		acteurs.add(a);
 	}
 
-	public boolean estPositionValide(int x, int y) {
-		// les limites de la map
-		if (x < 0 || x >= width || y < 0 || y >= height) {
-			return false;
-		}
-//		double x_map = x/30;
-//		double y_map = y/30;
-//		if(tableauMap[x_map.][y_map] == 1){
-//			System.out.println("Y a de l'eau");
+//	public boolean estPositionValide(int x, int y) {
+//		// les limites de la map
+//		if (x < 0 || x >= width || y < 0 || y >= height) {
 //			return false;
 //		}
-//		System.out.println("x" + x + "y" + y);
+//
+//		// Convertir les coordonnées en pixels vers les coordonnées de la grille
+//		int gridX = x / 30; // Supposons que chaque case fait 30x30 pixels
+//		int gridY = y / 30;
+//
+//		// Vérifier si la position sur la grille est de l'eau
+//		if (tableauMap[gridY][gridX] == 1) {
+//			System.out.println("Il y a de l'eau à (" + gridX + ", " + gridY + ")");
+//			return false;
+//		}
+//
+//		return true;
+//	}
+
+	public boolean estPositionValide(int x, int y) {
+		int tailleTuile = 30; // Taille d'une tuile en pixels
+		int largeurPersonnage = 20; // Largeur du personnage en pixels
+		int hauteurPersonnage = 20; // Hauteur du personnage en pixels
+
+		if (x < 0 || x + largeurPersonnage > width || y < 0 || y + hauteurPersonnage > height) {
+			return false;
+		}
+
+		// Vérifier les 4 coins du personnage
+		int[][] coins = {
+				{x, y},
+				{x + largeurPersonnage, y},
+				{x, y + hauteurPersonnage},
+				{x + largeurPersonnage, y + hauteurPersonnage}
+		};
+
+		for (int[] coin : coins) {
+			int gridX = coin[0] / tailleTuile;
+			int gridY = coin[1] / tailleTuile;
+
+			if (tableauMap[gridY][gridX] == 1) {
+				System.out.println("Il y a de l'eau à (" + gridX + ", " + gridY + ")");
+				return false;
+			}
+		}
 
 		return true;
 	}
-
-
 
 }
