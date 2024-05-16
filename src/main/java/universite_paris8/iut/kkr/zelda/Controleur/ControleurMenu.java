@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import universite_paris8.iut.kkr.zelda.Main;
 
@@ -18,6 +20,16 @@ import java.util.ResourceBundle;
 public class ControleurMenu implements Initializable {
     @FXML
     ImageView imageFond;
+    @FXML
+    VBox contenuRegles;
+    @FXML
+    VBox contenuBoutons;
+    @FXML
+    VBox contenuCredits;
+    @FXML
+    VBox contenuQuitter;
+
+
 
     @FXML
     public void gererBoutonJouer(ActionEvent event) {
@@ -36,29 +48,51 @@ public class ControleurMenu implements Initializable {
     @FXML
     public void gererBoutonRegles(ActionEvent event){
         System.out.println("Affichage des règles...");
+        cacherLeContenu();
+        contenuBoutons.setVisible(false);
+        contenuRegles.setVisible(true);
     }
 
     @FXML
     public void gererBoutonCredits(ActionEvent event){
         System.out.println("Affichage des crédits en cours...");
+        cacherLeContenu();
+        contenuBoutons.setVisible(false);
+        contenuCredits.setVisible(true);
     }
 
     @FXML
     public void gererBoutonQuitter(ActionEvent event){
-        System.out.println("Fermeture du jeu...");
+        System.out.println("Ouverture de la fenêtre de quittage...");
+        cacherLeContenu();
+        contenuBoutons.setVisible(false);
+        contenuQuitter.setVisible(true);
     }
+
+    @FXML
+    private void retourAuMenu(ActionEvent event) {
+        cacherLeContenu();
+    }
+
+    @FXML
+    private void confirmerQuitter() {
+        System.exit(0);
+    }
+
+    @FXML
+    private void annulerQuitter() {
+        contenuQuitter.setVisible(false);
+        contenuBoutons.setVisible(true);
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//////        // Récupérer les dimensions de l'image de fond
-//        double imageWidth = imageFond.getImage().getWidth();
-//        double imageHeight = imageFond.getImage().getHeight();
-//////
-//////        // Obtenir la scène associée à l'image de fond
-//        Stage stage = (Stage) imageFond.getScene().getWindow();
-//////
-//////        // Définir la taille de la fenêtre en fonction des dimensions de l'image
-//        stage.setWidth(imageWidth);
-//        stage.setHeight(imageHeight);
-  }
+    }
+    private void cacherLeContenu() {
+        contenuBoutons.setVisible(true);
+        contenuRegles.setVisible(false);
+        contenuCredits.setVisible(false);
+        contenuQuitter.setVisible(false);
+    }
 }
