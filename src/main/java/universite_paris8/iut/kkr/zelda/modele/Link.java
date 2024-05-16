@@ -1,6 +1,7 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -15,13 +16,7 @@ public class Link extends ActeurEnMouvement{
 
     private Pane panneauDeJeu;
     private TilePane tilePane;
-
     private ImageView imageView;
-    private Image imageHautDroite;
-    private Image imageHautGauche;
-    private Image imageBas;
-    private Image imageGauche;
-    private Image imageDroite;
     boolean pied_droite = true;
 
     public Link(Environnement env, Pane pj, TilePane tilePane) {
@@ -32,13 +27,17 @@ public class Link extends ActeurEnMouvement{
         panneauDeJeu.setFocusTraversable(true);
         panneauDeJeu.setOnKeyPressed(this::gererTouch);
         panneauDeJeu.setOnKeyReleased(this::handleKeyRelease);
+        Image image1 = new Image("file:src/main/resources/image/Link/tileset.png");
 
-        this.imageHautDroite = new Image("file:src/main/resources/image/Link/pied_droit.png");
-        this.imageHautGauche = new Image("file:src/main/resources/image/Link/pied_gauche.png");
-        this.imageBas = new Image("file:src/main/resources/image/Link/bas.png");
-        this.imageGauche = new Image("file:src/main/resources/image/Link/normal.png");
-        this.imageDroite = new Image("file:src/main/resources/image/Link/normal.png");
 
+        imageView.setImage(image1);
+            imageView.setViewport(new Rectangle2D( 180,1250,120,160));
+        imageView.setFitWidth(20);
+        imageView.setFitHeight(30);
+
+        imageView.setTranslateX(getX());
+        imageView.setTranslateY(getY());
+        panneauDeJeu.getChildren().add(imageView);
     }
 
     private void gererTouch(KeyEvent event) {
@@ -60,48 +59,74 @@ public class Link extends ActeurEnMouvement{
     public void seDeplacer(KeyCode key) {
 
         int newX = getX(), newY = getY();
-        ImageView imageView = new ImageView();
 
+        double x = 0, y = 0;
 
         switch (key) {
             case Z:
-
                 newY = getY()-getVitesse();
+                y = 1050;
                 if (pied_droite){
-                    imageView.setImage(imageHautDroite);
+                    x = 170;
                     pied_droite= false;
                 }
                 else {
-                    imageView.setImage(imageHautGauche);
+                    x = 1470;
                     pied_droite = true;
                 }
-                //r.setFill(Color.RED);
+
                 break;
             case S:
                 newY = getY()+getVitesse();
-                imageView.setImage(imageBas);
+                y = 710;
+                if (pied_droite){
+                    x = 665;
+                    pied_droite= false;
+                }
+                else {
+                    x = 1470;
+                    pied_droite = true;
+                }
+
 
                 break;
             case D:
                 newX = (getX()+getVitesse());
-                imageView.setImage(imageDroite);
+                y = 1225;
+                if (pied_droite){
+                    x = 180;
+                    pied_droite= false;
+                }
+                else {
+                    x = 1315;
+                    pied_droite = true;
+                }
                 break;
             case Q:
                 newX = (getX()-getVitesse());
-                imageView.setImage(imageGauche);
+                y = 895;
+                if (pied_droite){
+                    x = 180;
+                    pied_droite= false;
+                }
+                else {
+                    x = 1315;
+                    pied_droite = true;
+                }
                 break;
-
+            default:
+                ;
         }
         System.out.println("Essaye de passer de " + getX() + ", " + getY() );
 
         if (env.estPositionValide(newX, newY)) {
-            panneauDeJeu.getChildren().clear();
 
             setX(newX);
             setY(newY);
+            imageView.setViewport(new Rectangle2D(x, y, 120, 160));
             imageView.setTranslateX(getX());
             imageView.setTranslateY(getY());
-            panneauDeJeu.getChildren().add(imageView);
+
 
             System.out.println("s'est déplacé en (" + getX() + ", " + getY() + ")");
         } else {
