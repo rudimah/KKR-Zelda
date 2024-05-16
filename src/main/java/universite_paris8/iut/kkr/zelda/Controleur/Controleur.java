@@ -39,8 +39,8 @@ public class Controleur implements Initializable {
         //afficherMap();
         // Inutile
 
-        this.env.getActeurs().addListener(new Observateur(panneauDeJeu));
-        env.ajouter(new Link(env, panneauDeJeu));
+        //this.env.getActeurs().addListener(new Observateur(panneauDeJeu));
+        new Link(env, panneauDeJeu, tilepane);
         //initAnimation();
 
     }
