@@ -1,21 +1,16 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
-public class Link extends ActeurEnMouvement{
-
+public class Link extends ActeurEnMouvement {
 
     private Pane panneauDeJeu;
     private TilePane tilePane;
-
     private ImageView imageView;
     private Image imageHautDroite;
     private Image imageHautGauche;
@@ -24,9 +19,9 @@ public class Link extends ActeurEnMouvement{
     private Image imageDroite;
     boolean pied_droite = true;
 
-    public Link(Environnement env, Pane pj, TilePane tilePane) {
-        super(50, 50, 5, env, 40, 20);
-        this.panneauDeJeu = pj;
+    public Link(Environnement env, Pane panneauDeJeu, TilePane tilePane) {
+        super(50, 50, 2, env, 50, 5);
+        this.panneauDeJeu = panneauDeJeu;
         this.tilePane = tilePane;
         this.imageView = new ImageView();
         panneauDeJeu.setFocusTraversable(true);
@@ -39,75 +34,79 @@ public class Link extends ActeurEnMouvement{
         this.imageGauche = new Image("file:src/main/resources/image/Link/normal.png");
         this.imageDroite = new Image("file:src/main/resources/image/Link/normal.png");
 
+        afficherPersonnage();
+    }
+
+    private void afficherPersonnage() {
+        imageView.setTranslateX(getX());
+        imageView.setTranslateY(getY());
+        panneauDeJeu.getChildren().add(imageView);
     }
 
     private void gererTouch(KeyEvent event) {
         if (event.getCode() == KeyCode.SHIFT) {
-            setVitesse(getVitesse()*2);
+            setVitesse(getVitesse() * 2);
         }
-        System.out.println("Touche pressé " + event.getCode());
+        System.out.println("Touche pressée " + event.getCode());
         seDeplacer(event.getCode());
         event.consume();
     }
+
     private void handleKeyRelease(KeyEvent event) {
-        // Reset the direction when shift is released
         if (event.getCode() == KeyCode.SHIFT) {
-            setVitesse(getVitesse()/2);
-            System.out.println("MAJ relâchée, vitesse normalisée.");
+            setVitesse(getVitesse() / 2);
+            System.out.println("MAJ relâché vitesse normalisée.");
         }
     }
 
     public void seDeplacer(KeyCode key) {
-
-        int newX = getX(), newY = getY();
-        ImageView imageView = new ImageView();
-
+        int nouveauX = getX(), nouveauY = getY();
 
         switch (key) {
             case Z:
-
-                newY = getY()-getVitesse();
-                if (pied_droite){
+                nouveauY = getY() - getVitesse();
+                if (pied_droite) {
                     imageView.setImage(imageHautDroite);
-                    pied_droite= false;
-                }
-                else {
+                    pied_droite = false;
+                } else {
                     imageView.setImage(imageHautGauche);
                     pied_droite = true;
                 }
-                //r.setFill(Color.RED);
                 break;
             case S:
-                newY = getY()+getVitesse();
+                nouveauY = getY() + getVitesse();
                 imageView.setImage(imageBas);
-
                 break;
             case D:
-                newX = (getX()+getVitesse());
+                nouveauX = getX() + getVitesse();
                 imageView.setImage(imageDroite);
                 break;
             case Q:
-                newX = (getX()-getVitesse());
+                nouveauX = getX() - getVitesse();
                 imageView.setImage(imageGauche);
                 break;
-
         }
-        System.out.println("Essaye de passer de " + getX() + ", " + getY() );
 
-        if (env.estPositionValide(newX, newY)) {
+        System.out.println("passe des positions " + getX() + ", " + getY() + " à " + nouveauX + ", " + nouveauY);
+
+        if (getEnv().estPositionValide(nouveauX, nouveauY)) {
+            // Gestion des effets des tuiles spécifiques
+            int tileId = getEnv().getTileId(nouveauX, nouveauY);
+            if (tileId == 10) { // Lave
+                decrementerPv(5);
+                System.out.println("Link est sur la Lave ! Point de vies restants: " + getPointsDeVie());
+            }
+
             panneauDeJeu.getChildren().clear();
-
-            setX(newX);
-            setY(newY);
+            setX(nouveauX);
+            setY(nouveauY);
             imageView.setTranslateX(getX());
             imageView.setTranslateY(getY());
             panneauDeJeu.getChildren().add(imageView);
 
             System.out.println("s'est déplacé en (" + getX() + ", " + getY() + ")");
         } else {
-            System.out.println("Mouvement bloqué par un élément de l'environnement.");
+            System.out.println("Action bloqué par un élément de l'environnement.");
         }
-
-
     }
 }
