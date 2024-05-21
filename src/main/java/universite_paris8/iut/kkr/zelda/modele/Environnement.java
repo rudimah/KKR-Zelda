@@ -100,7 +100,7 @@ public class Environnement {
 			switch (tileId) {
 				case 0: // Eau
 					System.out.println("Link peut nager dans l'eau " + (coin[0] / tailleTuile) + ", " + (coin[1] / tailleTuile));
-					break;
+					return true;
 				case 1: // Immeubles abandonnés
 				case 2: // Arbres
 				case 3: // Buisson
@@ -123,6 +123,8 @@ public class Environnement {
 				default:
 					System.out.println("Où est-ce qu'on est !?");
 					break;
+
+
 			}
 		}
 

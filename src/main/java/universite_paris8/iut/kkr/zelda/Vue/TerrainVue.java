@@ -11,8 +11,6 @@ import universite_paris8.iut.kkr.zelda.modele.Environnement;
 public class TerrainVue  {
     Environnement env;
 
-
-
     private TilePane tilepane;
 
     public TerrainVue(Environnement env, TilePane tilepane){
@@ -27,7 +25,6 @@ public class TerrainVue  {
                 ImageView imageView = new ImageView();
                 switch (map[x][y]){
                     case 9:
-
                         Image image = new Image("file:src/main/resources/image/grass.png");
                         imageView.setImage(image);
                         break;
