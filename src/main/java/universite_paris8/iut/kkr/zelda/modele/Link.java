@@ -19,7 +19,7 @@ public class Link extends ActeurEnMouvement{
     boolean pied_droite = true;
 
     public Link(Environnement env, Pane pj, TilePane tilePane) {
-        super(50, 50, 5, env, 40, 20);
+        super(50, 50, 2, env, 40, 10);
         this.panneauDeJeu = pj;
         this.tilePane = tilePane;
         this.imageView = new ImageView();

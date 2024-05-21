@@ -28,7 +28,7 @@ public class TerrainVue  {
                         Image image = new Image("file:src/main/resources/image/grass.png");
                         imageView.setImage(image);
                         break;
-                    case 1:
+                    case 0:
                         Image image1 = new Image("file:src/main/resources/image/eau.jpg");
                         imageView.setImage(image1);
                 }
