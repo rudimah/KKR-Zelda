@@ -41,7 +41,7 @@
         <Label text="Crédits" style="-fx-font-size: 18px; -fx-text-fill: white;"/>
         <Label text="Ce jeu a été crée par 3 étudiants de l'IUT de &#10;
          Montreuil dans le cadre d'une SAE. Leurs noms sont : Hamidur Rahman,&#10;
-         ZulKerNaine Khan et Jonathan Kaku" style="-fx-font-size: 18px; -fx-text-fill: white;" textAlignment="CENTER"/>
+         Naïne Khan et Jonathan Kaku" style="-fx-font-size: 18px; -fx-text-fill: white;" textAlignment="CENTER"/>
         <Button onAction="#retourAuMenu" style="-fx-font-size: 24px;" text="Retour au menu" styleClass="menu-button" minWidth="200" minHeight="50"/>
     </VBox>
 
