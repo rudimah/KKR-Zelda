@@ -4,6 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -16,6 +19,12 @@ public class MenuDebut extends Application {
         String css = this.getClass().getResource("dark.css").toExternalForm();
         scene.getStylesheets().add(css);
         Font.loadFont(getClass().getResourceAsStream("/Police/Triforce.ttf"), 48);
+        Image testImage = new Image("file:src/main/resources/image/bouton.png");
+        if (testImage.isError()) {
+            System.out.println("Erreur de chargement de l'image");
+        } else {
+            System.out.println("Image chargée avec succès");
+        }
         primaryStage.setTitle("Menu Principal");
         primaryStage.setScene(scene);
         primaryStage.show();

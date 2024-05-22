@@ -1,15 +1,13 @@
 .menu-button {
-    -fx-background-color: linear-gradient(to right, #ff7f50, #ff6347);
+    -fx-background-image: url("file:src/main/resources/image/bouton.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-padding: 10 20;
-    -fx-border-radius: 30;
-    -fx-background-radius: 30;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 0, 0);
+    -fx-padding: 10px 20px;
 }
 
 .menu-button:hover {
-    -fx-background-color: linear-gradient(to right, #ff6347, #ff7f50);
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
+     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 10, 0.5, 0, 0);
+     -fx-cursor: hand;
 }
