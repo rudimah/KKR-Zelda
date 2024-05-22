@@ -18,8 +18,10 @@ public class Link extends ActeurEnMouvement{
     private ImageView imageView;
     boolean pied_droite = true;
 
+
     public Link(Environnement env, Pane pj, TilePane tilePane) {
-        super(50, 50, 10, env, 40, 10);
+
+        super(50, 50, 5, env, 40, 10);
         this.panneauDeJeu = pj;
         this.tilePane = tilePane;
         this.imageView = new ImageView();
@@ -50,7 +52,7 @@ public class Link extends ActeurEnMouvement{
     private void handleKeyRelease(KeyEvent event) {
         // Reset the direction when shift is released
         if (event.getCode() == KeyCode.SHIFT) {
-            setVitesse(getVitesse()/2);
+            setVitesse(getVitesse()*2);
             System.out.println("MAJ relâchée, vitesse normalisée.");
         }
     }
@@ -116,8 +118,7 @@ public class Link extends ActeurEnMouvement{
                 }
                 break;
             default:
-                position_image_x = position_image_x;
-                position_image_y = position_image_y;
+
                 ;
         }
         System.out.println("Essaye de passer de " + getX() + ", " + getY() );
@@ -133,10 +134,9 @@ public class Link extends ActeurEnMouvement{
             if (tileId ==0){
                 setVitesse(1);
                 imageView.setViewport(new Rectangle2D(position_image_eau, position_image_y, 120, 160));
-
             }
             else {
-                setVitesse(2);
+
                 imageView.setViewport(new Rectangle2D(position_image_x, position_image_y, 120, 160));
             }
             panneauDeJeu.getChildren().clear();

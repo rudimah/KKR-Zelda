@@ -3,7 +3,7 @@ package universite_paris8.iut.kkr.zelda.Vue;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
+
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
@@ -46,7 +46,18 @@ public class TerrainVue {
                         foregroundImageView.setImage(arbre);
                         break;
                     case 3: // Buisson
-                        // Logique pour buisson
+                        Image buisson = new Image("file:src/main/resources/image/buisson.png");
+                        foregroundImageView.setImage(buisson);
+                        break;
+                    case 4: //coffre
+                        Image coffre = new Image("file:src/main/resources/image/coffre.png");
+                        foregroundImageView.setImage(coffre);
+                        break;
+                    case 5: // Rocher
+                        // Logique pour rocher
+                        break;
+                    case 6: // Poubelle
+                        // Logique pour poubelle
                         break;
                     case 7: // Rocher en Lave
                         // Logique pour rocher en lave
@@ -56,15 +67,6 @@ public class TerrainVue {
                         break;
                     case 10: // Lave
                         // Logique pour lave
-                        break;
-                    case 4: // Coffre
-                        // Logique pour coffre
-                        break;
-                    case 5: // Rocher
-                        // Logique pour rocher
-                        break;
-                    case 6: // Poubelle
-                        // Logique pour poubelle
                         break;
                     case 9:
                         // Logique pour autre élément si nécessaire
