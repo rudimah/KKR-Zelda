@@ -19,7 +19,7 @@ public class Link extends ActeurEnMouvement{
     boolean pied_droite = true;
 
     public Link(Environnement env, Pane pj, TilePane tilePane) {
-        super(50, 50, 2, env, 40, 10);
+        super(50, 50, 10, env, 40, 10);
         this.panneauDeJeu = pj;
         this.tilePane = tilePane;
         this.imageView = new ImageView();
@@ -88,7 +88,6 @@ public class Link extends ActeurEnMouvement{
                     pied_droite = true;
                 }
 
-
                 break;
             case D:
                 nouveauX = (getX()+getVitesse());
@@ -132,9 +131,12 @@ public class Link extends ActeurEnMouvement{
             }
 
             if (tileId ==0){
+                setVitesse(1);
                 imageView.setViewport(new Rectangle2D(position_image_eau, position_image_y, 120, 160));
+
             }
             else {
+                setVitesse(2);
                 imageView.setViewport(new Rectangle2D(position_image_x, position_image_y, 120, 160));
             }
             panneauDeJeu.getChildren().clear();
