@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -28,6 +30,8 @@ public class ControleurMenu implements Initializable {
     VBox contenuCredits;
     @FXML
     VBox contenuQuitter;
+    @FXML
+    Button boutonQuitter;
 
 
 
@@ -66,6 +70,7 @@ public class ControleurMenu implements Initializable {
         System.out.println("Ouverture de la fenêtre de quittage...");
         cacherLeContenu();
         contenuBoutons.setVisible(false);
+        boutonQuitter.setVisible(false);
         contenuQuitter.setVisible(true);
     }
 
@@ -76,23 +81,27 @@ public class ControleurMenu implements Initializable {
 
     @FXML
     private void confirmerQuitter() {
+        System.out.println("Vous avez choisi de quitter...");
         System.exit(0);
     }
 
     @FXML
     private void annulerQuitter() {
-        contenuQuitter.setVisible(false);
-        contenuBoutons.setVisible(true);
+        System.out.println("Fermeture de la fenêtre de quittage");
+        cacherLeContenu();
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
+
     private void cacherLeContenu() {
         contenuBoutons.setVisible(true);
         contenuRegles.setVisible(false);
         contenuCredits.setVisible(false);
         contenuQuitter.setVisible(false);
+        boutonQuitter.setVisible(true);
     }
 }
