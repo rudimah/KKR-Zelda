@@ -37,6 +37,7 @@ public class TerrainVue {
                     case 0: // Eau
                         Image eau = new Image("file:src/main/resources/image/eau.jpg");
                         imageDeFond.setImage(eau);
+
                         break;
                     case 1: // Immeubles abandonnés
                         // Ajouter une image pour immeubles abandonnés si nécessaire
@@ -54,7 +55,8 @@ public class TerrainVue {
                         foregroundImageView.setImage(coffre);
                         break;
                     case 5: // Rocher
-                        // Logique pour rocher
+                        Image rocher = new Image("file:src/main/resources/image/rocher.png");
+                        foregroundImageView.setImage(rocher);
                         break;
                     case 6: // Poubelle
                         // Logique pour poubelle

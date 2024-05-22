@@ -115,7 +115,7 @@ public class Link extends ActeurEnMouvement {
         System.out.println("Essaye de passer de " + getX() + ", " + getY() + " à " + nouveauX + ", " + nouveauY);
 
         int tileId = getEnv().getTileId(nouveauX, nouveauY);
-        if (tileId == 0) { // Eau
+        if (tileId == 0 || tileId == 3) { // Eau
             vitesseSprint = 1;
             System.out.println("Link se déplace dans l'eau, vitesse réduite à 1");
             imageView.setViewport(new Rectangle2D(position_image_eau, position_image_y, 120, 160));
