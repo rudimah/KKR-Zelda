@@ -1,13 +1,17 @@
 .menu-button {
-    -fx-background-image: url("file:src/main/resources/image/bouton.png");
-    -fx-background-size: cover;
-    -fx-background-repeat: no-repeat;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-padding: 10px 20px;
+    -fx-background-color: linear-gradient(to bottom, #76b852, #8DC26F);
+    -fx-background-radius: 20; /* Coins arrondis */
+    -fx-border-color: #5A832F; /* Couleur de bordure plus sombre pour plus de profondeur */
+    -fx-border-width: 2; /* Épaisseur de la bordure */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-font-weight: bold; /* Rendre le texte gras */
+    -fx-padding: 10 20 10 20; /* Padding pour augmenter l'espace autour du texte */
+    -fx-effect: dropshadow(three-pass-box, black, 5, 0.0, 0, 1); /* Ombre subtile pour donner du relief */
 }
 
 .menu-button:hover {
-     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 10, 0.5, 0, 0);
-     -fx-cursor: hand;
+    -fx-background-color: linear-gradient(to bottom, #89C540, #76b852);
+    -fx-scale-x: 1.05; /* Légère augmentation de la taille au survol */
+    -fx-scale-y: 1.05;
+    -fx-cursor: hand; /* Change le curseur en main pour montrer que le bouton est cliquable */
 }
