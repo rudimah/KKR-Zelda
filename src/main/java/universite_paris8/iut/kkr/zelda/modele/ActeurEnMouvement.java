@@ -1,53 +1,51 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-public class ActeurEnMouvement extends Acteur {
-    private int vitesse;
+public abstract class ActeurEnMouvement extends Acteur {
+    private int vitesse; // vitesse de déplacement
     private int ptAttaque;
-    private int pointsDeVie;
+    private int pv;
 
-    public ActeurEnMouvement(int x, int y, int vitesse, Environnement env, int pointsDeVie, int ptAttaque) {
-        super(x, y, env);
+    public ActeurEnMouvement(int x, int y, int vitesse, Environnement env, int pv, int ptAttaque) {
+        super(x, y, vitesse, env, pv);
         this.vitesse = vitesse;
         this.ptAttaque = ptAttaque;
-        this.pointsDeVie = pointsDeVie;
+        this.pv = pv;
     }
 
     public int getVitesse() {
         return vitesse;
     }
 
+    public int getPtAttaque() {return ptAttaque;}
+
     public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
     }
 
-    public int getPtAttaque() {
-        return ptAttaque;
+    public void setPtAttaque(int ptAttaque) {this.ptAttaque = ptAttaque;}
+
+    public void setPv(int pv) {this.pv = pv;}
+
+    public int getPv() {return pv;}
+
+    public void decrementerPv(int pointAttaque){
+        setPv(getPv() - pointAttaque);
     }
 
-    public void setPtAttaque(int ptAttaque) {
-        this.ptAttaque = ptAttaque;
-    }
-
-    public int getPointsDeVie() {
-        return pointsDeVie;
-    }
-
-    public void setPointsDeVie(int pointsDeVie) {
-        this.pointsDeVie = pointsDeVie;
-    }
-
-    public void decrementerPv(int nbrPv) {
-        setPointsDeVie(getPointsDeVie() - nbrPv);
-    }
-
-    public void incrementerPv(int nbrPv) {
-        setPointsDeVie(getPointsDeVie() + nbrPv);
-    }
-
-    public boolean estVivant(){
-        if (this.pointsDeVie!=0){
-            return true;
+    public void VerifEstVivant(){
+        if(pv <= 0){
+            env.retirerActeur(this);
         }
-        return false;
     }
+    public boolean estADistanceAttaque(Acteur ActeurCible) {
+        int distanceX = Math.abs(getX() - ActeurCible.getX());
+        int distanceY = Math.abs(getY() - ActeurCible.getY());
+        int distanceManhattan = distanceX + distanceY;
+
+        // Par exemple, l'ennemi peut attaquer si la distance est de 5 case ou moins
+        return distanceManhattan <= 5;
+    }
+
+    public abstract void attaquer(ActeurEnMouvement acteurCible);
+
 }

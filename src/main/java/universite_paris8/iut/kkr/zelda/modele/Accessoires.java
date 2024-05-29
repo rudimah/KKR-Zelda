@@ -1,7 +1,11 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
 public class Accessoires extends Objet{
+<<<<<<< HEAD
     private int reductionDegats;
+=======
+    private int reductionDegats ;
+>>>>>>> origin/feature/Inventaire
     private int augmentationVitesse;
     private int augmentationPortee;
 
