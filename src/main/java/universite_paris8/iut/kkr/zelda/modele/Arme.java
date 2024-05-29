@@ -1,10 +1,10 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-public class Armes extends ObjetEnvironnement{
+public class Arme extends ObjetEnvironnement{
     private int ptAttaque;
     private int porteeArme;
 
-    public Armes(String nom, int ptAttaque, int x, int y, int porteeArme){
+    public Arme(String nom, int ptAttaque, int x, int y, int porteeArme){
         super(nom,x,y);
         this.ptAttaque = ptAttaque;
         this.porteeArme = porteeArme;

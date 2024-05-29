@@ -1,6 +1,6 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-public class Arc extends Armes {
+public class Arc extends Arme {
     private int degatsFeu;
 
     public Arc(int x, int y) {

@@ -1,6 +1,6 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-public class Boomerang extends Armes {
+public class Boomerang extends Arme {
     private int zoneDegats;
 
     public Boomerang(int x, int y) {

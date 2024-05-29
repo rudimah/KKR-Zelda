@@ -1,6 +1,6 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-public class Sabre extends Armes {
+public class Sabre extends Arme {
     private int degatsOrbe;
 
     public Sabre(int x, int y) {

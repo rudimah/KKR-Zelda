@@ -13,7 +13,7 @@ public class Link extends ActeurEnMouvement {
     private Pane panneauDeJeu;
     private TilePane tilePane;
     private ImageView imageView;
-    private Armes armeActuelle;
+    private Arme armeActuelle;
     private Accessoires accessoiresActuelles;
     private int vitesseOriginale;
     private int vitesseSprint;
@@ -145,7 +145,7 @@ public class Link extends ActeurEnMouvement {
         }
     }
 
-    public Armes getArme() {
+    public Arme getArme() {
         return armeActuelle;
     }
 //    public void armeEnMain() {
