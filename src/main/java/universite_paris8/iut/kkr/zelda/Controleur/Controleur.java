@@ -39,7 +39,7 @@ public class Controleur implements Initializable {
         // Inutile
 
         this.env.getItems().addListener(new Observateur(panneauDeJeu));
-        env.ajouterItem(new Potion("Potion du brave",50,50));
+        env.ajouterItem(new Potion("Potion du brave",200,100));
         new Link(env, panneauDeJeu, tilepane);
         //initAnimation();
 

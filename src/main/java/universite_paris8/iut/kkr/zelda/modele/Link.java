@@ -11,6 +11,8 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.util.ArrayList;
+
 public class Link extends ActeurEnMouvement{
 
     private Pane panneauDeJeu;
@@ -138,20 +140,22 @@ public class Link extends ActeurEnMouvement{
     }
 
     public void ramasserItem() {
-        if (env.getItems()!=null){
-            for (Item item : env.getItems()) {
-                if (!item.EstRamassé() && estProcheDe(item)) {
-                    inventaire.ajouterItemAInventaire(item);
-                    item.setEstRamassé(true);
-                    env.retirerItem(item);
-                    System.out.println("Item ramassé : " + item.getId());
-                }
+        ArrayList<Item> itemsARamasser = new ArrayList<>();
+        for (Item item : env.getItems()) {
+            if (!item.EstRamassé() && estProcheDe(item)) {
+                itemsARamasser.add(item);
             }
+        }
+        for (Item item : itemsARamasser) {
+            inventaire.ajouterItemAInventaire(item);
+            item.setEstRamassé(true);
+            env.retirerItem(item);
+            System.out.println("Item ramassé : " + item.getId());
         }
     }
 
     public boolean estProcheDe(Item item) {
-        int distance = 10;
+        int distance = 15;
         return Math.abs(getX() - item.getX()) < distance && Math.abs(getY() - item.getY()) < distance;
     }
 
