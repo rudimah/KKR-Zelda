@@ -6,7 +6,7 @@ public abstract class ActeurEnMouvement extends Acteur {
     private int pv;
 
     public ActeurEnMouvement(int x, int y, int vitesse, Environnement env, int pv, int ptAttaque) {
-        super(x, y, vitesse, env, pv);
+        super(x, y, env);
         this.vitesse = vitesse;
         this.ptAttaque = ptAttaque;
         this.pv = pv;
