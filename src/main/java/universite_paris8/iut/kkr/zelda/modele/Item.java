@@ -1,6 +1,7 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class Item {
     private String nom;
@@ -13,8 +14,8 @@ public class Item {
     public Item(String nom, int x,int y){
         this.id = "Item"+compteur;
         this.nom = nom;
-        this.x.setValue(x);
-        this.y.setValue(y);
+        this.x = new SimpleIntegerProperty(x);
+        this.y = new SimpleIntegerProperty(y);
         this.estRamassé = false;
     }
 

@@ -12,9 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.kkr.zelda.Vue.TerrainVue;
-import universite_paris8.iut.kkr.zelda.modele.ActeurEnMouvement;
-import universite_paris8.iut.kkr.zelda.modele.Environnement;
-import universite_paris8.iut.kkr.zelda.modele.Link;
+import universite_paris8.iut.kkr.zelda.modele.*;
 
 public class Controleur implements Initializable {
     private Timeline gameLoop;
@@ -40,7 +38,8 @@ public class Controleur implements Initializable {
         //afficherMap();
         // Inutile
 
-        //this.env.getActeurs().addListener(new Observateur(panneauDeJeu));
+        this.env.getItems().addListener(new Observateur(panneauDeJeu));
+        env.ajouterItem(new Potion("Potion du brave",50,50));
         new Link(env, panneauDeJeu, tilepane);
         //initAnimation();
 

@@ -13,10 +13,10 @@ import javafx.scene.shape.Circle;
 
 public class Link extends ActeurEnMouvement{
 
-
     private Pane panneauDeJeu;
     private TilePane tilePane;
     private ImageView imageView;
+    private Inventaire inventaire;
     boolean pied_droite = true;
 
     public Link(Environnement env, Pane pj, TilePane tilePane) {
@@ -24,6 +24,7 @@ public class Link extends ActeurEnMouvement{
         this.panneauDeJeu = pj;
         this.tilePane = tilePane;
         this.imageView = new ImageView();
+        this.inventaire = new Inventaire();
         panneauDeJeu.setFocusTraversable(true);
         panneauDeJeu.setOnKeyPressed(this::gererTouch);
         panneauDeJeu.setOnKeyReleased(this::handleKeyRelease);
@@ -129,10 +130,29 @@ public class Link extends ActeurEnMouvement{
 
 
             System.out.println("s'est déplacé en (" + getX() + ", " + getY() + ")");
+            ramasserItem();
         } else {
             System.out.println("Mouvement bloqué par un élément de l'environnement.");
         }
 
-
     }
+
+    public void ramasserItem() {
+        if (env.getItems()!=null){
+            for (Item item : env.getItems()) {
+                if (!item.EstRamassé() && estProcheDe(item)) {
+                    inventaire.ajouterItemAInventaire(item);
+                    item.setEstRamassé(true);
+                    env.retirerItem(item);
+                    System.out.println("Item ramassé : " + item.getId());
+                }
+            }
+        }
+    }
+
+    public boolean estProcheDe(Item item) {
+        int distance = 10;
+        return Math.abs(getX() - item.getX()) < distance && Math.abs(getY() - item.getY()) < distance;
+    }
+
 }

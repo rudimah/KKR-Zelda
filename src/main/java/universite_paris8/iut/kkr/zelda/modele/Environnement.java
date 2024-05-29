@@ -9,6 +9,7 @@ public class Environnement {
 
 	private int width,height;
 	private ObservableList<Acteur> acteurs;
+	private ObservableList<Item> items;
 	private IntegerProperty nbToursProperty;
 
 	private int[][] tableauMap = {
@@ -52,6 +53,7 @@ public class Environnement {
 		this.height = height;
 		this.nbToursProperty = new SimpleIntegerProperty(0);
 		this.acteurs = FXCollections.observableArrayList();
+		this.items = FXCollections.observableArrayList();
 	}
 
 	public int[][] getTableauMap(){return this.tableauMap;}
@@ -70,9 +72,15 @@ public class Environnement {
 		return null;
 	}
 
-	public void ajouter(Acteur a){
+	public ObservableList<Item> getItems() {return items;}
+
+	public void ajouterActeur(Acteur a){
 		acteurs.add(a);
 	}
+
+	public void ajouterItem(Item a){items.add(a);}
+
+	public void retirerItem(Item a){items.remove(a);}
 
 //	public boolean estPositionValide(int x, int y) {
 //		// les limites de la map
