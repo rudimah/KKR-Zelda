@@ -19,6 +19,8 @@ public class Link extends ActeurEnMouvement{
     private Pane panneauDeJeu;
     private TilePane tilePane;
     private ImageView imageView;
+    private Armes armeActuelle;
+    private Accessoires accessoiresActuelles;
     private int vitesseOriginale;
     private int vitesseSprint;
     private boolean sprintAppuyer = false;
@@ -256,4 +258,38 @@ public class Link extends ActeurEnMouvement{
         }
         System.out.println("Link attaque " + acteurCible + " ! Il reste " + acteurCible.getPv() + " pv.");
     }
+
+    public Armes getArme() {
+        return armeActuelle;
+    }
+//    public void armeEnMain() {
+//        if (armeActuelle != null) {
+//            armeActuelle.utiliser(); //
+//        } else {
+//            System.out.println("Link n'a pas d'arme ");
+//        }
+//    }
+//    public void attaquerEnnemi() {
+//        Ennemi ennemiProche = getEnv().trouverEnnemiProche(getX(), getY(), armeActuelle.getPortee());
+////        if (ennemiProche != null) {
+////            int degats = armeActuelle.getPtAttaque();
+////            ennemiProche.recevoirDegats(degats);
+////            System.out.println("Ennemi touché ! Dégâts infligés: " + degats);
+////        } else {
+////            System.out.println("Aucun ennemi à portée.");
+////        }
+////    }
+
+
+//    public Accessoires getAccessoireActuel() {
+//        return accessoireActuel;
+//    }
+//
+//    public void utiliserAccessoire() {
+//        if (accessoireActuel instanceof BottesDAres) {
+//            //faire la suite
+//        }
+//    }
+
+
 }

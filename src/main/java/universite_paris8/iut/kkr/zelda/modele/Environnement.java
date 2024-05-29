@@ -108,7 +108,9 @@ public class Environnement {
 		if (x < 0 || x + largeurPersonnage > largeur || y < 0 || y + hauteurPersonnage > hauteur) {
 			return false;
 		}
+
 		// Vérifier les 4 coins du personnage
+		int[][] coinsPersonnage = {{x, y}, {x + largeurPersonnage, y}, {x, y + hauteurPersonnage}, {x + largeurPersonnage, y + hauteurPersonnage}};
 
 		int tileId = getTileId(x, y);
 		switch (tileId) {
@@ -147,6 +149,7 @@ public class Environnement {
 		}
 		return null;
 	}
+
 
 	public void miseAJour() {
 		ActeurEnMouvement link = (ActeurEnMouvement) this.getLink();

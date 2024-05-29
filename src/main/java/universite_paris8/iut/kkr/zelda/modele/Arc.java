@@ -7,9 +7,8 @@ public class Arc extends Armes {
         super("Arc du Héros", x, y, 55, 15);
         this.degatsFeu = 5;
     }
-
-    public void appliquerPotionDeForce() {
-        setPortee(getPortee() + 3);
+    public void appliquerPotionDeForce(PotionForce potion) {
+        setPortee(getPortee() + potion.getPortee());
     }
 
     public int getDegatsFeu() {

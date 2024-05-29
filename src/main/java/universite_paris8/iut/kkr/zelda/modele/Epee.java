@@ -5,7 +5,7 @@ public class Epee extends Armes {
         super("Épée de Guerrier", x, y, 15, 0);
     }
 
-    public void appliquerPotionFeu() {
-        setPtAttaque(getPtAttaque() + 5);
+    public void appliquerPotionFeu(PotionFeu potion) {
+        setPtAttaque(getPtAttaque() + potion.getPtAttaque());
     }
 }
