@@ -4,16 +4,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Inventaire {
-    private ObservableList<Item> inventaire;
+    private ObservableList<ObjetEnvironnement> inventaire;
 
     public Inventaire(){
         inventaire = FXCollections.observableArrayList();
     }
 
-    public ObservableList<Item> getInventaire() {return inventaire;}
+    public ObservableList<ObjetEnvironnement> getInventaire() {return inventaire;}
 
-    public Item selectionnerItem(String id){
-        for (Item item : inventaire){
+    public ObjetEnvironnement selectionnerItem(String id){
+        for (ObjetEnvironnement item : inventaire){
             if (item.getId().equals(id)){
                 return item;
             }
@@ -21,13 +21,13 @@ public class Inventaire {
         return null;
     }
 
-    public void ajouterItemAInventaire(Item a){
+    public void ajouterItemAInventaire(ObjetEnvironnement a){
         inventaire.add(a);
     }
 
     public void afficherInventaire(){
         System.out.print('[');
-        for (Item item : inventaire){
+        for (ObjetEnvironnement item : inventaire){
             System.out.print(item.getNom() + " ," );
         }
         System.out.println(']');

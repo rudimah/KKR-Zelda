@@ -1,4 +1,6 @@
-package universite_paris8.iut.kkr.zelda.modele;
+package universite_paris8.iut.kkr.zelda.modele.Arme;
+
+import universite_paris8.iut.kkr.zelda.modele.Potion.PotionBleue;
 
 public class Boomerang extends Armes {
     private int zoneDegats;

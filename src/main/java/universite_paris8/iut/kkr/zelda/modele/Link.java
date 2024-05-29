@@ -1,16 +1,15 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
+import universite_paris8.iut.kkr.zelda.Vue.VueLink;
+import universite_paris8.iut.kkr.zelda.modele.Accessoires.Accessoires;
+import universite_paris8.iut.kkr.zelda.modele.Arme.Armes;
 
 import java.util.ArrayList;
 
@@ -18,15 +17,16 @@ public class Link extends ActeurEnMouvement{
 
     private Pane panneauDeJeu;
     private TilePane tilePane;
-    private ImageView imageView;
+
     private Armes armeActuelle;
     private Accessoires accessoiresActuelles;
     private int vitesseOriginale;
     private int vitesseSprint;
     private boolean sprintAppuyer = false;
-    boolean pied_droite = true;
     public int tileId = 9;
     private Inventaire inventaire;
+
+    VueLink afficherlink;
 
     public Link(Environnement env, Pane pj, TilePane tilePane) {
         super(80, 50, 2, env, 40, 10);
@@ -34,20 +34,11 @@ public class Link extends ActeurEnMouvement{
         this.vitesseSprint = vitesseOriginale;
         this.panneauDeJeu = pj;
         this.tilePane = tilePane;
-        this.imageView = new ImageView();
         this.inventaire = new Inventaire();
         panneauDeJeu.setFocusTraversable(true);
         panneauDeJeu.setOnKeyPressed(this::gererTouch);
         panneauDeJeu.setOnKeyReleased(this::handleKeyRelease);
-        Image image1 = new Image("file:src/main/resources/image/Link/tileset.png");
-
-        imageView.setImage(image1);
-        imageView.setViewport(new Rectangle2D(20, 13, 120, 160));
-        imageView.setFitWidth(20);
-        imageView.setFitHeight(30);
-        imageView.setTranslateX(getX());
-        imageView.setTranslateY(getY());
-        panneauDeJeu.getChildren().add(imageView);
+       afficherlink = new VueLink(env, this, panneauDeJeu);
     }
 
     private void gererTouch(KeyEvent event) {
@@ -68,7 +59,7 @@ public class Link extends ActeurEnMouvement{
         }
     }
 
-    public boolean verifobstacle(int x, int y) {
+    public boolean verifobstacle(int tileId) {
         System.out.println("verifobstcle " + tileId);
 
         switch (tileId) {
@@ -114,42 +105,35 @@ public class Link extends ActeurEnMouvement{
         Circle b = new Circle(1);
         r.setFill(Color.RED);
         b.setFill(Color.BLUE);
-        //tileId = env.getTileId(getX(), getY());
+
         switch (key) {
 
             case Z:
                 nouveauY -= vitesseSprint;
+                tileId = env.getTileId(getX(), nouveauY);
 
-                if (verifobstacle(getX(), nouveauY) && verifobstacle(getX() + 30, nouveauY)) {
+                if (verifobstacle(env.getTileId(getX(), nouveauY)) && verifobstacle(env.getTileId(getX() + 30, nouveauY))) {
                     setY(nouveauY);
                     tileId = env.getTileId(getX(), getY());
                 }
-
                 break;
             case S:
                 nouveauY += vitesseSprint;
-                if (verifobstacle(getX(), nouveauY) || verifobstacle(getX() + 30, nouveauY+30)) {
-                    r.setTranslateX(getX());
-                    r.setTranslateY(nouveauY);
-//                    b.setTranslateX(getX()+20);
-//                    b.setTranslateY(getY()+30);
+                if (verifobstacle(env.getTileId(getX(), nouveauY)) || verifobstacle(env.getTileId(getX() + 30, nouveauY+30))) {
                     setY(nouveauY);
                     tileId = env.getTileId(getX(), getY());
                 }
-
                 break;
             case D:
                 nouveauX += vitesseSprint;
-                if (verifobstacle(nouveauX + 30, getY()) && verifobstacle(nouveauX + 30, getY() + 30)) {
-                    r.setTranslateX(nouveauX);
-                    r.setTranslateY(getY());
+                if (verifobstacle(env.getTileId(nouveauX + 30, getY())) && verifobstacle(env.getTileId(nouveauX + 30, getY() + 30))) {
                     setX(nouveauX);
                     tileId = env.getTileId(getX() + 30, getY());
                 }
                 break;
             case Q:
                 nouveauX -= vitesseSprint;
-                if (verifobstacle(nouveauX, getY()) && verifobstacle(nouveauX, getY() + 30)) {
+                if (verifobstacle(env.getTileId(nouveauX, getY())) && verifobstacle(env.getTileId(nouveauX, getY() + 30))) {
                     setX(nouveauX);
                 }
                 break;
@@ -165,79 +149,21 @@ public class Link extends ActeurEnMouvement{
             vitesseSprint = sprintAppuyer ? vitesseOriginale * 2 : vitesseOriginale; // Réinitialiser la vitesse en fonction de l'état de SHIFT
         }
 
-        imageView.setTranslateX(getX());
-        imageView.setTranslateY(getY());
-        mettreAJourImageView(key, tileId);
-        panneauDeJeu.getChildren().add(r);
-        panneauDeJeu.getChildren().add(b);
+        afficherlink.mettreAJourImageView(key, tileId);
+        ramasserItem();
         System.out.println("s'est déplacé en (" + getX() + ", " + getY() + ")");
     }
 
-    private void mettreAJourImageView(KeyCode key, int tileId) {
-        int position_image_x = 20, position_image_y = 13, position_image_eau = 0;
-
-        switch (key) {
-            case Z:
-                position_image_y = 1060;
-                position_image_eau = 340;
-                break;
-            case S:
-                position_image_y = 710;
-                position_image_eau = 825;
-                break;
-            case D:
-                position_image_y = 1245;
-                position_image_eau = 340;
-                break;
-            case Q:
-                position_image_y = 902;
-                position_image_eau = 980;
-                break;
-
-            case F:
-                ActeurEnMouvement ennemiLePlusProche = env.trouverEnnemiLePlusProche(getX(), getY());
-                if (ennemiLePlusProche != null) {
-                    attaquer(ennemiLePlusProche);
-                } else {
-                    System.out.println("Aucun ennemi à attaquer à proximité.");
-                }
-                break;
-        }
-
-        if (tileId == 0 || tileId == 3) {
-            imageView.setViewport(new Rectangle2D(position_image_eau, position_image_y, 120, 160));
-        } else {
-            if (pied_droite) {
-                position_image_x = switch (key) {
-                    case Z -> 170;
-                    case S -> 665;
-                    case D -> 180;
-                    case Q -> 180;
-                    default -> position_image_x;
-                };
-                pied_droite = false;
-            } else {
-                position_image_x = switch (key) {
-                    case Z -> 1470;
-                    case S -> 1470;
-                    case D -> 1315;
-                    case Q -> 1320;
-                    default -> position_image_x;
-                };
-                pied_droite = true;
-            }
-            imageView.setViewport(new Rectangle2D(position_image_x, position_image_y, 120, 160));
-        }
-    }
 
     public void ramasserItem() {
-        ArrayList<Item> itemsARamasser = new ArrayList<>();
-        for (Item item : env.getItems()) {
+        ArrayList<ObjetEnvironnement> itemsARamasser = new ArrayList<>();
+
+        for (ObjetEnvironnement item : env.getItems()) {
             if (!item.EstRamassé() && estProcheDe(item)) {
                 itemsARamasser.add(item);
             }
         }
-        for (Item item : itemsARamasser) {
+        for (ObjetEnvironnement item : itemsARamasser) {
             inventaire.ajouterItemAInventaire(item);
             item.setEstRamassé(true);
             env.retirerItem(item);
@@ -246,7 +172,7 @@ public class Link extends ActeurEnMouvement{
         }
     }
 
-    public boolean estProcheDe(Item item) {
+    public boolean estProcheDe(ObjetEnvironnement item) {
         int distance = 15;
         return Math.abs(getX() - item.getX()) < distance && Math.abs(getY() - item.getY()) < distance;
     }

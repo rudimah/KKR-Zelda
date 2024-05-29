@@ -1,6 +1,8 @@
-package universite_paris8.iut.kkr.zelda.modele;
+package universite_paris8.iut.kkr.zelda.modele.Accessoires;
 
-public class Accessoires extends ObjetEnvironnement{
+import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
+
+public class Accessoires extends ObjetEnvironnement {
     private int reductionDegats;
     private int augmentationVitesse;
     private int augmentationPortee;

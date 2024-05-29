@@ -1,4 +1,6 @@
-package universite_paris8.iut.kkr.zelda.modele;
+package universite_paris8.iut.kkr.zelda.modele.Accessoires;
+
+import universite_paris8.iut.kkr.zelda.modele.ActeurEnMouvement;
 
 public class Bouclier extends Accessoires {
     public Bouclier(int x, int y) {
@@ -6,7 +8,7 @@ public class Bouclier extends Accessoires {
     }
 
     public void augmenterPointsDeVie(ActeurEnMouvement a) {
-        a.setPointsDeVie(a.getPointsDeVie() + 30);
+        a.setPv(a.getPv() + 30);
         System.out.println("Points de vie augmentés de 30 grâce au Bouclier.");
     }
 }

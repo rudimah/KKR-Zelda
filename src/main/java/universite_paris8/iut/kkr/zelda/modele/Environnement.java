@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
+import universite_paris8.iut.kkr.zelda.utils.ConstantesTuile;
 
 import java.util.ArrayList;
 
@@ -12,37 +13,37 @@ public class Environnement {
 
 	private int largeur, hauteur;
 	private ObservableList<Acteur> acteurs;
-	private ObservableList<Item> items;
+	private ObservableList<ObjetEnvironnement> items;
 	private IntegerProperty nbToursProperty;
 
 	private int[][] tableauMap = {
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 1, 1, 1, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 2, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 2, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 2, 9, 9, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 6, 6, 9, 9, 9, 8, 9, 4, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 11, 9, 9, 9, 5, 9, 9, 9, 9, 9, 0, 0, 13, 0, 0, 0, 0},
-			{9, 10, 9, 9, 9, 9, 9, 9, 9, 9, 11, 9, 9, 9, 5, 9, 9, 9, 9, 9, 0, 0, 13, 0, 0, 0, 0},
-			{9, 10, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9},
-			{9, 10, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, 2, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, 2, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, 2, ConstantesTuile.HERBE, ConstantesTuile.HERBE, 3, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, 4, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.EAU},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
+			{ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.EAU, ConstantesTuile.EAU, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE, ConstantesTuile.HERBE},
 	};
 
 	public Environnement(int largeur, int hauteur) {
@@ -51,6 +52,8 @@ public class Environnement {
 		this.hauteur = hauteur;
 		this.nbToursProperty = new SimpleIntegerProperty(0);
 		this.acteurs = FXCollections.observableArrayList();
+		this.items = FXCollections.observableArrayList();
+
 	}
 
 	public int[][] getTableauMap() {
@@ -71,7 +74,7 @@ public class Environnement {
 		return null;
 	}
 
-	public ObservableList<Item> getItems() {
+	public ObservableList<ObjetEnvironnement> getItems() {
 		return items;
 	}
 
@@ -83,7 +86,7 @@ public class Environnement {
 		acteurs.remove(a);
 	}
 
-	public void ajouterItem(Item a) {
+	public void ajouterItem(ObjetEnvironnement a) {
 		items.add(a);
 	}
 
@@ -95,7 +98,7 @@ public class Environnement {
 		return tableauMap[ligneGrille][colonneGrille];
 	}
 
-	public void retirerItem(Item a) {
+	public void retirerItem(ObjetEnvironnement a) {
 		items.remove(a);
 	}
 

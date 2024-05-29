@@ -1,4 +1,4 @@
-package universite_paris8.iut.kkr.zelda.modele;
+package universite_paris8.iut.kkr.zelda.modele.Accessoires;
 
 public class Flute extends Accessoires {
     public Flute(int x, int y) {

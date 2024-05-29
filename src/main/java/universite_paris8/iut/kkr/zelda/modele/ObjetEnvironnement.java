@@ -10,6 +10,9 @@ public class ObjetEnvironnement {
     private static int compteur = 0;
     private String id;
 
+    private boolean estRamassé = false;
+
+
     public ObjetEnvironnement(String nom, int x, int y) {
         this.nom = nom;
         this.x = new SimpleIntegerProperty(x);
@@ -30,4 +33,7 @@ public class ObjetEnvironnement {
     public String getNom() { return nom; }
 
     public String getId() { return id; }
+    public boolean EstRamassé() {return estRamassé;}
+
+    public void setEstRamassé(boolean estRamassé) {this.estRamassé = estRamassé;}
 }

@@ -1,4 +1,4 @@
-package universite_paris8.iut.kkr.zelda.modele;
+package universite_paris8.iut.kkr.zelda.modele.Accessoires;
 
 public class BottesAres extends Accessoires {
     public BottesAres(int x, int y) {

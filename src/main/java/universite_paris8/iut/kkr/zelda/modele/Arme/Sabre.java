@@ -1,4 +1,7 @@
-package universite_paris8.iut.kkr.zelda.modele;
+package universite_paris8.iut.kkr.zelda.modele.Arme;
+
+import universite_paris8.iut.kkr.zelda.modele.Arme.Armes;
+import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
 
 public class Sabre extends Armes {
     private int degatsOrbe;

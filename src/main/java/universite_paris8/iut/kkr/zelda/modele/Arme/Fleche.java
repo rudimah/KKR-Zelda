@@ -1,9 +1,10 @@
-package universite_paris8.iut.kkr.zelda.modele;
+package universite_paris8.iut.kkr.zelda.modele.Arme;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
 
 public class Fleche extends ObjetEnvironnement {
     private int degats;

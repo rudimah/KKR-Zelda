@@ -1,4 +1,6 @@
-package universite_paris8.iut.kkr.zelda.modele;
+package universite_paris8.iut.kkr.zelda.modele.Arme;
+
+import universite_paris8.iut.kkr.zelda.modele.Potion.PotionForce;
 
 public class Arc extends Armes {
     private int degatsFeu;
