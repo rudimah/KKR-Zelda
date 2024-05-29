@@ -10,56 +10,52 @@ import java.util.ArrayList;
 
 public class Environnement {
 
-	private int width,height;
+	private int largeur, hauteur;
 	private ObservableList<Acteur> acteurs;
 	private ObservableList<Item> items;
 	private IntegerProperty nbToursProperty;
 
 	private int[][] tableauMap = {
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,1,1,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,1,1,9,9,9,9,9,9,9,9,9,9,9,9,9},
-
-			{9,9,9,1,1,1,1,1,1,1,9,9,1,1,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,1,1,1,1,1,1,1,9,9,1,1,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,1,1,1,1,1,1,9,9,9,9,9,9,9,9,9,9,9,9,9},
-
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,1,1,1,1,1,1},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,1,1,1,1,1,1},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,1,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,1,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,1,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,1,9,9,9,9,9},
-			{9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,1,9,9,9,9,9},
-
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 1, 1, 1, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 2, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 2, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 2, 9, 9, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 6, 6, 9, 9, 9, 8, 9, 4, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 11, 9, 9, 9, 5, 9, 9, 9, 9, 9, 0, 0, 13, 0, 0, 0, 0},
+			{9, 10, 9, 9, 9, 9, 9, 9, 9, 9, 11, 9, 9, 9, 5, 9, 9, 9, 9, 9, 0, 0, 13, 0, 0, 0, 0},
+			{9, 10, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9},
+			{9, 10, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9},
 	};
 
-	public Environnement(int width, int height) {
+	public Environnement(int largeur, int hauteur) {
 		super();
-		this.width = width;
-		this.height = height;
+		this.largeur = largeur;
+		this.hauteur = hauteur;
 		this.nbToursProperty = new SimpleIntegerProperty(0);
 		this.acteurs = FXCollections.observableArrayList();
-		this.items = FXCollections.observableArrayList();
 	}
 
-	public int[][] getTableauMap(){return this.tableauMap;}
+	public int[][] getTableauMap() {
+		return this.tableauMap;
+	}
 
 
 	public ObservableList<Acteur> getActeurs() {
@@ -67,76 +63,85 @@ public class Environnement {
 	}
 
 	public Acteur getActeur(String id) {
-		for(Acteur a:this.acteurs){
-			if(a.getId().equals(id)){
+		for (Acteur a : this.acteurs) {
+			if (a.getId().equals(id)) {
 				return a;
 			}
 		}
 		return null;
 	}
 
-	public ObservableList<Item> getItems() {return items;}
+	public ObservableList<Item> getItems() {
+		return items;
+	}
 
-	public void ajouterActeur(Acteur a){acteurs.add(a);}
+	public void ajouterActeur(Acteur a) {
+		acteurs.add(a);
+	}
 
-	public void retirerActeur(Acteur a){acteurs.remove(a);}
+	public void retirerActeur(Acteur a) {
+		acteurs.remove(a);
+	}
 
-	public void ajouterItem(Item a){items.add(a);}
+	public void ajouterItem(Item a) {
+		items.add(a);
+	}
 
-	public void retirerItem(Item a){items.remove(a);}
+	public int getTileId(int x, int y) {
 
-//	public boolean estPositionValide(int x, int y) {
-//		// les limites de la map
-//		if (x < 0 || x >= width || y < 0 || y >= height) {
-//			return false;
-//		}
-//
-//		// Convertir les coordonnées en pixels vers les coordonnées de la grille
-//		int gridX = x / 30; // Supposons que chaque case fait 30x30 pixels
-//		int gridY = y / 30;
-//
-//		// Vérifier si la position sur la grille est de l'eau
-//		if (tableauMap[gridY][gridX] == 1) {
-//			System.out.println("Il y a de l'eau à (" + gridX + ", " + gridY + ")");
-//			return false;
-//		}
-//
-//		return true;
-//	}
+		int colonneGrille = (x) / 30; // Calculer l'indice de la colonne de la grille correspondant à la position x
+		int ligneGrille = (y) / 30; // Calculer l'indice de la ligne de la grille correspondant à la position y
+		System.out.println("[" + ligneGrille + "]" + "[" + colonneGrille + "]  = " + tableauMap[ligneGrille][colonneGrille]);
+		return tableauMap[ligneGrille][colonneGrille];
+	}
+
+	public void retirerItem(Item a) {
+		items.remove(a);
+	}
+
 
 	public boolean estPositionValide(int x, int y) {
 		int tailleTuile = 30; // Taille d'une tuile en pixels
 		int largeurPersonnage = 20; // Largeur du personnage en pixels
 		int hauteurPersonnage = 20; // Hauteur du personnage en pixels
 
-		if (x < 0 || x + largeurPersonnage > width || y < 0 || y + hauteurPersonnage > height) {
+		if (x < 0 || x + largeurPersonnage > largeur || y < 0 || y + hauteurPersonnage > hauteur) {
 			return false;
 		}
-
 		// Vérifier les 4 coins du personnage
-		int[][] coins = {
-				{x, y},
-				{x + largeurPersonnage, y},
-				{x, y + hauteurPersonnage},
-				{x + largeurPersonnage, y + hauteurPersonnage}
-		};
 
-		for (int[] coin : coins) {
-			int gridX = coin[0] / tailleTuile;
-			int gridY = coin[1] / tailleTuile;
+		int tileId = getTileId(x, y);
+		switch (tileId) {
+			case 0: // Eau
+				return true;
+			case 1: // Immeubles abandonnés
+			case 2: // Arbres
 
-			if (tableauMap[gridY][gridX] == 1) {
-				System.out.println("Il y a de l'eau à (" + gridX + ", " + gridY + ")");
+			case 8: // Voiture abandonnée
 				return false;
-			}
+			case 4: // Coffre
+			case 5: // Rocher
+			case 6: // Poubelle
+				return false;
+			case 9: // Herbe (passable)
+				break;
+			case 10: // Lave
+				// Logique pour enlever des points de vie sera gérée dans la classe Link
+				break;
+			default:
+				System.out.println("Où est-ce qu'on est !?");
+				break;
+
+
 		}
+
 
 		return true;
 	}
 
-	public Acteur getLink(){
-		for (Acteur a : acteurs){
-			if (a instanceof Link){
+	public Acteur getLink() {
+		for (Acteur a : acteurs) {
+			if (a instanceof Link) {
 				return a;
 			}
 		}
@@ -181,7 +186,4 @@ public class Environnement {
 		}
 		return ennemiLePlusProche;
 	}
-
-
-
 }
