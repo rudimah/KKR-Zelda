@@ -8,12 +8,11 @@ public class Boomerang extends Armes {
         this.zoneDegats = 10;
     }
 
-    public void appliquerPotionBleue() {
-        setPtAttaque(getPtAttaque() + 5);
-        setPortee(getPortee() + 5);
-        setZoneDegats(getZoneDegats() + 5);
+    public void appliquerPotionBleue(PotionBleue potion) {
+        setPtAttaque(getPtAttaque() + potion.getPtAttaque());
+        setPortee(getPortee() + potion.getPortee());
+        setZoneDegats(getZoneDegats() + potion.getPortee());
     }
-
     public int getZoneDegats() {
         return zoneDegats;
     }

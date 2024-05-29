@@ -6,30 +6,27 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 public class Fleche extends ObjetEnvironnement {
-    private final IntegerProperty degats;
+    private int degats;
     private final IntegerProperty directionX;
     private final IntegerProperty directionY;
     private boolean enflammee;
 
     public Fleche(int x, int y, int directionX, int directionY, int degats, boolean enflammee) {
         super("Fleche", x, y);
-        this.degats = new SimpleIntegerProperty(degats);
+        this.degats = degats;
         this.directionX = new SimpleIntegerProperty(directionX);
         this.directionY = new SimpleIntegerProperty(directionY);
         this.enflammee = true;
     }
 
-    public final int getDegats() {
-        return degats.getValue();
+    public  int getDegats() {
+        return this.degats;
     }
 
-    public final void setDegats(int degats) {
-        this.degats.setValue(degats);
+    public void setDegats(int degats) {
+        this.degats=degats;
     }
 
-    public IntegerProperty degatsProperty() {
-        return degats;
-    }
 
     public final int getDirectionX() {
         return directionX.getValue();
@@ -114,3 +111,5 @@ public class Fleche extends ObjetEnvironnement {
 //        return pointsDeVie;
 //    }
 //}
+
+//methode mourir et recevoirdegat

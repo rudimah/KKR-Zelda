@@ -124,4 +124,9 @@ public class Environnement {
 
 		return true;
 	}
+
+
+	//methode trouver ennemi proche public Ennemi trouverEnnemiProche(int x, int y, int portee) {
+	//        for (Ennemi ennemi : ennemis) {
+
 }

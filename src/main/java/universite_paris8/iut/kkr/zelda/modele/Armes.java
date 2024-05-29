@@ -17,4 +17,6 @@ public class Armes extends ObjetEnvironnement{
     public void setPortee(int portee) {this.porteeArme = portee;}
 
     public int getPortee() {return porteeArme;}
+
+    //peut etre utiliser une methode utiliser abstract dans la classe armes pour que Link les prenne differemment
 }
