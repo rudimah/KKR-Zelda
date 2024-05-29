@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
 
 import java.util.ArrayList;
 
@@ -117,6 +118,14 @@ public class Link extends ActeurEnMouvement{
                     pied_droite = true;
                 }
                 break;
+            case F:
+                ActeurEnMouvement ennemiLePlusProche = env.trouverEnnemiLePlusProche(getX(), getY());
+                if (ennemiLePlusProche != null) {
+                    attaquer(ennemiLePlusProche);
+                } else {
+                    System.out.println("Aucun ennemi à attaquer à proximité.");
+                }
+                break;
             default:
                 ;
         }
@@ -150,7 +159,8 @@ public class Link extends ActeurEnMouvement{
             inventaire.ajouterItemAInventaire(item);
             item.setEstRamassé(true);
             env.retirerItem(item);
-            System.out.println("Item ramassé : " + item.getId());
+            System.out.println("Item ramassé : " + item.getNom());
+            inventaire.afficherInventaire();
         }
     }
 
@@ -159,4 +169,14 @@ public class Link extends ActeurEnMouvement{
         return Math.abs(getX() - item.getX()) < distance && Math.abs(getY() - item.getY()) < distance;
     }
 
+    @Override
+    public void attaquer(ActeurEnMouvement acteurCible) {
+        if (estADistanceAttaque(acteurCible)) {
+            acteurCible.decrementerPv(getPtAttaque());
+        }
+        System.out.println("Link attaque " + acteurCible + " ! Il reste " + acteurCible.getPv() + " pv.");
+    }
+
+
 }
+

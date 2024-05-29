@@ -23,6 +23,8 @@ public class Item {
 
     public int getY() {return y.getValue();}
 
+    public String getNom() {return nom;}
+
     public IntegerProperty XProperty(){return this.x;}
 
     public IntegerProperty YProperty(){return this.y;}

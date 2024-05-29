@@ -24,4 +24,12 @@ public class Inventaire {
     public void ajouterItemAInventaire(Item a){
         inventaire.add(a);
     }
+
+    public void afficherInventaire(){
+        System.out.print('[');
+        for (Item item : inventaire){
+            System.out.print(item.getNom() + " ," );
+        }
+        System.out.println(']');
+    }
 }

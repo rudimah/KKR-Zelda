@@ -4,6 +4,9 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
+
+import java.util.ArrayList;
 
 public class Environnement {
 
@@ -74,9 +77,9 @@ public class Environnement {
 
 	public ObservableList<Item> getItems() {return items;}
 
-	public void ajouterActeur(Acteur a){
-		acteurs.add(a);
-	}
+	public void ajouterActeur(Acteur a){acteurs.add(a);}
+
+	public void retirerActeur(Acteur a){acteurs.remove(a);}
 
 	public void ajouterItem(Item a){items.add(a);}
 
@@ -130,5 +133,55 @@ public class Environnement {
 
 		return true;
 	}
+
+	public Acteur getLink(){
+		for (Acteur a : acteurs){
+			if (a instanceof Link){
+				return a;
+			}
+		}
+		return null;
+	}
+
+	public void miseAJour() {
+		ActeurEnMouvement link = (ActeurEnMouvement) this.getLink();
+		if (link != null) {
+			if (!this.getActeurs().isEmpty()) {
+				ArrayList<Acteur> acteurs = new ArrayList<>(this.getActeurs());
+				for (Acteur acteur : acteurs) {
+					if (acteur instanceof ActeurEnMouvement) {
+						ActeurEnMouvement acteurEnMouvement = (ActeurEnMouvement) acteur;
+						acteurEnMouvement.VerifEstVivant();
+						if (acteurEnMouvement instanceof Ennemis) {
+							Ennemis ennemi = (Ennemis) acteurEnMouvement;
+							if (ennemi.estADistanceAttaque(link)) {
+								ennemi.attaquer(link);
+							} else {
+								ennemi.seDeplacerVersLink();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public ActeurEnMouvement trouverEnnemiLePlusProche(int x, int y) {
+		ActeurEnMouvement ennemiLePlusProche = null;
+		double distanceMin = Double.MAX_VALUE;
+
+		for (Acteur acteur : acteurs) {
+			if (acteur instanceof Ennemis) {
+				double distance = Math.sqrt(Math.pow(acteur.getX() - x, 2) + Math.pow(acteur.getY() - y, 2));
+				if (distance < distanceMin) {
+					distanceMin = distance;
+					ennemiLePlusProche = (ActeurEnMouvement) acteur;
+				}
+			}
+		}
+		return ennemiLePlusProche;
+	}
+
+
 
 }

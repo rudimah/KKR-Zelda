@@ -9,4 +9,5 @@ public class Potion extends Item {
         super(nom, x, y);
 
     }
+
 }
