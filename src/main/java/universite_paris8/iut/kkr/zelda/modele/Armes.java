@@ -1,6 +1,6 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-public class Armes extends Item{
+public class Armes extends ObjetEnvironnement{
     private int ptAttaque;
     private int porteeArme;
 

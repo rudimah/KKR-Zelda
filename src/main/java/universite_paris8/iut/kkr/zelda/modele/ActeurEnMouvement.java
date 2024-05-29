@@ -43,4 +43,11 @@ public class ActeurEnMouvement extends Acteur {
     public void incrementerPv(int nbrPv) {
         setPointsDeVie(getPointsDeVie() + nbrPv);
     }
+
+    public boolean estVivant(){
+        if (this.pointsDeVie!=0){
+            return true;
+        }
+        return false;
+    }
 }

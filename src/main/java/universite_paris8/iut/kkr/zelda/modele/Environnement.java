@@ -21,12 +21,12 @@ public class Environnement {
 			{9, 9, 9, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
 			{9, 9, 9, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
 			{9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 2, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 2, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 2, 9, 9, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
 			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
 			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
-			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
+			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 4, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
 			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
 			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
 			{9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9},
@@ -73,8 +73,8 @@ public class Environnement {
 
 	public int getTileId(int x, int y) {
 		int tailleTuile = 30; // Taille d'une tuile en pixels
-		int colonneGrille = x / tailleTuile; // Calculer l'indice de la colonne de la grille correspondant à la position x
-		int ligneGrille = y / tailleTuile; // Calculer l'indice de la ligne de la grille correspondant à la position y
+		int colonneGrille = (x+6)  / tailleTuile; // Calculer l'indice de la colonne de la grille correspondant à la position x
+		int ligneGrille = (y+19) / tailleTuile; // Calculer l'indice de la ligne de la grille correspondant à la position y
 		return tableauMap[ligneGrille][colonneGrille];
 	}
 
@@ -98,15 +98,10 @@ public class Environnement {
 					return true;
 				case 1: // Immeubles abandonnés
 				case 2: // Arbres
-				case 3: // Buisson
-				case 7: // Rocher en Lave
+
 				case 8: // Voiture abandonnée
 					System.out.println("Obstacle non passable à " + (coin[0] / tailleTuile) + ", " + (coin[1] / tailleTuile));
 					return false;
-				case 10: // Lave
-					System.out.println("Il y a de la lave à " + (coin[0] / tailleTuile) + ", " + (coin[1] / tailleTuile) + " Link perd de la vie");
-					// Logique pour enlever des points de vie sera gérée dans la classe Link
-					break;
 				case 4: // Coffre
 				case 5: // Rocher
 				case 6: // Poubelle
@@ -114,6 +109,10 @@ public class Environnement {
 					return false;
 				case 9: // Herbe (passable)
 					System.out.println("Herbe à " + (coin[0] / tailleTuile) + ", " + (coin[1] / tailleTuile) + " passable");
+					break;
+				case 10: // Lave
+					System.out.println("Il y a de la lave à " + (coin[0] / tailleTuile) + ", " + (coin[1] / tailleTuile) + " Link perd de la vie");
+					// Logique pour enlever des points de vie sera gérée dans la classe Link
 					break;
 				default:
 					System.out.println("Où est-ce qu'on est !?");
