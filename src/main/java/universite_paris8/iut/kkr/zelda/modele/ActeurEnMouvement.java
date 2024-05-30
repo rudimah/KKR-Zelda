@@ -48,4 +48,5 @@ public abstract class ActeurEnMouvement extends Acteur {
 
     public abstract void attaquer(ActeurEnMouvement acteurCible);
 
+
 }

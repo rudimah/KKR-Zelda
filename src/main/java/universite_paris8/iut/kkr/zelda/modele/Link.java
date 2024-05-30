@@ -1,63 +1,26 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import universite_paris8.iut.kkr.zelda.Vue.VueLink;
-import universite_paris8.iut.kkr.zelda.modele.Accessoires.Accessoires;
-import universite_paris8.iut.kkr.zelda.modele.Arme.Armes;
-
+import universite_paris8.iut.kkr.zelda.utils.Constantes;
 import java.util.ArrayList;
 
 public class Link extends ActeurEnMouvement{
 
-    private Pane panneauDeJeu;
-    private TilePane tilePane;
-
-    private Armes armeActuelle;
-    private Accessoires accessoiresActuelles;
     private int vitesseOriginale;
-    private int vitesseSprint;
     private boolean sprintAppuyer = false;
     public int tileId = 9;
     private Inventaire inventaire;
 
-    VueLink afficherlink;
-
-    public Link(Environnement env, Pane pj, TilePane tilePane) {
+    public Link(Environnement env) {
         super(80, 50, 2, env, 40, 10);
         this.vitesseOriginale = getVitesse();
-        this.vitesseSprint = vitesseOriginale;
-        this.panneauDeJeu = pj;
-        this.tilePane = tilePane;
         this.inventaire = new Inventaire();
-        panneauDeJeu.setFocusTraversable(true);
-        panneauDeJeu.setOnKeyPressed(this::gererTouch);
-        panneauDeJeu.setOnKeyReleased(this::handleKeyRelease);
-       afficherlink = new VueLink(env, this, panneauDeJeu);
+
     }
 
-    private void gererTouch(KeyEvent event) {
-        if (event.getCode() == KeyCode.SHIFT) {
-            sprintAppuyer = true;
-            vitesseSprint = vitesseOriginale * 2;
-        }
-        System.out.println("Touche pressée " + event.getCode());
-        seDeplacer(event.getCode());
-        event.consume();
+    public int getTileId(){
+        return tileId;
     }
 
-    private void handleKeyRelease(KeyEvent event) {
-        if (event.getCode() == KeyCode.SHIFT) {
-            sprintAppuyer = false;
-            vitesseSprint = vitesseOriginale;
-            System.out.println("MAJ relâchée, vitesse normalisée.");
-        }
-    }
 
     public boolean verifobstacle(int tileId) {
         System.out.println("verifobstcle " + tileId);
@@ -99,59 +62,58 @@ public class Link extends ActeurEnMouvement{
         return true;
     }
 
-    public void seDeplacer(KeyCode key) {
+    public void seDeplace(int direction) {
         int nouveauX = getX(), nouveauY = getY();
-        Circle r = new Circle(1);
-        Circle b = new Circle(1);
-        r.setFill(Color.RED);
-        b.setFill(Color.BLUE);
-
-        switch (key) {
-
-            case Z:
-                nouveauY -= vitesseSprint;
-                tileId = env.getTileId(getX(), nouveauY);
-
+        int vitesse = getVitesse();
+        switch (direction) {
+            case Constantes.Haut:
+                nouveauY -= vitesse;
                 if (verifobstacle(env.getTileId(getX(), nouveauY)) && verifobstacle(env.getTileId(getX() + 30, nouveauY))) {
                     setY(nouveauY);
                     tileId = env.getTileId(getX(), getY());
+
                 }
                 break;
-            case S:
-                nouveauY += vitesseSprint;
+            case Constantes.Bas:
+                nouveauY += vitesse;
                 if (verifobstacle(env.getTileId(getX(), nouveauY)) || verifobstacle(env.getTileId(getX() + 30, nouveauY+30))) {
                     setY(nouveauY);
                     tileId = env.getTileId(getX(), getY());
                 }
                 break;
-            case D:
-                nouveauX += vitesseSprint;
+            case Constantes.Droite:
+                nouveauX += vitesse;
                 if (verifobstacle(env.getTileId(nouveauX + 30, getY())) && verifobstacle(env.getTileId(nouveauX + 30, getY() + 30))) {
                     setX(nouveauX);
                     tileId = env.getTileId(getX() + 30, getY());
                 }
                 break;
-            case Q:
-                nouveauX -= vitesseSprint;
+            case Constantes.Gauche:
+                nouveauX -= vitesse;
                 if (verifobstacle(env.getTileId(nouveauX, getY())) && verifobstacle(env.getTileId(nouveauX, getY() + 30))) {
                     setX(nouveauX);
+                    tileId = env.getTileId(getX(), getY());
                 }
                 break;
             default:
-                System.out.println("Autre Touch");
-                tileId = env.getTileId(getX(), getY());
-        }
+                System.out.println("Direction inconnue");
 
-        if (tileId == 0) { // Eau
-            vitesseSprint = 1;
-            System.out.println("Link se déplace dans l'eau, vitesse réduite à 1");
-        } else {
-            vitesseSprint = sprintAppuyer ? vitesseOriginale * 2 : vitesseOriginale; // Réinitialiser la vitesse en fonction de l'état de SHIFT
         }
-
-        afficherlink.mettreAJourImageView(key, tileId);
+        System.out.println(getVitesse());
         ramasserItem();
         System.out.println("s'est déplacé en (" + getX() + ", " + getY() + ")");
+
+
+        if (tileId == 0) { // Eau
+            vitesse = 1;
+            System.out.println("Link se déplace dans l'eau, vitesse réduite à 1");
+        }
+        else {
+           vitesse = vitesseOriginale;
+        }
+
+
+
     }
 
 
@@ -185,37 +147,6 @@ public class Link extends ActeurEnMouvement{
         System.out.println("Link attaque " + acteurCible + " ! Il reste " + acteurCible.getPv() + " pv.");
     }
 
-    public Armes getArme() {
-        return armeActuelle;
-    }
-//    public void armeEnMain() {
-//        if (armeActuelle != null) {
-//            armeActuelle.utiliser(); //
-//        } else {
-//            System.out.println("Link n'a pas d'arme ");
-//        }
-//    }
-//    public void attaquerEnnemi() {
-//        Ennemi ennemiProche = getEnv().trouverEnnemiProche(getX(), getY(), armeActuelle.getPortee());
-////        if (ennemiProche != null) {
-////            int degats = armeActuelle.getPtAttaque();
-////            ennemiProche.recevoirDegats(degats);
-////            System.out.println("Ennemi touché ! Dégâts infligés: " + degats);
-////        } else {
-////            System.out.println("Aucun ennemi à portée.");
-////        }
-////    }
-
-
-//    public Accessoires getAccessoireActuel() {
-//        return accessoireActuel;
-//    }
-//
-//    public void utiliserAccessoire() {
-//        if (accessoireActuel instanceof BottesDAres) {
-//            //faire la suite
-//        }
-//    }
 
 
 }

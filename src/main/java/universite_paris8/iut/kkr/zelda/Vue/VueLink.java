@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import universite_paris8.iut.kkr.zelda.modele.ActeurEnMouvement;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 import universite_paris8.iut.kkr.zelda.modele.Link;
+import universite_paris8.iut.kkr.zelda.utils.Constantes;
 
 public class VueLink {
 
@@ -34,57 +35,50 @@ public class VueLink {
         panneauDeJeu.getChildren().add(imageView);
     }
 
-    public void mettreAJourImageView(KeyCode key, int tileId) {
+    public void mettreAJourImageView(int direction, int tileId) {
         imageView.setTranslateX(link.getX());
         imageView.setTranslateY(link.getY());
         int position_image_x = 20, position_image_y = 13, position_image_eau = 0;
 
-        switch (key) {
-            case Z:
+        switch (direction) {
+            case Constantes.Haut:
                 position_image_y = 1060;
                 position_image_eau = 340;
                 break;
-            case S:
+            case Constantes.Bas:
                 position_image_y = 710;
                 position_image_eau = 825;
                 break;
-            case D:
+            case Constantes.Droite:
                 position_image_y = 1245;
                 position_image_eau = 340;
                 break;
-            case Q:
+            case Constantes.Gauche:
                 position_image_y = 902;
                 position_image_eau = 980;
                 break;
 
-            case F:
-                ActeurEnMouvement ennemiLePlusProche = environnement.trouverEnnemiLePlusProche(link.getX(), link.getY());
-                if (ennemiLePlusProche != null) {
-                    link.attaquer(ennemiLePlusProche);
-                } else {
-                    System.out.println("Aucun ennemi à attaquer à proximité.");
-                }
-                break;
+
         }
 
         if (tileId == 0 || tileId == 3) {
             imageView.setViewport(new Rectangle2D(position_image_eau, position_image_y, 120, 160));
         } else {
             if (pied_droite) {
-                position_image_x = switch (key) {
-                    case Z -> 170;
-                    case S -> 665;
-                    case D -> 180;
-                    case Q -> 180;
+                position_image_x = switch (direction) {
+                    case Constantes.Haut -> 170;
+                    case Constantes.Bas -> 665;
+                    case Constantes.Droite -> 180;
+                    case Constantes.Gauche -> 180;
                     default -> position_image_x;
                 };
                 pied_droite = false;
             } else {
-                position_image_x = switch (key) {
-                    case Z -> 1470;
-                    case S -> 1470;
-                    case D -> 1315;
-                    case Q -> 1320;
+                position_image_x = switch (direction) {
+                    case Constantes.Haut -> 1470;
+                    case Constantes.Bas -> 1470;
+                    case Constantes.Droite -> 1315;
+                    case Constantes.Gauche -> 1320;
                     default -> position_image_x;
                 };
                 pied_droite = true;

@@ -24,6 +24,8 @@ public class Bonnoctus extends Ennemis {
         System.out.println("Un Bonnoctus attaque Link ! Il reste " + acteurCible.getPv() + " pv à Link");
     }
 
+
+
     @Override
     public String toString() {return "Bonnoctus";}
 }

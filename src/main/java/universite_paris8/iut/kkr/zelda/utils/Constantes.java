@@ -1,6 +1,6 @@
 package universite_paris8.iut.kkr.zelda.utils;
 
-public class ConstantesTuile {
+public class Constantes {
     public static final int EAU = 0;
     public static final int IMMEUBLES_ABANDONNES = 1;
     public static final int ARBRES = 2;
@@ -15,4 +15,9 @@ public class ConstantesTuile {
     public static final int CHEMIN_EN_PIERRE = 11;
     public static final int GROS_ROCHER = 12;
     public static final int PONT = 13;
+
+    public static final int Haut = 8;
+    public static final int  Bas = 5;
+    public static final int Droite  = 6;
+    public static final int Gauche = 4;
 }

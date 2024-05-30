@@ -12,7 +12,7 @@ public abstract class Ennemis extends ActeurEnMouvement {
     }
 
 
-    public void seDeplacerVersLink() {
+    public void seDeplacer() {
         Acteur link = env.getLink();
         if (link != null) {
             int dx = link.getX() - getX();
