@@ -1,8 +1,9 @@
 package universite_paris8.iut.kkr.zelda.modele.Arme;
 
+import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionForce;
 
-public class Arc extends Armes {
+public class Arc extends Arme {
     private int degatsFeu;
 
     public Arc(int x, int y) {
@@ -16,4 +17,13 @@ public class Arc extends Armes {
     public int getDegatsFeu() {
         return degatsFeu;
     }
+
+    public void attaquer(Ennemis ennemi) {
+        super.attaquer(ennemi);
+        if (estAProximite(ennemi)) {
+            ennemi.recevoirDegats(degatsFeu);  // Applique des dégâts de feu supplémentaires
+            System.out.println("Arc inflige des dégâts de feu supplémentaires à l'ennemi.");
+        }
+    }
+
 }

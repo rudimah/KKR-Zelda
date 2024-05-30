@@ -27,6 +27,15 @@ public abstract class Ennemis extends ActeurEnMouvement {
 
     public boolean estMort(){return getPv() <= 0;}
 
+    public void recevoirDegats(int degats) {
+        setPv(getPv() - degats);
+        if (estMort()) {
+            System.out.println("Ennemi tué!");
+        } else {
+            System.out.println("Ennemi a maintenant " + getPv() + " points de vie.");
+        }
+    }
+
 
     @Override
     public String toString() {

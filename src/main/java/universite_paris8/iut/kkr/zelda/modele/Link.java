@@ -9,7 +9,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import universite_paris8.iut.kkr.zelda.Vue.VueLink;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Accessoires;
-import universite_paris8.iut.kkr.zelda.modele.Arme.Armes;
+import universite_paris8.iut.kkr.zelda.modele.Arme.Arme;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
 
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ public class Link extends ActeurEnMouvement{
     private Pane panneauDeJeu;
     private TilePane tilePane;
 
-    private Armes armeActuelle;
+    private Arme armeActuelle;
     private Accessoires accessoiresActuelles;
     private int vitesseOriginale;
     private int vitesseSprint;
@@ -184,8 +185,15 @@ public class Link extends ActeurEnMouvement{
         }
         System.out.println("Link attaque " + acteurCible + " ! Il reste " + acteurCible.getPv() + " pv.");
     }
+    public void attaquer2(Ennemis ennemi) {
+        if (armeActuelle != null && ennemi != null) {
+            armeActuelle.attaquer(ennemi); // Utilise l'arme actuelle pour attaquer l'ennemi
+        } else {
+            System.out.println("Aucune arme équipée ou aucun ennemi à portée.");
+        }
+    }
 
-    public Armes getArme() {
+    public Arme getArme() {
         return armeActuelle;
     }
 //    public void armeEnMain() {
