@@ -8,6 +8,7 @@ import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
 import universite_paris8.iut.kkr.zelda.utils.ConstantesTuile;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Environnement {
 
@@ -191,5 +192,21 @@ public class Environnement {
 			}
 		}
 		return ennemiLePlusProche;
+	}
+
+	public List<Ennemis> getEnnemisProches(int x, int y, int portee) {
+		List<Ennemis> ennemisProches = new ArrayList<>();
+		for (Acteur acteur : acteurs) {
+			if (acteur instanceof Ennemis) {
+				Ennemis ennemi = (Ennemis) acteur;
+				int distanceX = Math.abs(ennemi.getX() - x);
+				int distanceY = Math.abs(ennemi.getY() - y);
+				double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+				if (distance <= portee) {
+					ennemisProches.add(ennemi);
+				}
+			}
+		}
+		return ennemisProches;
 	}
 }

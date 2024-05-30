@@ -36,6 +36,10 @@ public abstract class Ennemis extends ActeurEnMouvement {
         }
     }
 
+    @Override
+    public Environnement getEnv() {
+        return super.getEnv();
+    }
 
     @Override
     public String toString() {
