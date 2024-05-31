@@ -7,7 +7,7 @@ public class Sabre extends Arme {
     private int degatsOrbe;
 
     public Sabre(int x, int y) {
-        super("Sabre", x, y, 50, 1);
+        super("Sabre", 50,x, y, 1);
         this.degatsOrbe = 5;
     }
 
@@ -18,10 +18,12 @@ public class Sabre extends Arme {
         return degatsOrbe;
     }
     public void attaquer(Ennemis ennemi) {
-        super.attaquer(ennemi);
-        if (estAProximite(ennemi)) {
-            ennemi.recevoirDegats(degatsOrbe);  // Apply special orb damage
-            System.out.println("Sabre inflige des dégâts d'orbe supplémentaires à l'ennemi.");
-        }
+        super.attaquerAvecArme(ennemi);
+        ennemi.recevoirDegats(degatsOrbe);  // Apply special orb damage
+        System.out.println("Sabre inflige des dégâts d'orbe supplémentaires à l'ennemi.");
+    }
+    @Override
+    public String toString() {
+        return "le sabre";
     }
 }

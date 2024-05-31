@@ -7,7 +7,7 @@ public class Arc extends Arme {
     private int degatsFeu;
 
     public Arc(int x, int y) {
-        super("Arc du Héros", x, y, 55, 15);
+        super("Arc du Héros",55, x, y, 15);
         this.degatsFeu = 5;
     }
     public void appliquerPotionDeForce(PotionForce potion) {
@@ -19,11 +19,13 @@ public class Arc extends Arme {
     }
 
     public void attaquer(Ennemis ennemi) {
-        super.attaquer(ennemi);
-        if (estAProximite(ennemi)) {
-            ennemi.recevoirDegats(degatsFeu);  // Applique des dégâts de feu supplémentaires
-            System.out.println("Arc inflige des dégâts de feu supplémentaires à l'ennemi.");
-        }
+        super.attaquerAvecArme(ennemi);
+        ennemi.recevoirDegats(degatsFeu);  // Applique des dégâts de feu supplémentaires
+        System.out.println("Arc inflige des dégâts de feu supplémentaires à l'ennemi.");
     }
 
+    @Override
+    public String toString() {
+        return "l'arc du héros";
+    }
 }

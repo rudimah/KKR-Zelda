@@ -145,17 +145,7 @@ public class Environnement {
 		return true;
 	}
 
-	public Acteur getLink() {
-		for (Acteur a : acteurs) {
-			if (a instanceof Link) {
-				return a;
-			}
-		}
-		return null;
-	}
-
-
-	public void miseAJour() {
+	public void agir() {
 		ActeurEnMouvement link = (ActeurEnMouvement) this.getLink();
 		if (link != null) {
 			if (!this.getActeurs().isEmpty()) {
@@ -177,6 +167,16 @@ public class Environnement {
 			}
 		}
 	}
+
+	public Acteur getLink() {
+		for (Acteur a : acteurs) {
+			if (a instanceof Link) {
+				return a;
+			}
+		}
+		return null;
+	}
+
 
 	public ActeurEnMouvement trouverEnnemiLePlusProche(int x, int y) {
 		ActeurEnMouvement ennemiLePlusProche = null;

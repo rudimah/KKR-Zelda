@@ -65,6 +65,9 @@ public class VueLink {
                     System.out.println("Aucun ennemi à attaquer à proximité.");
                 }
                 break;
+            case A:
+                link.equiperArme();
+                break;
         }
 
         if (tileId == 0 || tileId == 3) {

@@ -5,13 +5,17 @@ import universite_paris8.iut.kkr.zelda.modele.Potion.PotionFeu;
 
 public class Epee extends Arme {
     public Epee(int x, int y) {
-        super("Épée de Guerrier", x, y, 15, 0);
+        super("Épée de Guerrier",15, x, y,0);
     }
 
     public void attaquer(Ennemis ennemi) {
-        super.attaquer(ennemi);
+        super.attaquerAvecArme(ennemi);
     }
     public void appliquerPotionFeu(PotionFeu potion) {
         setPtAttaque(getPtAttaque() + potion.getPtAttaque());
+    }
+    @Override
+    public String toString() {
+        return "l'épée de Guerrier";
     }
 }

@@ -1,6 +1,7 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
 
+import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -158,7 +159,6 @@ public class Link extends ActeurEnMouvement{
 
     public void ramasserItem() {
         ArrayList<ObjetEnvironnement> itemsARamasser = new ArrayList<>();
-
         for (ObjetEnvironnement item : env.getItems()) {
             if (!item.EstRamassé() && estProcheDe(item)) {
                 itemsARamasser.add(item);
@@ -178,20 +178,45 @@ public class Link extends ActeurEnMouvement{
         return Math.abs(getX() - item.getX()) < distance && Math.abs(getY() - item.getY()) < distance;
     }
 
-    @Override
-    public void attaquer(ActeurEnMouvement acteurCible) {
+    public void attaquerAMainsNues(ActeurEnMouvement acteurCible) {
         if (estADistanceAttaque(acteurCible)) {
             acteurCible.decrementerPv(getPtAttaque());
         }
-        System.out.println("Link attaque " + acteurCible + " ! Il reste " + acteurCible.getPv() + " pv.");
+        System.out.println("Link attaque " + acteurCible + " à mains nues ! Il lui reste " + acteurCible.getPv() + " pv.");
     }
-    public void attaquer2(Ennemis ennemi) {
-        if (armeActuelle != null && ennemi != null) {
-            armeActuelle.attaquer(ennemi); // Utilise l'arme actuelle pour attaquer l'ennemi
-        } else {
-            System.out.println("Aucune arme équipée ou aucun ennemi à portée.");
+    @Override
+    public void attaquer(ActeurEnMouvement ennemi) {
+        if (armeActuelle != null) {
+            armeActuelle.attaquerAvecArme(ennemi); // Utilise l'arme actuelle pour attaquer l'ennemi
+            System.out.println("Link attaque " + ennemi + " avec " + armeActuelle.toString() + " ! Il reste " + ennemi.getPv() + " pv à l'ennemi.");
+        }
+        else{
+            attaquerAMainsNues(ennemi);
         }
     }
+
+    public void equiperArme() {
+        ObservableList<ObjetEnvironnement> inventaireCurrent = inventaire.getInventaire();
+        ArrayList<Arme> armes = new ArrayList<>();
+        for (ObjetEnvironnement objet : inventaireCurrent) {
+            if (objet instanceof Arme) {
+                armes.add((Arme) objet);
+            }
+        }
+        if (armes.size() == 1) {
+            armeActuelle = armes.get(0);
+        } else if (armes.size() > 1) {
+            int currentIndex = armes.indexOf(armeActuelle);
+            currentIndex = (currentIndex + 1) % armes.size();
+            armeActuelle = armes.get(currentIndex);
+        }
+        if (armeActuelle != null) {
+            System.out.println("Link a équipé l'arme : " + armeActuelle.getNom());
+        } else {
+            System.out.println("Link n'a pas d'arme à équiper.");
+        }
+    }
+
 
     public Arme getArme() {
         return armeActuelle;

@@ -33,10 +33,12 @@ public abstract class ActeurEnMouvement extends Acteur {
     }
 
     public void VerifEstVivant(){
-        if(pv <= 0){
+        if(estMort()){
             env.retirerActeur(this);
         }
     }
+
+    public boolean estMort(){return getPv() <= 0;}
     public boolean estADistanceAttaque(Acteur ActeurCible) {
         int distanceX = Math.abs(getX() - ActeurCible.getX());
         int distanceY = Math.abs(getY() - ActeurCible.getY());
@@ -44,6 +46,14 @@ public abstract class ActeurEnMouvement extends Acteur {
 
         // Par exemple, l'ennemi peut attaquer si la distance est de 5 case ou moins
         return distanceManhattan <= 5;
+    }
+    public void recevoirDegats(int degats) {
+        setPv(getPv() - degats);
+        if (estMort()) {
+            System.out.println("Ennemi tué!");
+        } else {
+            System.out.println("Ennemi a maintenant " + getPv() + " points de vie.");
+        }
     }
 
     public abstract void attaquer(ActeurEnMouvement acteurCible);

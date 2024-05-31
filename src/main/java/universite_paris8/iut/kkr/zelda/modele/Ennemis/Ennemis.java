@@ -4,6 +4,8 @@ import universite_paris8.iut.kkr.zelda.modele.Acteur;
 import universite_paris8.iut.kkr.zelda.modele.ActeurEnMouvement;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 
+import java.util.ArrayList;
+
 
 public abstract class Ennemis extends ActeurEnMouvement {
 
@@ -17,24 +19,22 @@ public abstract class Ennemis extends ActeurEnMouvement {
         if (link != null) {
             int dx = link.getX() - getX();
             int dy = link.getY() - getY();
-            if(env.estPositionValide(dx, dy)){
-                setX(getX() + Integer.signum(dx) * getVitesse());
-                setY(getY() + Integer.signum(dy) * getVitesse());
+            int nouveauX = getX();
+            int nouveauY = getY();
+            if (dx != 0) {
+                nouveauX += (dx > 0) ? getVitesse() : -getVitesse();
+            }
+            if (dy != 0) {
+                nouveauY += (dy > 0) ? getVitesse() : -getVitesse();
+            }
+            if (env.estPositionValide(nouveauX, nouveauY)) {
+                setX(nouveauX);
+                setY(nouveauY);
             }
         }
-        System.out.println("Ennemi se déplace en (" + getX() + ',' + getY() +')' );
+        System.out.println("Ennemi se déplace en (" + getX() + ',' + getY() + ')');
     }
 
-    public boolean estMort(){return getPv() <= 0;}
-
-    public void recevoirDegats(int degats) {
-        setPv(getPv() - degats);
-        if (estMort()) {
-            System.out.println("Ennemi tué!");
-        } else {
-            System.out.println("Ennemi a maintenant " + getPv() + " points de vie.");
-        }
-    }
 
     @Override
     public Environnement getEnv() {

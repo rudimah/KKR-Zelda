@@ -11,8 +11,13 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.kkr.zelda.Vue.TerrainVue;
 import universite_paris8.iut.kkr.zelda.modele.*;
+import universite_paris8.iut.kkr.zelda.modele.Arme.Epee;
+import universite_paris8.iut.kkr.zelda.modele.Arme.Sabre;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
+import universite_paris8.iut.kkr.zelda.modele.Potion.PotionBleue;
+import universite_paris8.iut.kkr.zelda.modele.Potion.PotionFeu;
+import universite_paris8.iut.kkr.zelda.modele.Potion.PotionForce;
 
 public class Controleur implements Initializable {
     private Timeline gameLoop;
@@ -31,6 +36,11 @@ public class Controleur implements Initializable {
         terrainVue.afficherMap();
         this.env.getItems().addListener(new Observateur(panneauDeJeu));
         env.ajouterItem(new PotionAcide(200,100));
+        env.ajouterItem(new PotionFeu(200,300));
+        env.ajouterItem(new PotionForce(200,450));
+        env.ajouterItem(new PotionBleue(200,700));
+        env.ajouterItem(new Epee(300,300));
+        env.ajouterItem(new Sabre(300,450));
         env.ajouterActeur(new Link(env, panneauDeJeu, tilepane));
         env.ajouterActeur(new Reltih(env,panneauDeJeu,tilepane));
         initAnimation();
@@ -38,7 +48,7 @@ public class Controleur implements Initializable {
 
     private void initAnimation() {
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.15), event -> {
-            env.miseAJour();
+            env.agir();
         });
         gameLoop = new Timeline(keyFrame);
         gameLoop.setCycleCount(Timeline.INDEFINITE);

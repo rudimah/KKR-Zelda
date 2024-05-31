@@ -8,7 +8,7 @@ public class Boomerang extends Arme {
     private int zoneDegats;
 
     public Boomerang(int x, int y) {
-        super("Boomerang du Vent Marin", x, y, 80, 30);
+        super("Boomerang du Vent Marin",80, x, y, 30);
         this.zoneDegats = 10;
     }
 
@@ -22,7 +22,7 @@ public class Boomerang extends Arme {
     }
 
     public void attaquer(Ennemis ennemi) {
-        super.attaquer(ennemi); // Appelle la méthode attaquer de la superclasse Arme
+        super.attaquerAvecArme(ennemi); // Appelle la méthode attaquer de la superclasse Arme
         for (Ennemis e : getE().getEnnemisProches(getX(), getY(), zoneDegats)) { // Utilise la méthode getEnv() de Arme, qui doit être implémentée pour retourner l'environnement
             e.recevoirDegats(getPtAttaque());
             System.out.println("Boomerang inflige des dégâts à tous les ennemis proches dans la zone de " + zoneDegats);
@@ -36,5 +36,10 @@ public class Boomerang extends Arme {
 
     public void setZoneDegats(int zoneDegats) {
         this.zoneDegats = zoneDegats;
+    }
+
+    @Override
+    public String toString() {
+        return "le boomerang";
     }
 }
