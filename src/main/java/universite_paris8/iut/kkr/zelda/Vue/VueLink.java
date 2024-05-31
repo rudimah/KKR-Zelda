@@ -36,6 +36,7 @@ public class VueLink {
     }
 
     public void mettreAJourImageView(int direction, int tileId) {
+        System.out.println("tileid" + tileId);
         imageView.setTranslateX(link.getX());
         imageView.setTranslateY(link.getY());
         int position_image_x = 20, position_image_y = 13, position_image_eau = 0;
