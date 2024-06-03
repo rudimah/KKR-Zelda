@@ -21,7 +21,6 @@ import universite_paris8.iut.kkr.zelda.utils.Constantes;
 public class Controleur implements Initializable {
     private Timeline gameLoop;
     private Environnement env;
-    private ActeurEnMouvement acteur;
     @FXML
     private TilePane tilepane;
     @FXML
@@ -30,6 +29,8 @@ public class Controleur implements Initializable {
     private Link link;
     private TerrainVue terrainVue;
     private VueLink afficherlink;
+
+    private int direction;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -50,6 +51,8 @@ public class Controleur implements Initializable {
         panneauDeJeu.setFocusTraversable(true);
         panneauDeJeu.setOnKeyPressed(this::gererTouch);
         panneauDeJeu.setOnKeyReleased(this::handleKeyRelease);
+        link.getXProperty().addListener(afficherlink);
+        link.getYProperty().addListener(afficherlink);
 
         initAnimation();
     }
@@ -72,30 +75,30 @@ public class Controleur implements Initializable {
     }
 
     public void deplacementLink(KeyCode touchePresse) {
-        int direction = 0;
+
         switch (touchePresse) {
             case Z:
-                direction = Constantes.Haut;
+                link.setDirection(Constantes.Haut);
                 break;
             case S:
-                direction = Constantes.Bas;
+                link.setDirection(Constantes.Bas);
                 break;
             case D:
-                direction = Constantes.Droite;
+                link.setDirection(Constantes.Droite);
                 break;
             case Q:
-                direction = Constantes.Gauche;
+                link.setDirection(Constantes.Gauche);
                 break;
             default:
                 System.out.println("Autre Touche");
         }
-        link.seDeplace(direction);
-        afficherlink.mettreAJourImageView(direction, link.getTileId());
+
     }
 
     private void initAnimation() {
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.15), event -> {
             env.miseAJour();
+            link.seDeplace();
         });
         gameLoop = new Timeline(keyFrame);
         gameLoop.setCycleCount(Timeline.INDEFINITE);
