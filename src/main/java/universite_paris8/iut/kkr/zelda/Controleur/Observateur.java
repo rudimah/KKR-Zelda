@@ -7,6 +7,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import universite_paris8.iut.kkr.zelda.modele.Accessoires.BottesAres;
+import universite_paris8.iut.kkr.zelda.modele.Accessoires.Bouclier;
+import universite_paris8.iut.kkr.zelda.modele.Accessoires.Flute;
 import universite_paris8.iut.kkr.zelda.modele.Arme.*;
 import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
 import universite_paris8.iut.kkr.zelda.modele.Potion.*;
@@ -79,13 +82,44 @@ public class Observateur implements ListChangeListener<ObjetEnvironnement> {
             r.setFitWidth(20);
             r.setFitHeight(25);
         }
+        else if (a instanceof Arc){
+            Image image  = new Image("file:src/main/resources/image/Potions & Armes/Arc&Fleche.png");
+            r.setImage(image);
+            r.setViewport(new Rectangle2D(258, 77, 957, 3113));
+            r.setFitWidth(20);
+            r.setFitHeight(25);
+        }
         else if (a instanceof Boomerang){
 
         }
         else if (a instanceof Fleche){
-
+            Image image  = new Image("file:src/main/resources/image/Potions & Armes/Arc&Fleche.png");
+            r.setImage(image);
+            r.setViewport(new Rectangle2D(1634, 578, 308, 2007));
+            r.setFitWidth(20);
+            r.setFitHeight(25);
         }
-
+        else if (a instanceof BottesAres){
+            Image image  = new Image("file:src/main/resources/image/Potions & Armes/bottes.gif");
+            r.setImage(image);
+            r.setViewport(new Rectangle2D(0, 0, 32, 32));
+            r.setFitWidth(20);
+            r.setFitHeight(25);
+        }
+        else if (a instanceof Bouclier){
+            Image image  = new Image("file:src/main/resources/image/Potions & Armes/bouclier.png");
+            r.setImage(image);
+            r.setViewport(new Rectangle2D(13, 13, 39, 39));
+            r.setFitWidth(20);
+            r.setFitHeight(25);
+        }
+        else if (a instanceof Flute){
+            Image image  = new Image("file:src/main/resources/image/Potions & Armes/flute.png");
+            r.setImage(image);
+            r.setViewport(new Rectangle2D(0, 47, 291, 198));
+            r.setFitWidth(20);
+            r.setFitHeight(25);
+        }
         r.setId(a.getId());
         r.translateXProperty().bind(a.xProperty());
         r.translateYProperty().bind(a.yProperty());
