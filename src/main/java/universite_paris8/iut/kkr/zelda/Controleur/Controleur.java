@@ -84,7 +84,24 @@ public class Controleur implements Initializable {
         }
         System.out.println("Touche pressée " + event.getCode());
         deplacementLink(touchePresse);
+        gererTouches(touchePresse);
         event.consume();
+    }
+
+    public void gererTouches(KeyCode touchePresse){
+        switch (touchePresse){
+            case F:
+                ActeurEnMouvement ennemiLePlusProche = env.trouverEnnemiLePlusProche(link.getX(), link.getY());
+                if (ennemiLePlusProche != null && link.estADistanceAttaque(ennemiLePlusProche)) {
+                    link.attaquer(ennemiLePlusProche);
+                } else {
+                    System.out.println("Aucun ennemi à attaquer à proximité.");
+                }
+                break;
+            case A:
+                link.equiperArme();
+                break;
+        }
     }
 
     private void handleKeyRelease(KeyEvent event) {

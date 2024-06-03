@@ -107,7 +107,7 @@ public class Link extends ActeurEnMouvement{
             armeActuelle.attaquerAvecArme(ennemi); // Utilise l'arme actuelle pour attaquer l'ennemi
             System.out.println("Link attaque " + ennemi + " avec " + armeActuelle.toString() + " ! Il reste " + ennemi.getPv() + " pv à l'ennemi.");
         }
-        else{
+        else {
             attaquerAMainsNues(ennemi);
         }
     }

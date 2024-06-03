@@ -39,7 +39,6 @@ public abstract class ActeurEnMouvement extends Acteur {
             env.retirerActeur(this);
         }
     }
-
     public boolean estMort(){return getPv() <= 0;}
     public boolean estADistanceAttaque(Acteur ActeurCible) {
         int distanceX = Math.abs(getX() - ActeurCible.getX());
@@ -57,8 +56,6 @@ public abstract class ActeurEnMouvement extends Acteur {
             System.out.println("Ennemi a maintenant " + getPv() + " points de vie.");
         }
     }
-
     public abstract void attaquer(ActeurEnMouvement acteurCible);
-
 
 }
