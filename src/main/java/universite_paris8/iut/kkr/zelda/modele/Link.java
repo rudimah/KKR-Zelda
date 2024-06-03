@@ -1,5 +1,7 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
+import javafx.collections.ObservableList;
+import universite_paris8.iut.kkr.zelda.modele.Arme.Arme;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 import java.util.ArrayList;
 
@@ -8,7 +10,7 @@ public class Link extends ActeurEnMouvement{
     public int tileId = 9;
     private Inventaire inventaire;
     private int Direction ;
-
+    private Arme armeActuelle;
     private int vitesse;
     public Link(Environnement env) {
         super(80, 50, 2, env, 40, 10);
@@ -100,6 +102,7 @@ public class Link extends ActeurEnMouvement{
     }
     @Override
     public void attaquer(ActeurEnMouvement ennemi) {
+
         if (armeActuelle != null) {
             armeActuelle.attaquerAvecArme(ennemi); // Utilise l'arme actuelle pour attaquer l'ennemi
             System.out.println("Link attaque " + ennemi + " avec " + armeActuelle.toString() + " ! Il reste " + ennemi.getPv() + " pv à l'ennemi.");

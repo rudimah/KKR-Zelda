@@ -60,7 +60,7 @@ public class Controleur implements Initializable {
         env.ajouterItem(new Epee(300,300));
         env.ajouterItem(new Sabre(300,450));
         env.ajouterItem(new Arc(500,450));
-        env.ajouterActeur(new Link(env, panneauDeJeu, tilepane));
+        env.ajouterActeur(new Link(env));
         env.ajouterActeur(new Reltih(env,panneauDeJeu,tilepane));
         env.ajouterItem(new PotionAcide(200, 100));
         env.ajouterActeur(link);
