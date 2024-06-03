@@ -14,7 +14,7 @@ public abstract class Ennemis extends ActeurEnMouvement {
     }
 
 
-    public void seDeplacerVersLink() {
+    public void seDeplacer() {
         Acteur link = env.getLink();
         if (link != null) {
             int dx = link.getX() - getX();
@@ -27,12 +27,12 @@ public abstract class Ennemis extends ActeurEnMouvement {
             if (dy != 0) {
                 nouveauY += (dy > 0) ? getVitesse() : -getVitesse();
             }
-            if (env.estPositionValide(nouveauX, nouveauY)) {
-                setX(nouveauX);
-                setY(nouveauY);
+            if(env.verifObstacle(dx, dy, this)){
+                setX(getX() + Integer.signum(dx) * getVitesse());
+                setY(getY() + Integer.signum(dy) * getVitesse());
             }
         }
-        System.out.println("Ennemi se déplace en (" + getX() + ',' + getY() + ')');
+        System.out.println("Ennemi se déplace en (" + getX() + ',' + getY() +')' );
     }
 
 

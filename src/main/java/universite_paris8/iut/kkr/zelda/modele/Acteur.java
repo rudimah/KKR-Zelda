@@ -5,7 +5,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public abstract class Acteur {
 
-	final IntegerProperty x, y;
+	final IntegerProperty x;
+    final IntegerProperty y;
 	protected Environnement env;
 	public static int compteur = 0;
 	private String id;
