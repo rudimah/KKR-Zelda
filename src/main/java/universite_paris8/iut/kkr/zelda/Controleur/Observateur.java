@@ -83,19 +83,23 @@ public class Observateur implements ListChangeListener<ObjetEnvironnement> {
             r.setFitHeight(25);
         }
         else if (a instanceof Arc){
-            Image image  = new Image("file:src/main/resources/image/Potions & Armes/Arc&Fleche.png");
+            Image image  = new Image("file:src/main/resources/image/Potions & Armes/arc.png");
             r.setImage(image);
-            r.setViewport(new Rectangle2D(258, 77, 957, 3113));
+            r.setViewport(new Rectangle2D(1, 1, 30, 30));
             r.setFitWidth(20);
             r.setFitHeight(25);
         }
         else if (a instanceof Boomerang){
-
+            Image image  = new Image("file:src/main/resources/image/Potions & Armes/boomerang.png");
+            r.setImage(image);
+            r.setViewport(new Rectangle2D(58, 104, 943, 892));
+            r.setFitWidth(20);
+            r.setFitHeight(25);
         }
         else if (a instanceof Fleche){
-            Image image  = new Image("file:src/main/resources/image/Potions & Armes/Arc&Fleche.png");
+            Image image  = new Image("file:src/main/resources/image/Potions & Armes/fleche.png");
             r.setImage(image);
-            r.setViewport(new Rectangle2D(1634, 578, 308, 2007));
+            r.setViewport(new Rectangle2D(1, 1, 30, 30));
             r.setFitWidth(20);
             r.setFitHeight(25);
         }

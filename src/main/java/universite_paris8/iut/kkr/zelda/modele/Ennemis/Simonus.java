@@ -17,9 +17,7 @@ public class Simonus extends Ennemis {
 
     @Override
     public void attaquer(ActeurEnMouvement acteurCible) {
-        if (estADistanceAttaque(acteurCible)){
-            acteurCible.decrementerPv(getPtAttaque());
-        }
+        acteurCible.decrementerPv(getPtAttaque());
         System.out.println("Un Simonus attaque Link ! Il reste " + acteurCible.getPv() + " pv à Link");
     }
 
