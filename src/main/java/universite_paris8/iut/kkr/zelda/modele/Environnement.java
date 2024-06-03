@@ -103,44 +103,47 @@ public class Environnement {
 	}
 
 
-	public boolean estPositionValide(int x, int y) {
-		int tailleTuile = 30; // Taille d'une tuile en pixels
-		int largeurPersonnage = 20; // Largeur du personnage en pixels
-		int hauteurPersonnage = 20; // Hauteur du personnage en pixels
+	public boolean verifObstacle(int x, int y, ActeurEnMouvement a) {
+
+
+		int largeurPersonnage = 30; // Largeur du personnage en pixels
+		int hauteurPersonnage = 30; // Hauteur du personnage en pixels
 
 		if (x < 0 || x + largeurPersonnage > largeur || y < 0 || y + hauteurPersonnage > hauteur) {
 			return false;
 		}
 
-		// Vérifier les 4 coins du personnage
-		int[][] coinsPersonnage = {{x, y}, {x + largeurPersonnage, y}, {x, y + hauteurPersonnage}, {x + largeurPersonnage, y + hauteurPersonnage}};
+		int tuile  = getTuile(x, y);
 
-		int tileId = getTuile(x, y);
-		switch (tileId) {
-			case 0: // Eau
-				return true;
+		switch (tuile){
+			case 0: //Eau
+				if (!(a instanceof Link)){
+					return false;
+				}
+				break;
 			case 1: // Immeubles abandonnés
+				System.out.println("Immeuble");
+				return false;
 			case 2: // Arbres
-
+				System.out.println("Arbre");
+				return false;
 			case 8: // Voiture abandonnée
+				System.out.println("Voiture");
 				return false;
 			case 4: // Coffre
-			case 5: // Rocher
-			case 6: // Poubelle
+				System.out.println("coffre");
 				return false;
-			case 9: // Herbe (passable)
-				break;
-			case 10: // Lave
-				// Logique pour enlever des points de vie sera gérée dans la classe Link
-				break;
+			case 5: // Rocher
+				System.out.println("Rocher");
+				return false;
+			case 6: // Poubelle
+				System.out.println("Poubelle");
+				return false;
+
 			default:
 				System.out.println("Où est-ce qu'on est !?");
 				break;
-
-
 		}
-
-
 		return true;
 	}
 

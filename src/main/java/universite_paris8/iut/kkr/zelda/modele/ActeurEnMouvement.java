@@ -12,6 +12,8 @@ public abstract class ActeurEnMouvement extends Acteur {
         this.pv = pv;
     }
 
+    public abstract void seDeplacer();
+
     public int getVitesse() {
         return vitesse;
     }

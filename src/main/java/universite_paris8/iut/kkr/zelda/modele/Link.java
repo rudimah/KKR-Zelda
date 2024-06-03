@@ -15,14 +15,14 @@ public class Link extends ActeurEnMouvement{
         this.inventaire = new Inventaire();
     }
 
-    public void seDeplace() {
+    public void seDeplacer() {
 
         int nouveauX = getX(), nouveauY = getY();
         int xGauche, yHaut, yBas, xDroite;
         xGauche = nouveauX;
-        xDroite = nouveauX+30;
+        xDroite = nouveauX+28;
         yHaut = nouveauY;
-        yBas = nouveauY + 30;
+        yBas = nouveauY + 28;
 
         if (tileId == 0) { // Eau
             vitesse = 1;
@@ -35,28 +35,28 @@ public class Link extends ActeurEnMouvement{
         switch (Direction) {
             case Constantes.Haut:
                 nouveauY -= vitesse;
-                if(verifObstacle(xDroite, yHaut) && verifObstacle(xGauche, yHaut)){
+                if(env.verifObstacle(xDroite, yHaut, this) && env.verifObstacle(xGauche, yHaut, this)){
                     setY(nouveauY);
                     tileId = env.getTuile(xGauche+15, yHaut);
                 }
                 break;
             case Constantes.Bas:
                 nouveauY += vitesse;
-                if(verifObstacle(xDroite, yBas) && verifObstacle(xGauche, yBas)){
+                if(env.verifObstacle(xDroite, yBas, this) && env.verifObstacle(xGauche, yBas, this)){
                     setY(nouveauY);
                     tileId = env.getTuile(xGauche+15, yBas);
                 }
                 break;
             case Constantes.Droite:
                 nouveauX += vitesse;
-                if(verifObstacle(xDroite, yHaut) && verifObstacle(xDroite, yBas)){
+                if(env.verifObstacle(xDroite, yHaut, this) && env.verifObstacle(xDroite, yBas, this)){
                     setX(nouveauX);
                     tileId = env.getTuile(xGauche, yHaut+15);
                 }
                 break;
             case Constantes.Gauche:
                 nouveauX -= vitesse;
-                if(verifObstacle(xGauche, yHaut) && verifObstacle(xGauche, yBas)){
+                if(env.verifObstacle(xGauche, yHaut, this) && env.verifObstacle(xGauche, yBas, this)){
                     setX(nouveauX);
                     tileId = env.getTuile(xGauche, yHaut+15);
                 }
@@ -69,34 +69,6 @@ public class Link extends ActeurEnMouvement{
         ramasserItem();
         System.out.println("s'est déplacé en (" + getX() + ", " + getY() + ")");
 
-    }
-    public boolean verifObstacle(int x, int y){
-        int tuile  = env.getTuile(x, y);
-        switch (tuile){
-            case 1: // Immeubles abandonnés
-                System.out.println("Immeuble");
-                return false;
-            case 2: // Arbres
-                System.out.println("Arbre");
-                return false;
-            case 8: // Voiture abandonnée
-                System.out.println("Voiture");
-                return false;
-            case 4: // Coffre
-                System.out.println("coffre");
-                return false;
-            case 5: // Rocher
-                System.out.println("Rocher");
-                return false;
-            case 6: // Poubelle
-                System.out.println("Poubelle");
-                return false;
-
-            default:
-                System.out.println("Où est-ce qu'on est !?");
-                break;
-        }
-        return true;
     }
     public int getDirection(){return Direction;}
     public void setDirection(int d){Direction = d;}

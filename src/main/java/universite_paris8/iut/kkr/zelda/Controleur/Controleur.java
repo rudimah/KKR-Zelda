@@ -14,7 +14,6 @@ import javafx.util.Duration;
 import universite_paris8.iut.kkr.zelda.Vue.TerrainVue;
 import universite_paris8.iut.kkr.zelda.Vue.VueLink;
 import universite_paris8.iut.kkr.zelda.modele.*;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 
@@ -98,7 +97,7 @@ public class Controleur implements Initializable {
     private void initAnimation() {
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.15), event -> {
             env.miseAJour();
-            link.seDeplace();
+            link.seDeplacer();
         });
         gameLoop = new Timeline(keyFrame);
         gameLoop.setCycleCount(Timeline.INDEFINITE);

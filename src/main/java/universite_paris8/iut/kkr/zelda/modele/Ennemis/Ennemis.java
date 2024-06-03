@@ -17,7 +17,7 @@ public abstract class Ennemis extends ActeurEnMouvement {
         if (link != null) {
             int dx = link.getX() - getX();
             int dy = link.getY() - getY();
-            if(env.estPositionValide(dx, dy)){
+            if(env.verifObstacle(dx, dy, this)){
                 setX(getX() + Integer.signum(dx) * getVitesse());
                 setY(getY() + Integer.signum(dy) * getVitesse());
             }
