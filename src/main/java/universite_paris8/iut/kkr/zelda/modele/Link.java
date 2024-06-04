@@ -13,7 +13,7 @@ public class Link extends ActeurEnMouvement{
     private Arme armeActuelle;
     private int vitesse;
     public Link(Environnement env) {
-        super(80, 50, 2, env, 40, 10);
+        super(80, 50, 10, env, 40, 10);
         this.inventaire = new Inventaire();
     }
 

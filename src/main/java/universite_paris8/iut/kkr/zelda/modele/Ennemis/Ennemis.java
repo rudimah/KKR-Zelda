@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 
 public abstract class Ennemis extends ActeurEnMouvement {
+    private int toursFige=0;
 
     public Ennemis(int x, int y, int vitesse, Environnement env, int pointsDeVie, int ptAttaque) {
         super(x, y, vitesse, env, pointsDeVie, ptAttaque);
@@ -15,6 +16,10 @@ public abstract class Ennemis extends ActeurEnMouvement {
 
 
     public void seDeplacer() {
+        if (toursFige > 0) {
+            toursFige--;
+            return;
+        }
         Acteur link = env.getLink();
         if (link != null) {
             int dx = link.getX() - getX();
@@ -39,6 +44,18 @@ public abstract class Ennemis extends ActeurEnMouvement {
     @Override
     public Environnement getEnv() {
         return super.getEnv();
+    }
+    public void figer(int nbTours) {
+        toursFige = nbTours;
+    }
+
+    public boolean estFige() {
+        return toursFige > 0;
+    }
+    public void decrementerToursFige() {
+        if (toursFige > 0) {
+            toursFige--;
+        }
     }
 
     @Override

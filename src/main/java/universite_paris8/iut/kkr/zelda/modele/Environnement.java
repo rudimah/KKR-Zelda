@@ -105,8 +105,6 @@ public class Environnement {
 
 
 	public boolean verifObstacle(int x, int y, ActeurEnMouvement a) {
-
-
 		int largeurPersonnage = 30; // Largeur du personnage en pixels
 		int hauteurPersonnage = 30; // Hauteur du personnage en pixels
 
@@ -114,56 +112,69 @@ public class Environnement {
 			return false;
 		}
 
-		int tuile  = getTuile(x, y);
+		int tuile = getTuile(x, y);
 
-		switch (tuile){
-			case 0: //Eau
-				if (!(a instanceof Link)){
+		switch (tuile) {
+			case 0: // Eau
+				if (!(a instanceof Link)) {
 					return false;
 				}
 				break;
 			case 1: // Immeubles abandonnés
-				System.out.println("Immeuble");
 				return false;
 			case 2: // Arbres
-				System.out.println("Arbre");
 				return false;
 			case 8: // Voiture abandonnée
-				System.out.println("Voiture");
 				return false;
 			case 4: // Coffre
-				System.out.println("coffre");
 				return false;
 			case 5: // Rocher
-				System.out.println("Rocher");
 				return false;
 			case 6: // Poubelle
-				System.out.println("Poubelle");
 				return false;
-
 			default:
-				System.out.println("Où est-ce qu'on est !?");
 				break;
 		}
 		return true;
 	}
 
+
+//	public void agir() {
+//		ActeurEnMouvement link = (ActeurEnMouvement) this.getLink();
+//		if (link != null) {
+//			if (!this.getActeurs().isEmpty()) {
+//				ArrayList<Acteur> acteurs = new ArrayList<>(this.getActeurs());
+//				for (Acteur acteur : acteurs) {
+//					if (acteur instanceof ActeurEnMouvement) {
+//						ActeurEnMouvement acteurEnMouvement = (ActeurEnMouvement) acteur;
+//						acteurEnMouvement.VerifEstVivant();
+//						if (acteurEnMouvement instanceof Ennemis) {
+//							Ennemis ennemi = (Ennemis) acteurEnMouvement;
+//							if (ennemi.estADistanceAttaque(link)) {
+//								ennemi.attaquer(link);
+//							} else {
+//								ennemi.seDeplacer();
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+
 	public void agir() {
 		ActeurEnMouvement link = (ActeurEnMouvement) this.getLink();
 		if (link != null) {
-			if (!this.getActeurs().isEmpty()) {
-				ArrayList<Acteur> acteurs = new ArrayList<>(this.getActeurs());
-				for (Acteur acteur : acteurs) {
-					if (acteur instanceof ActeurEnMouvement) {
-						ActeurEnMouvement acteurEnMouvement = (ActeurEnMouvement) acteur;
-						acteurEnMouvement.VerifEstVivant();
-						if (acteurEnMouvement instanceof Ennemis) {
-							Ennemis ennemi = (Ennemis) acteurEnMouvement;
-							if (ennemi.estADistanceAttaque(link)) {
-								ennemi.attaquer(link);
-							} else {
-								ennemi.seDeplacer();
-							}
+			ArrayList<Acteur> acteurs = new ArrayList<>(this.getActeurs());
+			for (Acteur acteur : acteurs) {
+				if (acteur instanceof Ennemis) {
+					Ennemis ennemi = (Ennemis) acteur;
+					ennemi.decrementerToursFige();
+					if (!ennemi.estFige()) {
+						if (ennemi.estADistanceAttaque(link)) {
+							ennemi.attaquer(link);
+						} else {
+							ennemi.seDeplacer();
 						}
 					}
 				}

@@ -41,7 +41,7 @@ public class Controleur implements Initializable {
     private TerrainVue terrainVue;
     private VueLink afficherlink;
 
-    private int direction;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
