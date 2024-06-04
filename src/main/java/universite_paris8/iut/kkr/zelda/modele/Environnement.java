@@ -182,10 +182,10 @@ public class Environnement {
 		}
 	}
 
-	public Acteur getLink() {
+	public Link getLink() {
 		for (Acteur a : acteurs) {
 			if (a instanceof Link) {
-				return a;
+				return (Link) a;
 			}
 		}
 		return null;
@@ -195,7 +195,6 @@ public class Environnement {
 	public ActeurEnMouvement trouverEnnemiLePlusProche(int x, int y) {
 		ActeurEnMouvement ennemiLePlusProche = null;
 		double distanceMin = Double.MAX_VALUE;
-
 		for (Acteur acteur : acteurs) {
 			if (acteur instanceof Ennemis) {
 				double distance = Math.sqrt(Math.pow(acteur.getX() - x, 2) + Math.pow(acteur.getY() - y, 2));

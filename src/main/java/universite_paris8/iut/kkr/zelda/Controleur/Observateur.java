@@ -27,7 +27,7 @@ public class Observateur implements ListChangeListener<ObjetEnvironnement> {
             System.out.println("Item ajouté à l'environnement");
             if (change.wasAdded()){
                 for (ObjetEnvironnement a: change.getAddedSubList()) {
-                    creerSprite(a);
+                    creerItem(a);
                 }
             } else if (change.wasRemoved()) {
                 for (ObjetEnvironnement a : change.getRemoved()){
@@ -36,10 +36,10 @@ public class Observateur implements ListChangeListener<ObjetEnvironnement> {
             }
         }
     }
-    private void creerSprite(ObjetEnvironnement a) {
+    private void creerItem(ObjetEnvironnement a) {
         System.out.println("ajouter sprite");
         ImageView r;
-        r= new ImageView();
+        r = new ImageView();
         if (a instanceof PotionAcide){
             Image image  = new Image("file:src/main/resources/image/Potions & Armes/pt3.png");
             r.setImage(image);
@@ -125,4 +125,5 @@ public class Observateur implements ListChangeListener<ObjetEnvironnement> {
         r.translateYProperty().bind(a.yProperty());
         panneauJeu.getChildren().add(r);
     }
+
 }

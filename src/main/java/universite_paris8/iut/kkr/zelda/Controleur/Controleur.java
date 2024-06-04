@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.InvalidationListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
@@ -59,7 +60,7 @@ public class Controleur implements Initializable {
         env.ajouterItem(new PotionBleue(200,700));
         env.ajouterItem(new Epee(300,300));
         env.ajouterItem(new Sabre(300,450));
-        env.ajouterItem(new Arc(500,450));
+        env.ajouterItem(new Flute(500,450,env));
         env.ajouterActeur(new Link(env));
         env.ajouterActeur(new Reltih(env,panneauDeJeu,tilepane));
         env.ajouterItem(new PotionAcide(200, 100));
@@ -92,7 +93,7 @@ public class Controleur implements Initializable {
         switch (touchePresse){
             case F:
                 ActeurEnMouvement ennemiLePlusProche = env.trouverEnnemiLePlusProche(link.getX(), link.getY());
-                if (ennemiLePlusProche != null && link.estADistanceAttaque(ennemiLePlusProche)) {
+                if (link.estADistanceAttaque(ennemiLePlusProche)){
                     link.attaquer(ennemiLePlusProche);
                 } else {
                     System.out.println("Aucun ennemi à attaquer à proximité.");
@@ -100,6 +101,12 @@ public class Controleur implements Initializable {
                 break;
             case A:
                 link.equiperArme();
+                break;
+            case X:
+                link.equiperAccessoire();
+                break;
+            case C:
+                link.utilserAccessoire();
                 break;
         }
     }
