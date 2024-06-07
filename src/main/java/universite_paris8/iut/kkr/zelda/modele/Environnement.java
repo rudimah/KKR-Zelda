@@ -95,7 +95,7 @@ public class Environnement {
 
 		int colonneGrille = (x) / 30; // Calculer l'indice de la colonne de la grille correspondant à la position x
 		int ligneGrille = (y) / 30; // Calculer l'indice de la ligne de la grille correspondant à la position y
-		System.out.println("[" + ligneGrille + "]" + "[" + colonneGrille + "]  = " + tableauMap[ligneGrille][colonneGrille]);
+//		System.out.println("[" + ligneGrille + "]" + "[" + colonneGrille + "]  = " + tableauMap[ligneGrille][colonneGrille]);
 		return tableauMap[ligneGrille][colonneGrille];
 	}
 
@@ -105,8 +105,6 @@ public class Environnement {
 
 
 	public boolean verifObstacle(int x, int y, ActeurEnMouvement a) {
-
-
 		int largeurPersonnage = 30; // Largeur du personnage en pixels
 		int hauteurPersonnage = 30; // Hauteur du personnage en pixels
 
@@ -114,56 +112,70 @@ public class Environnement {
 			return false;
 		}
 
-		int tuile  = getTuile(x, y);
+		int tuile = getTuile(x, y);
 
-		switch (tuile){
-			case 0: //Eau
-				if (!(a instanceof Link)){
+		switch (tuile) {
+			case 0: // Eau
+				if (!(a instanceof Link)) {
 					return false;
 				}
 				break;
 			case 1: // Immeubles abandonnés
-				System.out.println("Immeuble");
 				return false;
 			case 2: // Arbres
-				System.out.println("Arbre");
 				return false;
 			case 8: // Voiture abandonnée
-				System.out.println("Voiture");
 				return false;
 			case 4: // Coffre
-				System.out.println("coffre");
 				return false;
 			case 5: // Rocher
-				System.out.println("Rocher");
 				return false;
 			case 6: // Poubelle
-				System.out.println("Poubelle");
 				return false;
-
 			default:
-				System.out.println("Où est-ce qu'on est !?");
 				break;
 		}
 		return true;
 	}
 
+
+//	public void agir() {
+//		ActeurEnMouvement link = (ActeurEnMouvement) this.getLink();
+//		if (link != null) {
+//			if (!this.getActeurs().isEmpty()) {
+//				ArrayList<Acteur> acteurs = new ArrayList<>(this.getActeurs());
+//				for (Acteur acteur : acteurs) {
+//					if (acteur instanceof ActeurEnMouvement) {
+//						ActeurEnMouvement acteurEnMouvement = (ActeurEnMouvement) acteur;
+//						acteurEnMouvement.VerifEstVivant();
+//						if (acteurEnMouvement instanceof Ennemis) {
+//							Ennemis ennemi = (Ennemis) acteurEnMouvement;
+//							if (ennemi.estADistanceAttaque(link)) {
+//								ennemi.attaquer(link);
+//							} else {
+//								ennemi.seDeplacer();
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+
 	public void agir() {
 		ActeurEnMouvement link = (ActeurEnMouvement) this.getLink();
 		if (link != null) {
-			if (!this.getActeurs().isEmpty()) {
-				ArrayList<Acteur> acteurs = new ArrayList<>(this.getActeurs());
-				for (Acteur acteur : acteurs) {
-					if (acteur instanceof ActeurEnMouvement) {
-						ActeurEnMouvement acteurEnMouvement = (ActeurEnMouvement) acteur;
-						acteurEnMouvement.VerifEstVivant();
-						if (acteurEnMouvement instanceof Ennemis) {
-							Ennemis ennemi = (Ennemis) acteurEnMouvement;
-							if (ennemi.estADistanceAttaque(link)) {
-								ennemi.attaquer(link);
-							} else {
-								ennemi.seDeplacer();
-							}
+			ArrayList<Acteur> acteurs = new ArrayList<>(this.getActeurs());
+			for (Acteur acteur : acteurs) {
+				if (acteur instanceof Ennemis) {
+					Ennemis ennemi = (Ennemis) acteur;
+					ennemi.VerifEstVivant();
+					ennemi.decrementerToursFige();
+					if (!ennemi.estFige()) {
+						if (ennemi.estADistanceAttaque(link)) {
+							ennemi.attaquer(link);
+						} else if (verifObstacle(link.getX(), link.getY(), ennemi)){
+							ennemi.seDeplacer();
 						}
 					}
 				}
@@ -171,10 +183,10 @@ public class Environnement {
 		}
 	}
 
-	public Acteur getLink() {
+	public Link getLink() {
 		for (Acteur a : acteurs) {
 			if (a instanceof Link) {
-				return a;
+				return (Link) a;
 			}
 		}
 		return null;
@@ -184,7 +196,6 @@ public class Environnement {
 	public ActeurEnMouvement trouverEnnemiLePlusProche(int x, int y) {
 		ActeurEnMouvement ennemiLePlusProche = null;
 		double distanceMin = Double.MAX_VALUE;
-
 		for (Acteur acteur : acteurs) {
 			if (acteur instanceof Ennemis) {
 				double distance = Math.sqrt(Math.pow(acteur.getX() - x, 2) + Math.pow(acteur.getY() - y, 2));
@@ -212,4 +223,8 @@ public class Environnement {
 		}
 		return ennemisProches;
 	}
+
+	public int getLargeur() {return largeur;}
+
+	public int getHauteur() {return hauteur;}
 }

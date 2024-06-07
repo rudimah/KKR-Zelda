@@ -1,9 +1,11 @@
 package universite_paris8.iut.kkr.zelda.Controleur;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.InvalidationListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
@@ -19,6 +21,7 @@ import universite_paris8.iut.kkr.zelda.modele.Accessoires.Bouclier;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Flute;
 import universite_paris8.iut.kkr.zelda.modele.Arme.*;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis.Simonus;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionBleue;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionFeu;
@@ -28,51 +31,61 @@ import universite_paris8.iut.kkr.zelda.utils.Constantes;
 public class Controleur implements Initializable {
     private Timeline gameLoop;
     private Environnement env;
-    private ActeurEnMouvement acteur;
     @FXML
     private TilePane tilepane;
     @FXML
     private Pane panneauDeJeu;
+    @FXML
+    private Pane panneauDeJeu2;
     private int vitesseNormale;
     private Link link;
     private TerrainVue terrainVue;
     private VueLink afficherlink;
 
-    private int direction;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.env = new Environnement(800, 800);
         terrainVue = new TerrainVue(env, tilepane);
+        tilepane.setPrefColumns(env.getTableauMap()[0].length);
+        tilepane.setPrefRows(env.getTableauMap().length);
         link = new Link(env);
 
         // Save the initial normal speed
         this.vitesseNormale = link.getVitesse();
 
         this.env.getItems().addListener(new Observateur(panneauDeJeu));
-        env.ajouterItem(new PotionAcide(200,100));
-        env.ajouterItem(new PotionFeu(200,300));
-        env.ajouterItem(new PotionForce(200,450));
-        env.ajouterItem(new PotionBleue(200,700));
+        this.env.getActeurs().addListener(new ObservateurEnnemi(panneauDeJeu));
         env.ajouterItem(new Epee(300,300));
         env.ajouterItem(new Sabre(300,450));
-        env.ajouterItem(new Arc(500,450));
-        env.ajouterActeur(new Link(env));
-        env.ajouterActeur(new Reltih(env,panneauDeJeu,tilepane));
+        env.ajouterItem(new Flute(500,450,env));
+        env.ajouterActeur(link);
+//        env.ajouterActeur(new Reltih(env));
+//        env.ajouterActeur(new Simonus(env));
         env.ajouterItem(new PotionAcide(200, 100));
         env.ajouterActeur(link);
         // env.ajouterActeur(new Reltih(env, panneauDeJeu, tilepane));
         afficherlink = new VueLink(env, link, panneauDeJeu);
 
         terrainVue.afficherMap();
+
         panneauDeJeu.setFocusTraversable(true);
         panneauDeJeu.setOnKeyPressed(this::gererTouch);
         panneauDeJeu.setOnKeyReleased(this::handleKeyRelease);
+
         link.getXProperty().addListener(afficherlink);
         link.getYProperty().addListener(afficherlink);
 
+        tilepane.setMaxWidth(panneauDeJeu.getMaxWidth());
+        tilepane.setMaxHeight(panneauDeJeu.getMaxHeight());
+
+
+
         initAnimation();
+
     }
+
 
     private void gererTouch(KeyEvent event) {
         KeyCode touchePresse = event.getCode();
@@ -89,7 +102,7 @@ public class Controleur implements Initializable {
         switch (touchePresse){
             case F:
                 ActeurEnMouvement ennemiLePlusProche = env.trouverEnnemiLePlusProche(link.getX(), link.getY());
-                if (ennemiLePlusProche != null && link.estADistanceAttaque(ennemiLePlusProche)) {
+                if (link.estADistanceAttaque(ennemiLePlusProche)){
                     link.attaquer(ennemiLePlusProche);
                 } else {
                     System.out.println("Aucun ennemi à attaquer à proximité.");
@@ -97,6 +110,12 @@ public class Controleur implements Initializable {
                 break;
             case A:
                 link.equiperArme();
+                break;
+            case X:
+                link.equiperAccessoire();
+                break;
+            case C:
+                link.utilserAccessoire();
                 break;
         }
     }
@@ -138,4 +157,6 @@ public class Controleur implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         gameLoop.play();
     }
+
+
 }

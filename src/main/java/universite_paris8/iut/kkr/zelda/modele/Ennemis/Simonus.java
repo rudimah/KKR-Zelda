@@ -6,13 +6,8 @@ import universite_paris8.iut.kkr.zelda.modele.ActeurEnMouvement;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 
 public class Simonus extends Ennemis {
-    private Pane panneauDeJeu;
-    private TilePane tilePane;
-
-    public Simonus(Environnement env, Pane pj, TilePane tilePane) {
+    public Simonus(Environnement env) {
         super(0, 0, 3, env, 15, 0);
-        this.panneauDeJeu = pj;
-        this.tilePane = tilePane;
     }
 
     @Override
@@ -22,5 +17,5 @@ public class Simonus extends Ennemis {
     }
 
     @Override
-    public String toString() {return "un Relith";}
+    public String toString() {return "un Simonus";}
 }

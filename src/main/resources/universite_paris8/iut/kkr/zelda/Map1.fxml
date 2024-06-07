@@ -6,13 +6,17 @@
 <?import javafx.scene.layout.*?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.kkr.zelda.Controleur.Controleur">
+<BorderPane  xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.kkr.zelda.Controleur.Controleur">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0">
    <children>
-      <TilePane fx:id="tilepane" prefHeight="400.0" prefWidth="810" />
       <Pane prefHeight="180.0" prefWidth="180.0" fx:id="panneauDeJeu">
-         <children>
-            <Label fx:id="positionLabel" layoutX="14.0" layoutY="14.0" />
-         </children>
+
+      <TilePane fx:id="tilepane" prefHeight="400.0" prefWidth="810" />
+      </Pane>
+      <Pane prefHeight="180.0" prefWidth="180.0" fx:id="panneauDeJeu2">
+
       </Pane>
    </children>
 </Pane>
+
+</BorderPane>

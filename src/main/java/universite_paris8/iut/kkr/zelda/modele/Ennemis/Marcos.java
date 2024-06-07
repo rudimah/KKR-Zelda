@@ -6,13 +6,9 @@ import universite_paris8.iut.kkr.zelda.modele.ActeurEnMouvement;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 
 public class Marcos extends Ennemis {
-    private Pane panneauDeJeu;
-    private TilePane tilePane;
 
-    public Marcos(Environnement env, Pane pj, TilePane tilePane) {
+    public Marcos(Environnement env) {
         super(0,0 , 2, env, 15, 0);
-        this.panneauDeJeu = pj;
-        this.tilePane = tilePane;
     }
 
     @Override

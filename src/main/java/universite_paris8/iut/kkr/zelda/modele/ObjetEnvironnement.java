@@ -10,6 +10,7 @@ public class ObjetEnvironnement {
     private static int compteur = 0;
     private String id;
 
+    protected Environnement env;
     private boolean estRamassé = false;
 
 
