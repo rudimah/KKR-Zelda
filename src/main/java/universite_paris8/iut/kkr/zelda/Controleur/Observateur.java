@@ -5,10 +5,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.BottesAres;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Bouclier;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Flute;
@@ -127,7 +124,5 @@ public class Observateur implements ListChangeListener<ObjetEnvironnement> {
         element.translateXProperty().bind(a.xProperty());
         element.translateYProperty().bind(a.yProperty());
         panneauJeu.getChildren().add(element);
-        System.out.println("ajouter sprite");
     }
-
 }
