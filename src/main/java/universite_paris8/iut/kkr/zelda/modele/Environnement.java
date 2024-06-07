@@ -95,7 +95,7 @@ public class Environnement {
 
 		int colonneGrille = (x) / 30; // Calculer l'indice de la colonne de la grille correspondant à la position x
 		int ligneGrille = (y) / 30; // Calculer l'indice de la ligne de la grille correspondant à la position y
-		System.out.println("[" + ligneGrille + "]" + "[" + colonneGrille + "]  = " + tableauMap[ligneGrille][colonneGrille]);
+//		System.out.println("[" + ligneGrille + "]" + "[" + colonneGrille + "]  = " + tableauMap[ligneGrille][colonneGrille]);
 		return tableauMap[ligneGrille][colonneGrille];
 	}
 
@@ -169,11 +169,12 @@ public class Environnement {
 			for (Acteur acteur : acteurs) {
 				if (acteur instanceof Ennemis) {
 					Ennemis ennemi = (Ennemis) acteur;
+					ennemi.VerifEstVivant();
 					ennemi.decrementerToursFige();
 					if (!ennemi.estFige()) {
 						if (ennemi.estADistanceAttaque(link)) {
 							ennemi.attaquer(link);
-						} else {
+						} else if (verifObstacle(link.getX(), link.getY(), ennemi)){
 							ennemi.seDeplacer();
 						}
 					}
@@ -222,4 +223,8 @@ public class Environnement {
 		}
 		return ennemisProches;
 	}
+
+	public int getLargeur() {return largeur;}
+
+	public int getHauteur() {return hauteur;}
 }

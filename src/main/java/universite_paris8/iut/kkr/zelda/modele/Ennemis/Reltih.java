@@ -6,13 +6,9 @@ import universite_paris8.iut.kkr.zelda.modele.ActeurEnMouvement;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 
 public class Reltih extends Ennemis {
-    private Pane panneauDeJeu;
-    private TilePane tilePane;
 
-    public Reltih(Environnement env, Pane pj, TilePane tilePane) {
-        super(0, 0, 1, env, 15, 0);
-        this.panneauDeJeu = pj;
-        this.tilePane = tilePane;
+    public Reltih(Environnement env) {
+        super(60, 60, 1, env, 15, 0);
     }
 
     @Override

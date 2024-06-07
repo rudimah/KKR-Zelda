@@ -2,13 +2,23 @@ package universite_paris8.iut.kkr.zelda.modele.Ennemis;
 
 import universite_paris8.iut.kkr.zelda.modele.Acteur;
 import universite_paris8.iut.kkr.zelda.modele.ActeurEnMouvement;
+import universite_paris8.iut.kkr.zelda.modele.Algos.BFS;
+import universite_paris8.iut.kkr.zelda.modele.Algos.Coordonnees;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public abstract class Ennemis extends ActeurEnMouvement {
-    private int toursFige=0;
+    private int toursFige = 0;
+
+    private BFS bfs = new BFS(env);
+
+    private int positionLinkX =0;
+    private int positionLinkY = 0;
+    private List<Coordonnees> cheminBFS;
+
 
     public Ennemis(int x, int y, int vitesse, Environnement env, int pointsDeVie, int ptAttaque) {
         super(x, y, vitesse, env, pointsDeVie, ptAttaque);
@@ -22,23 +32,18 @@ public abstract class Ennemis extends ActeurEnMouvement {
         }
         Acteur link = env.getLink();
         if (link != null) {
-            int dx = link.getX() - getX();
-            int dy = link.getY() - getY();
-            int nouveauX = getX();
-            int nouveauY = getY();
-            if (dx != 0) {
-                nouveauX += (dx > 0) ? getVitesse() : -getVitesse();
-            }
-            if (dy != 0) {
-                nouveauY += (dy > 0) ? getVitesse() : -getVitesse();
-            }
-            if(env.verifObstacle(dx, dy, this)){
-                setX(getX() + Integer.signum(dx) * getVitesse());
-                setY(getY() + Integer.signum(dy) * getVitesse());
+            int linkX = link.getX();
+            int linkY = link.getY();
+            cheminBFS = bfs.trouverCheminBFS(this, linkX, linkY);
+            if (cheminBFS != null && !cheminBFS.isEmpty() && cheminBFS.size() > 1) {
+                Coordonnees prochainNoeud = cheminBFS.get(1);
+                setX(prochainNoeud.getX());
+                setY(prochainNoeud.getY());
             }
         }
-        System.out.println("Ennemi se déplace en (" + getX() + ',' + getY() +')' );
+        System.out.println("Ennemi se déplace en (" + getX() + ',' + getY() + ')');
     }
+
 
 
     @Override
@@ -52,6 +57,7 @@ public abstract class Ennemis extends ActeurEnMouvement {
     public boolean estFige() {
         return toursFige > 0;
     }
+
     public void decrementerToursFige() {
         if (toursFige > 0) {
             toursFige--;

@@ -5,7 +5,7 @@ import universite_paris8.iut.kkr.zelda.modele.*;
 public abstract class Accessoires extends ObjetEnvironnement {
     private int reductionDegats;
     private int augmentationVitesse;
-    private int augmentationPortee;
+    private int portee;
 
     protected Environnement env;
 
@@ -14,9 +14,11 @@ public abstract class Accessoires extends ObjetEnvironnement {
         super(nom, x, y);
         this.reductionDegats = reductionDegats;
         this.augmentationVitesse = augmentationVitesse;
-        this.augmentationPortee = augmentationPortee;
+        this.portee = augmentationPortee;
         this.env = env;
     }
+
+    public int getPortee() {return portee;}
 
     public abstract void appliquerEffet();
 

@@ -7,13 +7,10 @@ import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 
 public class Bonnoctus extends Ennemis {
-    private Pane panneauDeJeu;
-    private TilePane tilePane;
 
-    public Bonnoctus(Environnement env, Pane pj, TilePane tilePane) {
+
+    public Bonnoctus(Environnement env) {
         super(0, 0, 3, env, 10000, 250);
-        this.panneauDeJeu = pj;
-        this.tilePane = tilePane;
     }
 
     @Override
