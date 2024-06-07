@@ -123,9 +123,9 @@ public class Link extends ActeurEnMouvement{
         if (armes.size() == 1) {
             armeActuelle = armes.get(0);
         } else if (armes.size() > 1) {
-            int currentIndex = armes.indexOf(armeActuelle);
-            currentIndex = (currentIndex + 1) % armes.size();
-            armeActuelle = armes.get(currentIndex);
+            int armeActuelles = armes.indexOf(armeActuelle);
+            armeActuelles = (armeActuelles + 1) % armes.size();
+            armeActuelle = armes.get(armeActuelles);
         }
         if (armeActuelle != null) {
             System.out.println("Link a équipé l'arme : " + armeActuelle.getNom());
@@ -133,6 +133,10 @@ public class Link extends ActeurEnMouvement{
             System.out.println("Link n'a pas d'arme à équiper.");
         }
     }
+
+//    public String parler(){
+//        //
+//    }
 
 
     public Arme getArme() {

@@ -32,4 +32,5 @@ public class Inventaire {
         }
         System.out.println(']');
     }
+
 }

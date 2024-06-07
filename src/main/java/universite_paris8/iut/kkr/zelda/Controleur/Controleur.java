@@ -21,6 +21,7 @@ import universite_paris8.iut.kkr.zelda.modele.Arme.Arc;
 import universite_paris8.iut.kkr.zelda.modele.Arme.Epee;
 import universite_paris8.iut.kkr.zelda.modele.Arme.Fleche;
 import universite_paris8.iut.kkr.zelda.modele.Arme.Sabre;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis.Marcos;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionBleue;
@@ -49,10 +50,10 @@ public class Controleur implements Initializable {
         terrainVue = new TerrainVue(env, tilepane);
         link = new Link(env);
 
-        // Save the initial normal speed
         this.vitesseNormale = link.getVitesse();
 
         this.env.getItems().addListener(new Observateur(panneauDeJeu));
+        this.env.getActeurs().addListener(new ObservateurEnnemi(panneauDeJeu));
         env.ajouterItem(new PotionAcide(200,100));
         env.ajouterItem(new PotionFeu(200,300));
         env.ajouterItem(new PotionForce(200,450));
@@ -60,13 +61,10 @@ public class Controleur implements Initializable {
         env.ajouterItem(new Epee(300,300));
         env.ajouterItem(new Sabre(300,450));
         env.ajouterItem(new Arc(500,450));
-        env.ajouterActeur(new Link(env));
-        env.ajouterActeur(new Reltih(env,panneauDeJeu,tilepane));
-        env.ajouterItem(new PotionAcide(200, 100));
         env.ajouterActeur(link);
-        // env.ajouterActeur(new Reltih(env, panneauDeJeu, tilepane));
+        env.ajouterActeur(new Reltih(env)); // Assurez-vous que Reltih est correctement implémenté
+        env.ajouterItem(new PotionAcide(200, 100));
         afficherlink = new VueLink(env, link, panneauDeJeu);
-
         terrainVue.afficherMap();
         panneauDeJeu.setFocusTraversable(true);
         panneauDeJeu.setOnKeyPressed(this::gererTouch);
@@ -76,6 +74,7 @@ public class Controleur implements Initializable {
 
         initAnimation();
     }
+
 
     private void gererTouch(KeyEvent event) {
         KeyCode touchePresse = event.getCode();
@@ -133,7 +132,7 @@ public class Controleur implements Initializable {
     }
 
     private void initAnimation() {
-        KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.15), event -> {
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.10), event -> {
             env.agir();
             link.seDeplacer();
         });

@@ -16,6 +16,7 @@ public class Environnement {
 	private ObservableList<Acteur> acteurs;
 	private ObservableList<ObjetEnvironnement> items;
 	private IntegerProperty nbToursProperty;
+	private BFS bfs;
 
 	private int[][] tableauMap = {
 			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
@@ -48,17 +49,25 @@ public class Environnement {
 	};
 
 	public Environnement(int largeur, int hauteur) {
-		super();
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		this.nbToursProperty = new SimpleIntegerProperty(0);
 		this.acteurs = FXCollections.observableArrayList();
 		this.items = FXCollections.observableArrayList();
+		this.bfs=new BFS(this);
 
 	}
 
 	public int[][] getTableauMap() {
 		return this.tableauMap;
+	}
+
+	public int getLargeur(){
+		return this.largeur;
+	}
+
+	public int getHauteur() {
+		return hauteur;
 	}
 
 
@@ -95,7 +104,7 @@ public class Environnement {
 
 		int colonneGrille = (x) / 30; // Calculer l'indice de la colonne de la grille correspondant à la position x
 		int ligneGrille = (y) / 30; // Calculer l'indice de la ligne de la grille correspondant à la position y
-		System.out.println("[" + ligneGrille + "]" + "[" + colonneGrille + "]  = " + tableauMap[ligneGrille][colonneGrille]);
+		System.out.print( ligneGrille + colonneGrille + " = " + tableauMap[ligneGrille][colonneGrille]);
 		return tableauMap[ligneGrille][colonneGrille];
 	}
 
@@ -165,22 +174,29 @@ public class Environnement {
 	public void agir() {
 		ActeurEnMouvement link = (ActeurEnMouvement) this.getLink();
 		if (link != null) {
+			System.out.println("Link trouvé à (" + link.getX() + ", " + link.getY() + ")");
 			ArrayList<Acteur> acteurs = new ArrayList<>(this.getActeurs());
 			for (Acteur acteur : acteurs) {
 				if (acteur instanceof Ennemis) {
 					Ennemis ennemi = (Ennemis) acteur;
+					System.out.println("Ennemi trouvé à (" + ennemi.getX() + ", " + ennemi.getY() + ")");
 					ennemi.decrementerToursFige();
 					if (!ennemi.estFige()) {
 						if (ennemi.estADistanceAttaque(link)) {
 							ennemi.attaquer(link);
+							System.out.println("Ennemi attaque Link");
 						} else {
 							ennemi.seDeplacer();
 						}
 					}
 				}
 			}
+		} else {
+			System.out.println("Link non trouvé");
 		}
 	}
+
+
 
 	public Acteur getLink() {
 		for (Acteur a : acteurs) {
@@ -223,4 +239,12 @@ public class Environnement {
 		}
 		return ennemisProches;
 	}
+	public int[] trouverCheminVersLink(int startX, int startY, int destX, int destY) {
+		return bfs.effectuerBFS(startX, startY, destX, destY);
+	}
+
+
+
+
+
 }

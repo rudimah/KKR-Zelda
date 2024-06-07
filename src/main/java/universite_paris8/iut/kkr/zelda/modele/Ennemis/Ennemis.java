@@ -16,30 +16,52 @@ public abstract class Ennemis extends ActeurEnMouvement {
 
 
     public void seDeplacer() {
+        System.out.println("Tentative de déplacement de " + this + " en cours");
+
         if (toursFige > 0) {
             toursFige--;
+            System.out.println("Ennemi figé pour " + toursFige + " tours");
             return;
         }
+
         Acteur link = env.getLink();
-        if (link != null) {
-            int dx = link.getX() - getX();
-            int dy = link.getY() - getY();
-            int nouveauX = getX();
-            int nouveauY = getY();
-            if (dx != 0) {
-                nouveauX += (dx > 0) ? getVitesse() : -getVitesse();
+        if (link == null) {
+            System.out.println("Link n'est pas trouvé ");
+            return;
+        }
+
+        System.out.println("Coordonnées actuelles de l'ennemi : (" + getX() + ", " + getY() + ")");
+        System.out.println("Coordonnées de Link : (" + link.getX() + ", " + link.getY() + ")");
+
+        int[] destination = env.trouverCheminVersLink(getX(), getY(), link.getX(), link.getY());
+        if (destination == null) {
+            System.out.println("Aucun chemin vers Link");
+            return;
+        }
+
+        System.out.println("Destination trouvée : (" + destination[0] + ", " + destination[1] + ")");
+
+        int maxRetries = 10;
+        while (!env.verifObstacle(destination[0], destination[1], this)) {
+            System.out.println("Essaye de trouver son chemin sans obstacle. Tentative restante: " + maxRetries);
+
+            destination = env.trouverCheminVersLink(getX(), getY(), link.getX(), link.getY());
+            if (destination == null) {
+                System.out.println("Aucun chemin trouvé après recalcul");
+                return;
             }
-            if (dy != 0) {
-                nouveauY += (dy > 0) ? getVitesse() : -getVitesse();
-            }
-            if(env.verifObstacle(dx, dy, this)){
-                setX(getX() + Integer.signum(dx) * getVitesse());
-                setY(getY() + Integer.signum(dy) * getVitesse());
+
+            maxRetries--;
+            if (maxRetries <= 0) {
+                System.out.println("Échec de trouver un chemin sans obstacle après plusieurs tentatives");
+                return;
             }
         }
-        System.out.println("Ennemi se déplace en (" + getX() + ',' + getY() +')' );
-    }
 
+        setX(destination[0]);
+        setY(destination[1]);
+        System.out.println("Ennemi se déplace en (" + getX() + ", " + getY() + ")");
+    }
 
     @Override
     public Environnement getEnv() {
