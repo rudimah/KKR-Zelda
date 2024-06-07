@@ -1,6 +1,7 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
 import javafx.collections.ObservableList;
+import universite_paris8.iut.kkr.zelda.modele.Accessoires.Accessoires;
 import universite_paris8.iut.kkr.zelda.modele.Arme.Arme;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class Link extends ActeurEnMouvement{
     private Inventaire inventaire;
     private int Direction ;
     private Arme armeActuelle;
+    private Accessoires accessoireActuel;
     private int vitesse;
     public Link(Environnement env) {
         super(80, 50, 10, env, 40, 10);
@@ -64,12 +66,12 @@ public class Link extends ActeurEnMouvement{
                 }
                 break;
             default:
-                System.out.println("Direction inconnue");
+//                System.out.println("Direction inconnue");
         }
         Direction = 0;
 
         ramasserItem();
-        System.out.println("s'est déplacé en (" + getX() + ", " + getY() + ")");
+//        System.out.println("s'est déplacé en (" + getX() + ", " + getY() + ")");
 
     }
     public int getDirection(){return Direction;}
@@ -102,13 +104,21 @@ public class Link extends ActeurEnMouvement{
     }
     @Override
     public void attaquer(ActeurEnMouvement ennemi) {
-
         if (armeActuelle != null) {
             armeActuelle.attaquerAvecArme(ennemi); // Utilise l'arme actuelle pour attaquer l'ennemi
             System.out.println("Link attaque " + ennemi + " avec " + armeActuelle.toString() + " ! Il reste " + ennemi.getPv() + " pv à l'ennemi.");
         }
         else {
             attaquerAMainsNues(ennemi);
+        }
+    }
+
+    public void utilserAccessoire(){
+        if(accessoireActuel != null){
+            accessoireActuel.appliquerEffet();
+        }
+        else{
+            System.out.println("Link n'a pas d'accessoire équipé.");
         }
     }
 
@@ -123,9 +133,9 @@ public class Link extends ActeurEnMouvement{
         if (armes.size() == 1) {
             armeActuelle = armes.get(0);
         } else if (armes.size() > 1) {
-            int armeActuelles = armes.indexOf(armeActuelle);
-            armeActuelles = (armeActuelles + 1) % armes.size();
-            armeActuelle = armes.get(armeActuelles);
+            int currentIndex = armes.indexOf(armeActuelle);
+            currentIndex = (currentIndex + 1) % armes.size();
+            armeActuelle = armes.get(currentIndex);
         }
         if (armeActuelle != null) {
             System.out.println("Link a équipé l'arme : " + armeActuelle.getNom());
@@ -134,9 +144,27 @@ public class Link extends ActeurEnMouvement{
         }
     }
 
-//    public String parler(){
-//        //
-//    }
+    public void equiperAccessoire() {
+        ObservableList<ObjetEnvironnement> inventaireCurrent = inventaire.getInventaire();
+        ArrayList<Accessoires> accessoires = new ArrayList<>();
+        for (ObjetEnvironnement objet : inventaireCurrent) {
+            if (objet instanceof Accessoires) {
+                accessoires.add((Accessoires) objet);
+            }
+        }
+        if (accessoires.size() == 1) {
+            accessoireActuel = accessoires.get(0);
+        } else if (accessoires.size() > 1) {
+            int currentIndex = accessoires.indexOf(accessoireActuel);
+            currentIndex = (currentIndex + 1) % accessoires.size();
+            accessoireActuel = accessoires.get(currentIndex);
+        }
+        if (accessoireActuel != null) {
+            System.out.println("Link a équipé l'accessoire : " + accessoireActuel.getNom());
+        } else {
+            System.out.println("Link n'a pas d'accessoire à équiper.");
+        }
+    }
 
 
     public Arme getArme() {
