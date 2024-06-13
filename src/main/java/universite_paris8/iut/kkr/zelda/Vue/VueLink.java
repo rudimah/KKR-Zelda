@@ -15,7 +15,6 @@ import universite_paris8.iut.kkr.zelda.utils.Constantes;
 public class VueLink implements ChangeListener<Number>{
 
     boolean pied_droite = true;
-
     Environnement environnement;
     Link link;
     private Pane panneauDeJeu;

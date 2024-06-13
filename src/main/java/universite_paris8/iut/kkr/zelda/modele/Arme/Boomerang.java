@@ -29,10 +29,7 @@ public class Boomerang extends Arme {
         }
     }
 
-    @Override
-    public Environnement getE() {
-        return super.getE();
-    }
+
 
     public void setZoneDegats(int zoneDegats) {
         this.zoneDegats = zoneDegats;
