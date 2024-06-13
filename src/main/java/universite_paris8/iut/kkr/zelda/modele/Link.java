@@ -1,152 +1,175 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-
-import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
-
+import javafx.collections.ObservableList;
+import universite_paris8.iut.kkr.zelda.modele.Accessoires.Accessoires;
+import universite_paris8.iut.kkr.zelda.modele.Arme.Arme;
+import universite_paris8.iut.kkr.zelda.utils.Constantes;
+import java.util.ArrayList;
 
 public class Link extends ActeurEnMouvement{
 
-
-    private Pane panneauDeJeu;
-    private TilePane tilePane;
-    private ImageView imageView;
-    boolean pied_droite = true;
-
-    public Link(Environnement env, Pane pj, TilePane tilePane) {
-        super(50, 50, 2, env, 40, 10);
-        this.panneauDeJeu = pj;
-        this.tilePane = tilePane;
-        this.imageView = new ImageView();
-        panneauDeJeu.setFocusTraversable(true);
-        panneauDeJeu.setOnKeyPressed(this::gererTouch);
-        panneauDeJeu.setOnKeyReleased(this::handleKeyRelease);
-        Image image1 = new Image("file:src/main/resources/image/Link/tileset.png");
-
-
-        imageView.setImage(image1);
-        imageView.setViewport(new Rectangle2D( 20,13,120,160));
-        imageView.setFitWidth(20);
-        imageView.setFitHeight(30);
-
-        imageView.setTranslateX(getX());
-        imageView.setTranslateY(getY());
-        panneauDeJeu.getChildren().add(imageView);
+    public int tileId = 9;
+    private Inventaire inventaire;
+    private int Direction ;
+    private Arme armeActuelle;
+    private Accessoires accessoireActuel;
+    private int vitesse;
+    public Link(Environnement env) {
+        super(80, 50, 10, env, 40, 10);
+        this.inventaire = new Inventaire();
     }
 
-    private void gererTouch(KeyEvent event) {
-        if (event.getCode() == KeyCode.SHIFT) {
-            setVitesse(getVitesse()*2);
-        }
-        System.out.println("Touche pressé " + event.getCode());
-        seDeplacer(event.getCode());
-        event.consume();
-    }
-    private void handleKeyRelease(KeyEvent event) {
-        // Reset the direction when shift is released
-        if (event.getCode() == KeyCode.SHIFT) {
-            setVitesse(getVitesse()/2);
-            System.out.println("MAJ relâchée, vitesse normalisée.");
-        }
-    }
-
-    public void seDeplacer(KeyCode key) {
+    public void seDeplacer() {
 
         int nouveauX = getX(), nouveauY = getY();
-        int position_image_x = 20, position_image_y = 13, position_image_eau = 0;
+        int xGauche, yHaut, yBas, xDroite;
+        xGauche = nouveauX;
+        xDroite = nouveauX+28;
+        yHaut = nouveauY;
+        yBas = nouveauY + 28;
 
-        switch (key) {
-            case Z:
-                nouveauY = getY()-getVitesse();
-                position_image_y = 1060;
-                position_image_eau = 340;
-                if (pied_droite){
-                    position_image_x = 170;
-                    pied_droite= false;
-                }
-                else {
-                    position_image_x = 1470;
-                    pied_droite = true;
-                }
+        if (tileId == 0) { // Eau
+            vitesse = 1;
+            System.out.println("Link se déplace dans l'eau, vitesse réduite à 1");
+        }
+        else {
+            vitesse = getVitesse();
+        }
 
-                break;
-            case S:
-                nouveauY = getY()+getVitesse();
-                position_image_eau = 825;
-                position_image_y = 710;
-                if (pied_droite){
-                    position_image_x = 665;
-                    pied_droite= false;
-                }
-                else {
-                    position_image_x = 1470;
-                    pied_droite = true;
-                }
-
-
-                break;
-            case D:
-                nouveauX = (getX()+getVitesse());
-                position_image_eau = 340; //position x de l'image quand link va sur l'eau
-                position_image_y = 1245;
-                if (pied_droite){
-                    position_image_x = 180;
-                    pied_droite= false;
-                }
-                else {
-                    position_image_x = 1315;
-                    pied_droite = true;
+        switch (Direction) {
+            case Constantes.Haut:
+                nouveauY -= vitesse;
+                if(env.verifObstacle(xDroite, yHaut, this) && env.verifObstacle(xGauche, yHaut, this)){
+                    setY(nouveauY);
+                    tileId = env.getTuile(xGauche+15, yHaut);
                 }
                 break;
-            case Q:
-                nouveauX = (getX()-getVitesse());
-                position_image_eau = 980;
-                position_image_y = 902;
-                if (pied_droite){
-                    position_image_x = 180;
-                    pied_droite= false;
+            case Constantes.Bas:
+                nouveauY += vitesse;
+                if(env.verifObstacle(xDroite, yBas, this) && env.verifObstacle(xGauche, yBas, this)){
+                    setY(nouveauY);
+                    tileId = env.getTuile(xGauche+15, yBas);
                 }
-                else {
-                    position_image_x = 1320;
-                    pied_droite = true;
+                break;
+            case Constantes.Droite:
+                nouveauX += vitesse;
+                if(env.verifObstacle(xDroite, yHaut, this) && env.verifObstacle(xDroite, yBas, this)){
+                    setX(nouveauX);
+                    tileId = env.getTuile(xGauche, yHaut+15);
+                }
+                break;
+            case Constantes.Gauche:
+                nouveauX -= vitesse;
+                if(env.verifObstacle(xGauche, yHaut, this) && env.verifObstacle(xGauche, yBas, this)){
+                    setX(nouveauX);
+                    tileId = env.getTuile(xGauche, yHaut+15);
                 }
                 break;
             default:
-                position_image_x = position_image_x;
-                position_image_y = position_image_y;
-                ;
+//                System.out.println("Direction inconnue");
         }
-        System.out.println("Essaye de passer de " + getX() + ", " + getY() );
+        Direction = 0;
 
-        if (getEnv().estPositionValide(nouveauX, nouveauY)) {
-            // Gestion des effets des tuiles spécifiques
-            int tileId = getEnv().getTileId(nouveauX, nouveauY);
-            if (tileId == 10) { // Lave
-                decrementerPv(5);
-                System.out.println("Link est sur la Lave ! Point de vies restants: " + getPointsDeVie());
-            }
+        ramasserItem();
+//        System.out.println("s'est déplacé en (" + getX() + ", " + getY() + ")");
 
-            if (tileId ==0){
-                imageView.setViewport(new Rectangle2D(position_image_eau, position_image_y, 120, 160));
+    }
+    public int getDirection(){return Direction;}
+    public void setDirection(int d){Direction = d;}
+    public void ramasserItem() {
+        ArrayList<ObjetEnvironnement> itemsARamasser = new ArrayList<>();
+        for (ObjetEnvironnement item : env.getItems()) {
+            if (!item.EstRamassé() && estProcheDe(item)) {
+                itemsARamasser.add(item);
             }
-            else {
-                imageView.setViewport(new Rectangle2D(position_image_x, position_image_y, 120, 160));
-            }
-            panneauDeJeu.getChildren().clear();
-            imageView.setTranslateX(getX());
-            imageView.setTranslateY(getY());
-            panneauDeJeu.getChildren().add(imageView);
-            setX(nouveauX);
-            setY(nouveauY);
-
-            System.out.println("s'est déplacé en (" + getX() + ", " + getY() + ")");
-        } else {
-            System.out.println("Action bloqué par un élément de l'environnement.");
+        }
+        for (ObjetEnvironnement item : itemsARamasser) {
+            inventaire.ajouterItemAInventaire(item);
+            item.setEstRamassé(true);
+            env.retirerItem(item);
+            System.out.println("Item ramassé : " + item.getNom());
+            inventaire.afficherInventaire();
         }
     }
+    public boolean estProcheDe(ObjetEnvironnement item) {
+        int distance = 15;
+        return Math.abs(getX() - item.getX()) < distance && Math.abs(getY() - item.getY()) < distance;
+    }
+
+    public void attaquerAMainsNues(ActeurEnMouvement acteurCible) {
+        if (estADistanceAttaque(acteurCible)) {
+            acteurCible.decrementerPv(getPtAttaque());
+        }
+        System.out.println("Link attaque " + acteurCible + " à mains nues ! Il lui reste " + acteurCible.getPv() + " pv.");
+    }
+    @Override
+    public void attaquer(ActeurEnMouvement ennemi) {
+        if (armeActuelle != null) {
+            armeActuelle.attaquerAvecArme(ennemi); // Utilise l'arme actuelle pour attaquer l'ennemi
+            System.out.println("Link attaque " + ennemi + " avec " + armeActuelle.toString() + " ! Il reste " + ennemi.getPv() + " pv à l'ennemi.");
+        }
+        else {
+            attaquerAMainsNues(ennemi);
+        }
+    }
+
+    public void utilserAccessoire(){
+        if(accessoireActuel != null){
+            accessoireActuel.appliquerEffet();
+        }
+        else{
+            System.out.println("Link n'a pas d'accessoire équipé.");
+        }
+    }
+
+    public void equiperArme() {
+        ObservableList<ObjetEnvironnement> inventaireCurrent = inventaire.getInventaire();
+        ArrayList<Arme> armes = new ArrayList<>();
+        for (ObjetEnvironnement objet : inventaireCurrent) {
+            if (objet instanceof Arme) {
+                armes.add((Arme) objet);
+            }
+        }
+        if (armes.size() == 1) {
+            armeActuelle = armes.get(0);
+        } else if (armes.size() > 1) {
+            int currentIndex = armes.indexOf(armeActuelle);
+            currentIndex = (currentIndex + 1) % armes.size();
+            armeActuelle = armes.get(currentIndex);
+        }
+        if (armeActuelle != null) {
+            System.out.println("Link a équipé l'arme : " + armeActuelle.getNom());
+        } else {
+            System.out.println("Link n'a pas d'arme à équiper.");
+        }
+    }
+
+    public void equiperAccessoire() {
+        ObservableList<ObjetEnvironnement> inventaireCurrent = inventaire.getInventaire();
+        ArrayList<Accessoires> accessoires = new ArrayList<>();
+        for (ObjetEnvironnement objet : inventaireCurrent) {
+            if (objet instanceof Accessoires) {
+                accessoires.add((Accessoires) objet);
+            }
+        }
+        if (accessoires.size() == 1) {
+            accessoireActuel = accessoires.get(0);
+        } else if (accessoires.size() > 1) {
+            int currentIndex = accessoires.indexOf(accessoireActuel);
+            currentIndex = (currentIndex + 1) % accessoires.size();
+            accessoireActuel = accessoires.get(currentIndex);
+        }
+        if (accessoireActuel != null) {
+            System.out.println("Link a équipé l'accessoire : " + accessoireActuel.getNom());
+        } else {
+            System.out.println("Link n'a pas d'accessoire à équiper.");
+        }
+    }
+
+
+    public Arme getArme() {
+        return armeActuelle;
+    }
+
+
 }

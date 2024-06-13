@@ -1,46 +1,63 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-public class ActeurEnMouvement extends Acteur {
-    private int vitesse;
+public abstract class ActeurEnMouvement extends Acteur {
+    private int vitesse; // vitesse de déplacement
     private int ptAttaque;
-    private int pointsDeVie;
+    private int pv;
 
-    public ActeurEnMouvement(int x, int y, int vitesse, Environnement env, int pointsDeVie, int ptAttaque) {
+    public ActeurEnMouvement(int x, int y, int vitesse, Environnement env, int pv, int ptAttaque) {
         super(x, y, env);
         this.vitesse = vitesse;
         this.ptAttaque = ptAttaque;
-        this.pointsDeVie = pointsDeVie;
+        this.pv = pv;
     }
+
+    public abstract void seDeplacer();
 
     public int getVitesse() {
         return vitesse;
     }
 
+    public int getPtAttaque() {return ptAttaque;}
+
     public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
     }
 
-    public int getPtAttaque() {
-        return ptAttaque;
+    public void setPtAttaque(int ptAttaque) {this.ptAttaque = ptAttaque;}
+
+    public void setPv(int pv) {this.pv = pv;}
+
+    public int getPv() {return pv;}
+
+    public void decrementerPv(int pointAttaque){
+        setPv(getPv() - pointAttaque);
     }
 
-    public void setPtAttaque(int ptAttaque) {
-        this.ptAttaque = ptAttaque;
+    public void VerifEstVivant(){
+        if(estMort()){
+            env.retirerActeur(this);
+        }
     }
+    public boolean estMort(){return getPv() <= 0;}
+    public boolean estADistanceAttaque(Acteur ActeurCible) {
+        if(ActeurCible != null){
+            int distanceX = Math.abs(getX() - ActeurCible.getX());
+            int distanceY = Math.abs(getY() - ActeurCible.getY());
+            int distanceManhattan = distanceX + distanceY;
 
-    public int getPointsDeVie() {
-        return pointsDeVie;
+            return distanceManhattan <= 5;
+        }
+        return false;
     }
+    public void recevoirDegats(int degats) {
+        setPv(getPv() - degats);
+        if (estMort()) {
+            System.out.println("Ennemi tué!");
+        } else {
+            System.out.println("Ennemi a maintenant " + getPv() + " points de vie.");
+        }
+    }
+    public abstract void attaquer(ActeurEnMouvement acteurCible);
 
-    public void setPointsDeVie(int pointsDeVie) {
-        this.pointsDeVie = pointsDeVie;
-    }
-
-    public void decrementerPv(int nbrPv) {
-        setPointsDeVie(getPointsDeVie() - nbrPv);
-    }
-
-    public void incrementerPv(int nbrPv) {
-        setPointsDeVie(getPointsDeVie() + nbrPv);
-    }
 }
