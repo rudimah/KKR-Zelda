@@ -86,13 +86,12 @@ public class Environnement {
 	public void retirerActeur(Acteur a) {
 		acteurs.remove(a);
 	}
-
 	public void ajouterItem(ObjetEnvironnement a) {
 		items.add(a);
 	}
 
 	public int getTuile(int x, int y) {
-
+//Test
 		int colonneGrille = (x) / 30; // Calculer l'indice de la colonne de la grille correspondant à la position x
 		int ligneGrille = (y) / 30; // Calculer l'indice de la ligne de la grille correspondant à la position y
 //		System.out.println("[" + ligneGrille + "]" + "[" + colonneGrille + "]  = " + tableauMap[ligneGrille][colonneGrille]);
