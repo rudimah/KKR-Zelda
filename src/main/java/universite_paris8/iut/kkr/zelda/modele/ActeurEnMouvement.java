@@ -39,7 +39,12 @@ public abstract class ActeurEnMouvement extends Acteur {
             env.retirerActeur(this);
         }
     }
-    public boolean estMort(){return getPv() <= 0;}
+    public boolean estMort() {
+        if (getPv() == 0) {
+            return true;
+        }
+        return false;
+    }
     public boolean estADistanceAttaque(Acteur ActeurCible) {
         if(ActeurCible != null){
             int distanceX = Math.abs(getX() - ActeurCible.getX());

@@ -1,10 +1,12 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
 import javafx.collections.ObservableList;
+import universite_paris8.iut.kkr.zelda.Controleur.DialogueController;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Accessoires;
 import universite_paris8.iut.kkr.zelda.modele.Arme.Arme;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Link extends ActeurEnMouvement{
 
@@ -14,10 +16,19 @@ public class Link extends ActeurEnMouvement{
     private Arme armeActuelle;
     private Accessoires accessoireActuel;
     private int vitesse;
-    public Link(Environnement env) {
-        super(80, 50, 10, env, 40, 10);
+    private DialogueController dialogue;
+    public Link(Environnement env, DialogueController dialogue) {
+        super(80, 50, 10, env, 100, 10);
         this.inventaire = new Inventaire();
+        this.dialogue=dialogue;
     }
+
+    public void demanderDialogue() {
+        if (dialogue!= null) {
+            dialogue.roueDialogue(this);
+        }
+    }
+
 
     public void seDeplacer() {
 
@@ -27,10 +38,9 @@ public class Link extends ActeurEnMouvement{
         xDroite = nouveauX+28;
         yHaut = nouveauY;
         yBas = nouveauY + 28;
-
         if (tileId == 0) { // Eau
             vitesse = 1;
-            System.out.println("Link se déplace dans l'eau, vitesse réduite à 1");
+            System.out.println("Link se déplace dans l'eau ");
         }
         else {
             vitesse = getVitesse();
@@ -66,12 +76,11 @@ public class Link extends ActeurEnMouvement{
                 }
                 break;
             default:
-//                System.out.println("Direction inconnue");
+                System.out.println("Direction inconnue");
         }
         Direction = 0;
 
         ramasserItem();
-//        System.out.println("s'est déplacé en (" + getX() + ", " + getY() + ")");
 
     }
     public int getDirection(){return Direction;}
@@ -100,25 +109,25 @@ public class Link extends ActeurEnMouvement{
         if (estADistanceAttaque(acteurCible)) {
             acteurCible.decrementerPv(getPtAttaque());
         }
-        System.out.println("Link attaque " + acteurCible + " à mains nues ! Il lui reste " + acteurCible.getPv() + " pv.");
+        System.out.println("Link attaque " + acteurCible + " à mains nu ! Il lui reste " + acteurCible.getPv() + " pv ");
     }
     @Override
     public void attaquer(ActeurEnMouvement ennemi) {
         if (armeActuelle != null) {
             armeActuelle.attaquerAvecArme(ennemi); // Utilise l'arme actuelle pour attaquer l'ennemi
-            System.out.println("Link attaque " + ennemi + " avec " + armeActuelle.toString() + " ! Il reste " + ennemi.getPv() + " pv à l'ennemi.");
+            System.out.println("Link attaque " + ennemi + " avec " + armeActuelle.toString() + " Il reste " + ennemi.getPv() + " pv à l'ennemi");
         }
         else {
             attaquerAMainsNues(ennemi);
         }
     }
 
-    public void utilserAccessoire(){
+    public void utiliserAccessoire(){
         if(accessoireActuel != null){
             accessoireActuel.appliquerEffet();
         }
         else{
-            System.out.println("Link n'a pas d'accessoire équipé.");
+            System.out.println("Link n'a pas d'accessoire équipé ");
         }
     }
 
@@ -133,21 +142,21 @@ public class Link extends ActeurEnMouvement{
         if (armes.size() == 1) {
             armeActuelle = armes.get(0);
         } else if (armes.size() > 1) {
-            int currentIndex = armes.indexOf(armeActuelle);
-            currentIndex = (currentIndex + 1) % armes.size();
-            armeActuelle = armes.get(currentIndex);
+            int armeActuelle = armes.indexOf(this.armeActuelle);
+            armeActuelle = (armeActuelle + 1) % armes.size();
+            this.armeActuelle = armes.get(armeActuelle);
         }
         if (armeActuelle != null) {
             System.out.println("Link a équipé l'arme : " + armeActuelle.getNom());
         } else {
-            System.out.println("Link n'a pas d'arme à équiper.");
+            System.out.println("Link n'a pas d'arme à équiper");
         }
     }
 
     public void equiperAccessoire() {
-        ObservableList<ObjetEnvironnement> inventaireCurrent = inventaire.getInventaire();
+        ObservableList<ObjetEnvironnement> inventaire = this.inventaire.getInventaire();
         ArrayList<Accessoires> accessoires = new ArrayList<>();
-        for (ObjetEnvironnement objet : inventaireCurrent) {
+        for (ObjetEnvironnement objet : inventaire) {
             if (objet instanceof Accessoires) {
                 accessoires.add((Accessoires) objet);
             }
@@ -155,17 +164,37 @@ public class Link extends ActeurEnMouvement{
         if (accessoires.size() == 1) {
             accessoireActuel = accessoires.get(0);
         } else if (accessoires.size() > 1) {
-            int currentIndex = accessoires.indexOf(accessoireActuel);
-            currentIndex = (currentIndex + 1) % accessoires.size();
-            accessoireActuel = accessoires.get(currentIndex);
+            int i = accessoires.indexOf(accessoireActuel);
+            i = (i + 1) % accessoires.size();
+            accessoireActuel = accessoires.get(i);
         }
         if (accessoireActuel != null) {
             System.out.println("Link a équipé l'accessoire : " + accessoireActuel.getNom());
         } else {
-            System.out.println("Link n'a pas d'accessoire à équiper.");
+            System.out.println("Link n'a pas d'accessoire à équiper ");
         }
     }
 
+    public String parler() {
+        Scanner sc = new Scanner(System.in);
+        int choix;
+        choix = sc.nextInt();
+        switch (choix) {
+            case 1:
+                return "Salut ! je suis Link !";
+            case 2:
+                return "Oh non ! à l'aide !";
+            case 3:
+                return "Tiens, Prend ça !";
+            case 4:
+                return "Bien joué !";
+            case 5:
+                return "Que se passe t-il ?";
+            default:
+                System.out.println("Choix incorrect");
+                return "Je n'ai rien à dire";
+        }
+    }
 
     public Arme getArme() {
         return armeActuelle;

@@ -26,11 +26,11 @@ public class Inventaire {
     }
 
     public void afficherInventaire(){
-        System.out.print('[');
+        System.out.print("[");
         for (ObjetEnvironnement item : inventaire){
-            System.out.print(item.getNom() + " , " );
+            System.out.print(item.getNom());
         }
-        System.out.println(']');
+        System.out.println("]");
     }
 
 }

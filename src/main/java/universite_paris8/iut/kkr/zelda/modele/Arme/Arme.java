@@ -38,4 +38,12 @@ public class Arme extends ObjetEnvironnement {
         return e;
     }
     //peut etre utiliser une methode utiliser abstract dans la classe armes pour que Link les prenne differemment
+
+    @Override
+    public String toString() {
+        return "Arme{" +
+                "ptAttaque=" + ptAttaque +
+                ", porteeArme=" + porteeArme +
+                '}';
+    }
 }

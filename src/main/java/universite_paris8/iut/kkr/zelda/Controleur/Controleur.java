@@ -1,31 +1,32 @@
 package universite_paris8.iut.kkr.zelda.Controleur;
 
-import java.awt.*;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.control.Label;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
-import javafx.beans.InvalidationListener;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import universite_paris8.iut.kkr.zelda.Vue.TerrainVue;
 import universite_paris8.iut.kkr.zelda.Vue.VueLink;
 import universite_paris8.iut.kkr.zelda.modele.*;
-import universite_paris8.iut.kkr.zelda.modele.Accessoires.BottesAres;
-import universite_paris8.iut.kkr.zelda.modele.Accessoires.Bouclier;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Flute;
 import universite_paris8.iut.kkr.zelda.modele.Arme.*;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Simonus;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
-import universite_paris8.iut.kkr.zelda.modele.Potion.PotionBleue;
-import universite_paris8.iut.kkr.zelda.modele.Potion.PotionFeu;
-import universite_paris8.iut.kkr.zelda.modele.Potion.PotionForce;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 
 public class Controleur implements Initializable {
@@ -41,8 +42,10 @@ public class Controleur implements Initializable {
     private Link link;
     private TerrainVue terrainVue;
     private VueLink afficherlink;
+    private Timeline tempsSprint;
+    private DialogueController roueDial;
 
-
+    @FXML
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -50,22 +53,20 @@ public class Controleur implements Initializable {
         terrainVue = new TerrainVue(env, tilepane);
         tilepane.setPrefColumns(env.getTableauMap()[0].length);
         tilepane.setPrefRows(env.getTableauMap().length);
-        link = new Link(env);
+        roueDial=new DialogueController();
+        link = new Link(env, roueDial);
 
-        // Save the initial normal speed
         this.vitesseNormale = link.getVitesse();
 
         this.env.getItems().addListener(new Observateur(panneauDeJeu));
         this.env.getActeurs().addListener(new ObservateurEnnemi(panneauDeJeu));
-        env.ajouterItem(new Epee(300,300));
-        env.ajouterItem(new Sabre(300,450));
-        env.ajouterItem(new Flute(500,450,env));
+        env.ajouterItem(new Epee(300, 300));
+        env.ajouterItem(new Sabre(300, 450));
+        env.ajouterItem(new Flute(500, 450, env));
         env.ajouterActeur(link);
-//        env.ajouterActeur(new Reltih(env));
-//        env.ajouterActeur(new Simonus(env));
+        env.ajouterActeur(new Reltih(env));
         env.ajouterItem(new PotionAcide(200, 100));
-        env.ajouterActeur(link);
-        // env.ajouterActeur(new Reltih(env, panneauDeJeu, tilepane));
+
         afficherlink = new VueLink(env, link, panneauDeJeu);
 
         terrainVue.afficherMap();
@@ -80,17 +81,24 @@ public class Controleur implements Initializable {
         tilepane.setMaxWidth(panneauDeJeu.getMaxWidth());
         tilepane.setMaxHeight(panneauDeJeu.getMaxHeight());
 
-
-
         initAnimation();
-
+        tempsSprint = new Timeline(new KeyFrame(Duration.seconds(3), e -> stopSprint()));
+        tempsSprint.setCycleCount(2);
     }
 
+
+
+    private void stopSprint() {
+        link.setVitesse(vitesseNormale);
+    }
 
     private void gererTouch(KeyEvent event) {
         KeyCode touchePresse = event.getCode();
         if (touchePresse == KeyCode.SHIFT) {
-            link.setVitesse(vitesseNormale*2);
+            if (link.getVitesse() == vitesseNormale) {  // Ne démarre le sprint que si Link n'est pas déjà en sprint
+                link.setVitesse(vitesseNormale * 2);
+                tempsSprint.playFromStart();
+            }
         }
         System.out.println("Touche pressée " + event.getCode());
         deplacementLink(touchePresse);
@@ -98,11 +106,11 @@ public class Controleur implements Initializable {
         event.consume();
     }
 
-    public void gererTouches(KeyCode touchePresse){
-        switch (touchePresse){
+    public void gererTouches(KeyCode touchePresse) {
+        switch (touchePresse) {
             case F:
                 ActeurEnMouvement ennemiLePlusProche = env.trouverEnnemiLePlusProche(link.getX(), link.getY());
-                if (link.estADistanceAttaque(ennemiLePlusProche)){
+                if (link.estADistanceAttaque(ennemiLePlusProche)) {
                     link.attaquer(ennemiLePlusProche);
                 } else {
                     System.out.println("Aucun ennemi à attaquer à proximité.");
@@ -115,20 +123,23 @@ public class Controleur implements Initializable {
                 link.equiperAccessoire();
                 break;
             case C:
-                link.utilserAccessoire();
+                link.utiliserAccessoire();
                 break;
+            case T:
+               link.demanderDialogue();
+                break;
+            default:
+                System.out.println("Autre Touche");
         }
     }
-
     private void handleKeyRelease(KeyEvent event) {
         if (event.getCode() == KeyCode.SHIFT) {
-            link.setVitesse(vitesseNormale);
-            System.out.println("SHIFT relâchée, vitesse normalisée.");
+            stopSprint();
+            tempsSprint.stop();
         }
     }
 
     public void deplacementLink(KeyCode touchePresse) {
-
         switch (touchePresse) {
             case Z:
                 link.setDirection(Constantes.Haut);
@@ -145,7 +156,6 @@ public class Controleur implements Initializable {
             default:
                 System.out.println("Autre Touche");
         }
-
     }
 
     private void initAnimation() {
@@ -157,6 +167,8 @@ public class Controleur implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         gameLoop.play();
     }
+
+
 
 
 }

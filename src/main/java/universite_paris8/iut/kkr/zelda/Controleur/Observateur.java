@@ -5,18 +5,12 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.BottesAres;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Bouclier;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Flute;
 import universite_paris8.iut.kkr.zelda.modele.Arme.*;
 import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
 import universite_paris8.iut.kkr.zelda.modele.Potion.*;
-
-import java.util.EventListener;
 
 public class Observateur implements ListChangeListener<ObjetEnvironnement> {
     private Pane panneauJeu;
@@ -57,7 +51,7 @@ public class Observateur implements ListChangeListener<ObjetEnvironnement> {
             element.setFitWidth(20);
             element.setFitHeight(25);
         }
-        else if (a instanceof PotionFeu){
+        else if (a instanceof PotionVie){
             Image image  = new Image("file:src/main/resources/image/Potions & Armes/pt1.png");
             element.setImage(image);
             element.setViewport(new Rectangle2D(16, 8, 294, 359));

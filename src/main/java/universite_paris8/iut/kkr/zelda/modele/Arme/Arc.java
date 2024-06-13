@@ -21,11 +21,11 @@ public class Arc extends Arme {
     public void attaquer(Ennemis ennemi) {
         super.attaquerAvecArme(ennemi);
         ennemi.recevoirDegats(degatsFeu);  // Applique des dégâts de feu supplémentaires
-        System.out.println("Arc inflige des dégâts de feu supplémentaires à l'ennemi.");
+        System.out.println("Arc inflige des dégâts de feu ");
     }
 
     @Override
     public String toString() {
-        return "l'arc du héros";
+        return "l'arc du héros" +super.toString();
     }
 }
