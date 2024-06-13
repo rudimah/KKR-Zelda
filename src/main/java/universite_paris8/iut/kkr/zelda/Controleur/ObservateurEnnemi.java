@@ -7,7 +7,7 @@ import universite_paris8.iut.kkr.zelda.modele.Acteur;
 
 
 public class ObservateurEnnemi implements ListChangeListener<Acteur> {
-    private Pane panneauJeu;
+    private final Pane panneauJeu;
 
     public ObservateurEnnemi(Pane panneauDeJeu) {
         super();
@@ -18,12 +18,12 @@ public class ObservateurEnnemi implements ListChangeListener<Acteur> {
     public void onChanged(Change<? extends Acteur> change) {
         while (change.next()) {
             if (change.wasAdded()) {
-                System.out.println("Ennemi ajouté à l'environnement");
+
                 for (Acteur a : change.getAddedSubList()) {
                     creerSprite(a);
                 }
             } else if (change.wasRemoved()) {
-                System.out.println("Ennemi retiré de l'environnement");
+
                 for (Acteur a : change.getRemoved()) {
                     this.panneauJeu.getChildren().remove(panneauJeu.lookup("#" + a.getId()));
                 }

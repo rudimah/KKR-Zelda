@@ -5,7 +5,7 @@ import universite_paris8.iut.kkr.zelda.modele.Environnement;
 
 public class Bouclier extends Accessoires {
     public Bouclier(int x, int y, Environnement env) {
-        super("Bouclier", x, y, 0, 0, 0,env);
+        super("c", x, y, 0, 0, 0,env);
     }
 
     @Override

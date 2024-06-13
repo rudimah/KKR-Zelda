@@ -10,7 +10,7 @@ public abstract class Accessoires extends ObjetEnvironnement {
     protected Environnement env;
 
 
-    public Accessoires(String nom, int x, int y, int reductionDegats, int augmentationVitesse, int augmentationPortee,Environnement env) {
+    public Accessoires(String nom, int x, int y, int reductionDegats, int augmentationVitesse, int augmentationPortee, Environnement env) {
         super(nom, x, y);
         this.reductionDegats = reductionDegats;
         this.augmentationVitesse = augmentationVitesse;
@@ -18,9 +18,9 @@ public abstract class Accessoires extends ObjetEnvironnement {
         this.env = env;
     }
 
-    public int getPortee() {return portee;}
+    public int getPortee() {return portee;} //Inutile pour l'instant
 
     public abstract void appliquerEffet();
 
-    public Acteur getLink() {return env.getLink();}
+
 }

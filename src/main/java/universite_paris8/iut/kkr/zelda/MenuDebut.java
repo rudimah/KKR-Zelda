@@ -16,7 +16,7 @@ public class MenuDebut extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("GameMenu.fxml"));
         Scene scene = new Scene(root, 800, 800);
-        String css = this.getClass().getResource("dark.css").toExternalForm();
+        String css = this.getClass().getResource("Map1.css").toExternalForm();
         scene.getStylesheets().add(css);
         Font.loadFont(getClass().getResourceAsStream("/Police/Triforce.ttf"), 48);
         primaryStage.setTitle("Menu Principal");

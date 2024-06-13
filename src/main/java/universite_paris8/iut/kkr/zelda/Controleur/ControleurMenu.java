@@ -41,7 +41,7 @@ public class ControleurMenu implements Initializable {
         try {
             Main main = new Main();
             main.start(new Stage());
-            Scene scene = ((Stage)((javafx.scene.Node)event.getSource()).getScene().getWindow()).getScene();
+            Scene scene = ((javafx.scene.Node)event.getSource()).getScene().getWindow().getScene();
             Stage stage = (Stage) scene.getWindow();
             stage.close();
         } catch (IOException e) {

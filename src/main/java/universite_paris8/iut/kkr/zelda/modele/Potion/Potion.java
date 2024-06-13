@@ -2,7 +2,7 @@ package universite_paris8.iut.kkr.zelda.modele.Potion;
 
 import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
 
-public class Potion extends ObjetEnvironnement {
+public abstract class Potion extends ObjetEnvironnement {
     private int ptAttaque;
     private int pv;
     private int portee;
@@ -16,6 +16,9 @@ public class Potion extends ObjetEnvironnement {
         this.pv = pv;
         this.portee = portee;
     }
+
+    public abstract void appliquerPotion();
+
 
     public int getPtAttaque() { return ptAttaque; }
     public int getPv() { return pv; }

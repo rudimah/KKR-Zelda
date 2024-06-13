@@ -1,8 +1,10 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
 import javafx.collections.ObservableList;
+import universite_paris8.iut.kkr.zelda.Controleur.observteurInventaire;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Accessoires;
 import universite_paris8.iut.kkr.zelda.modele.Arme.Arme;
+import universite_paris8.iut.kkr.zelda.modele.Potion.Potion;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 import java.util.ArrayList;
 
@@ -17,6 +19,7 @@ public class Link extends ActeurEnMouvement{
     public Link(Environnement env) {
         super(80, 50, 10, env, 40, 10);
         this.inventaire = new Inventaire();
+
     }
 
     public void seDeplacer() {
@@ -29,7 +32,7 @@ public class Link extends ActeurEnMouvement{
         yBas = nouveauY + 28;
 
         if (tileId == 0) { // Eau
-            vitesse = 1;
+            vitesse = 3;
             System.out.println("Link se déplace dans l'eau, vitesse réduite à 1");
         }
         else {
@@ -122,54 +125,27 @@ public class Link extends ActeurEnMouvement{
         }
     }
 
-    public void equiperArme() {
-        ObservableList<ObjetEnvironnement> inventaireCurrent = inventaire.getInventaire();
-        ArrayList<Arme> armes = new ArrayList<>();
-        for (ObjetEnvironnement objet : inventaireCurrent) {
-            if (objet instanceof Arme) {
-                armes.add((Arme) objet);
-            }
-        }
-        if (armes.size() == 1) {
-            armeActuelle = armes.get(0);
-        } else if (armes.size() > 1) {
-            int currentIndex = armes.indexOf(armeActuelle);
-            currentIndex = (currentIndex + 1) % armes.size();
-            armeActuelle = armes.get(currentIndex);
-        }
-        if (armeActuelle != null) {
-            System.out.println("Link a équipé l'arme : " + armeActuelle.getNom());
-        } else {
-            System.out.println("Link n'a pas d'arme à équiper.");
-        }
-    }
-
-    public void equiperAccessoire() {
-        ObservableList<ObjetEnvironnement> inventaireCurrent = inventaire.getInventaire();
-        ArrayList<Accessoires> accessoires = new ArrayList<>();
-        for (ObjetEnvironnement objet : inventaireCurrent) {
-            if (objet instanceof Accessoires) {
-                accessoires.add((Accessoires) objet);
-            }
-        }
-        if (accessoires.size() == 1) {
-            accessoireActuel = accessoires.get(0);
-        } else if (accessoires.size() > 1) {
-            int currentIndex = accessoires.indexOf(accessoireActuel);
-            currentIndex = (currentIndex + 1) % accessoires.size();
-            accessoireActuel = accessoires.get(currentIndex);
-        }
-        if (accessoireActuel != null) {
-            System.out.println("Link a équipé l'accessoire : " + accessoireActuel.getNom());
-        } else {
-            System.out.println("Link n'a pas d'accessoire à équiper.");
-        }
-    }
-
-
     public Arme getArme() {
         return armeActuelle;
     }
 
+    public Inventaire getInventaire() {
+        return inventaire;
+    }
 
+    public void utiliser(ObjetEnvironnement a){
+        if( a instanceof Arme){
+            armeActuelle =  (Arme) a;
+            System.out.println("Link a équipé l'arme : " + armeActuelle.getNom());
+
+        } else if (a instanceof Accessoires) {
+            accessoireActuel = (Accessoires) a;
+            System.out.println("Link a équipé l'accessoire : " + accessoireActuel.getNom());
+        }
+        else {
+            Potion potion = (Potion) a;
+            potion.appliquerPotion();
+            System.out.println("Potion "+ a.getNom() + " a été utiliser");
+        }
+    }
 }
