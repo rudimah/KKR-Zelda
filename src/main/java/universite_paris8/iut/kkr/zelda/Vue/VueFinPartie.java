@@ -1,24 +1,31 @@
 package universite_paris8.iut.kkr.zelda.Vue;
 
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class VueFinPartie {
 
-        public static void afficher() {
-            Label messageMort = new Label("Il est mort");
-            messageMort.setStyle("-fx-font-size: 24px; -fx-text-fill: red;");
-
-            StackPane root = new StackPane();
-            root.getChildren().add(messageMort);
-
-            Scene scene = new Scene(root, 300, 200);
-            Stage stage = new Stage();
-            stage.setTitle("Game Over");
-            stage.setScene(scene);
-            stage.show();
-        }
+    public void finDePartie() {
+        Platform.runLater(() -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/home/etudiants/info/zkhan/IdeaProjects/SaeTowerDefense/SaeInvasion/test/KKR-Zelda/src/main/resources/universite_paris8/iut/kkr/zelda/FinDePartie.fxml"));
+                VBox root = loader.load();
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setTitle("Fin de Partie");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
     }
 
