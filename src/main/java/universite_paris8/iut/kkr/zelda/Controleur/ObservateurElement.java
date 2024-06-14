@@ -7,16 +7,15 @@ import javafx.scene.layout.Pane;
 
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.BottesAres;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Bouclier;
-import universite_paris8.iut.kkr.zelda.modele.Accessoires.Flute;
 import universite_paris8.iut.kkr.zelda.modele.Arme.*;
 import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
 import universite_paris8.iut.kkr.zelda.modele.Potion.*;
 
-public class Observateur implements ListChangeListener<ObjetEnvironnement> {
+public class ObservateurElement implements ListChangeListener<ObjetEnvironnement> {
     private final Pane panneauJeu;
 
 
-    public Observateur(Pane panneauJeu) {
+    public ObservateurElement(Pane panneauJeu) {
         this.panneauJeu = panneauJeu;
     }
     @Override
@@ -75,7 +74,7 @@ public class Observateur implements ListChangeListener<ObjetEnvironnement> {
         else if (a instanceof Bouclier){
            image  = new Image("file:src/main/resources/image/Potions & Armes/bouclier.png");
         }
-        else if (a instanceof Flute){
+        else if (a instanceof Bouclier){
             image  = new Image("file:src/main/resources/image/Potions & Armes/flute.png");
         }
         element.setImage(image);

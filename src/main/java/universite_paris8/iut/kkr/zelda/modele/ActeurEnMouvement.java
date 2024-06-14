@@ -8,7 +8,7 @@ public abstract class ActeurEnMouvement extends Acteur {
     private int ptAttaque;
     private IntegerProperty pv ;
     private int largeur, longueur;
-    private IntegerProperty pv;
+
 
     public ActeurEnMouvement(int x, int y, int vitesse, Environnement env, int pv, int ptAttaque) {
         super(x, y, env);

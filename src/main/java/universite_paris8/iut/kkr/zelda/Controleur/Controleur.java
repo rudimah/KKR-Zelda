@@ -28,7 +28,8 @@ import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.kkr.zelda.Vue.TerrainVue;
 import universite_paris8.iut.kkr.zelda.Vue.VueLink;
 import universite_paris8.iut.kkr.zelda.modele.*;
-import universite_paris8.iut.kkr.zelda.modele.Accessoires.Flute;
+import universite_paris8.iut.kkr.zelda.modele.Accessoires.BottesAres;
+import universite_paris8.iut.kkr.zelda.modele.Accessoires.Bouclier;
 import universite_paris8.iut.kkr.zelda.modele.Arme.*;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
@@ -40,11 +41,27 @@ public class Controleur implements Initializable {
     private Timeline gameLoop;
     private Link link;
     private Environnement env;
-    @FXML private TilePane tilepane;
-    @FXML private Pane panneauDeJeu;
-    @FXML private ImageView case1; @FXML private ImageView case2; @FXML private ImageView case3; @FXML private ImageView case4;
-    @FXML private StackPane emplacement1; @FXML private StackPane emplacement2; @FXML private StackPane emplacement3; @FXML private StackPane emplacement4;
-    private  ArrayList<ImageView> imageViews = new ArrayList<>();
+    @FXML
+    private TilePane tilepane;
+    @FXML
+    private Pane panneauDeJeu;
+    @FXML
+    private ImageView case1;
+    @FXML
+    private ImageView case2;
+    @FXML
+    private ImageView case3;
+    @FXML
+    private ImageView case4;
+    @FXML
+    private StackPane emplacement1;
+    @FXML
+    private StackPane emplacement2;
+    @FXML
+    private StackPane emplacement3;
+    @FXML
+    private StackPane emplacement4;
+    private ArrayList<ImageView> imageViews = new ArrayList<>();
     private ArrayList<StackPane> stackPanes = new ArrayList<>();
 
     private int indexCaseActuelle = 0;
@@ -72,25 +89,32 @@ public class Controleur implements Initializable {
         // Vitesse initiale
         this.vitesseNormale = link.getVitesse();
 
-        this.env.getItems().addListener(new Observateur(panneauDeJeu));
-        this.env.getActeurs().addListener(new ObservateurEnnemi(panneauDeJeu));
-        env.ajouterItem(new Epee(300,300));
-        env.ajouterItem(new Sabre(300,450));
-        env.ajouterItem(new Flute(500,450,env));
+        this.env.getItems().addListener(new ObservateurElement(panneauDeJeu));
+        this.env.getActeurs().addListener(new ObservateurPersonnage(panneauDeJeu));
+        env.ajouterItem(new Epee(300, 300));
+        env.ajouterItem(new Sabre(300, 450));
+        env.ajouterItem(new Bouclier(500, 450, env));
         env.ajouterItem(new Arc(40, 30));
         env.ajouterItem(new Boomerang(500, 450));
         env.ajouterItem(new PotionForce(480, 203, env));
+        env.ajouterItem(new BottesAres(500,400,env));
 
 
         env.ajouterItem(new PotionAcide(200, 100, env));
         env.ajouterActeur(link);
         env.ajouterActeur(new Reltih(env));
-        env.ajouterItem(new PotionAcide(200, 100));
+        env.ajouterItem(new PotionAcide(200, 100, env));
 
         afficherlink = new VueLink(env, link, panneauDeJeu);
 
-        imageViews.add(case1);imageViews.add(case2);imageViews.add(case3);imageViews.add(case4);
-        stackPanes.add(emplacement1);stackPanes.add(emplacement2);stackPanes.add(emplacement3);stackPanes.add(emplacement4);
+        imageViews.add(case1);
+        imageViews.add(case2);
+        imageViews.add(case3);
+        imageViews.add(case4);
+        stackPanes.add(emplacement1);
+        stackPanes.add(emplacement2);
+        stackPanes.add(emplacement3);
+        stackPanes.add(emplacement4);
         link.getInventaire().getInventaire().addListener(new observteurInventaire(imageViews));
         terrainVue.afficherMap();
 
@@ -106,15 +130,14 @@ public class Controleur implements Initializable {
         tilepane.setMaxWidth(panneauDeJeu.getMaxWidth());
         tilepane.setMaxHeight(panneauDeJeu.getMaxHeight());
 
-        link.getPvProperty().addListener((obs, oldVal, newVal) -> {
+        link.pointDeVieProperty().addListener((obs, oldVal, newVal) -> {
             if (link.estMort()) {
                 finDeJeu();
             }
         });
         stackPanes.get(indexCaseActuelle).getStyleClass().add("case-inventaire-actuelle");
         initAnimation();
-        initSpawnEnnemis();
-
+        //initSpawnEnnemis();
 
 
     }
@@ -130,6 +153,7 @@ public class Controleur implements Initializable {
             barreVie.setFill(Color.RED);
         }
     }
+
     private void finDeJeu() {
         gameLoop.stop();
 
@@ -140,9 +164,6 @@ public class Controleur implements Initializable {
             alert.setContentText("Link est mort. Fin de Partie appuyer sur OK pour revenir sur le menue principal");
 
 
-    public void stopSprint() {
-        link.setVitesse(vitesseNormale);
-    }
             alert.setOnHidden(evt -> {
                 try {
                     Stage primaryStage = (Stage) panneauDeJeu.getScene().getWindow();
@@ -158,6 +179,10 @@ public class Controleur implements Initializable {
         });
     }
 
+    public void stopSprint() {
+        link.setVitesse(vitesseNormale);
+    }
+
     private void gererTouch(KeyEvent event) {
         KeyCode touchePresse = event.getCode();
         if (touchePresse == KeyCode.SHIFT) {
@@ -170,26 +195,21 @@ public class Controleur implements Initializable {
         gererTouches(touchePresse);
         event.consume();
     }
-    public void gererTouches(KeyCode touchePresse){
-        switch (touchePresse){
-            case A:
-                if(link.getInventaire().getInventaire().size()>indexCaseActuelle){
-                    link.utiliser(link.getInventaire().getInventaire().get(indexCaseActuelle));
-                    link.getInventaire().getInventaire().remove(indexCaseActuelle);
-                }
-                else {
-                    System.out.println("Case vide");
-                }
-                break;
-            case C:
-                link.utilserAccessoire();
-                break;
 
     public void gererTouches(KeyCode touchePresse) {
         switch (touchePresse) {
+            case A:
+                if (link.getInventaire().getInventaire().size() > indexCaseActuelle) {
+                    link.utiliser(link.getInventaire().getInventaire().get(indexCaseActuelle));
+                    link.getInventaire().getInventaire().remove(indexCaseActuelle);
+                } else {
+                    System.out.println("Case vide");
+                }
+                break;
+
             case F:
                 ActeurEnMouvement ennemiLePlusProche = env.trouverEnnemiLePlusProche(link.getX(), link.getY());
-                if (link.estADistanceAttaque(ennemiLePlusProche)){
+                if (link.estADistanceAttaque(ennemiLePlusProche)) {
                     link.attaquer(ennemiLePlusProche);
                 } else {
                     System.out.println("Aucun ennemi à attaquer à proximité.");
@@ -198,22 +218,15 @@ public class Controleur implements Initializable {
 
             case L:
                 updateSelectedCase();
-            case A:
-                link.equiperArme();
-                break;
-            case X:
-                link.equiperAccessoire();
-                break;
-            case C:
-                link.utiliserAccessoire();
                 break;
             case T:
-               link.demanderDialogue();
+                link.demanderDialogue();
                 break;
-            default:
-                System.out.println("Autre Touche composé");
+
         }
     }
+
+
     private void updateSelectedCase() {
         // Enleve les contours actuelle
         stackPanes.get(indexCaseActuelle).getStyleClass().remove("case-inventaire-actuelle");
@@ -230,6 +243,7 @@ public class Controleur implements Initializable {
             tempsSprint.stop();
         }
     }
+
     public void deplacementLink(KeyCode touchePresse) {
         switch (touchePresse) {
             case Z:
@@ -247,6 +261,7 @@ public class Controleur implements Initializable {
         }
 
     }
+
     private void initAnimation() {
 
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.15), event -> {
@@ -261,11 +276,11 @@ public class Controleur implements Initializable {
         gameLoop.play();
     }
 
-        public void initSpawnEnnemis() {
-            Timeline tempsSpawn = new Timeline(new KeyFrame(Duration.seconds(15), e -> env.SpawnEnnemis()));
-            tempsSpawn.setCycleCount(Timeline.INDEFINITE);
-            tempsSpawn.play();
-        }
+    public void initSpawnEnnemis() {
+        Timeline tempsSpawn = new Timeline(new KeyFrame(Duration.seconds(15), e -> env.SpawnEnnemis()));
+        tempsSpawn.setCycleCount(Timeline.INDEFINITE);
+        tempsSpawn.play();
+    }
 
 
     public void afficherDialogue(String message) {

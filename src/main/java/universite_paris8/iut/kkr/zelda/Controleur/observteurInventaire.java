@@ -36,6 +36,8 @@ public class observteurInventaire implements ListChangeListener<ObjetEnvironneme
                 return new Image("file:src/main/resources/image/Potions & Armes/boomerang.png");
             case "Fleche":
                 return new Image("file:src/main/resources/image/Potions & Armes/fleche.png");
+            case "Bottes d'Arès":
+                return new Image("file:src/main/resources/image/Potions & Armes/bottes.gif");
         }
         return null;
     }

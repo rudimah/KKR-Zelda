@@ -1,7 +1,6 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-import javafx.collections.ObservableList;
-import universite_paris8.iut.kkr.zelda.Controleur.observteurInventaire;
+import universite_paris8.iut.kkr.zelda.Controleur.DialogueController;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Accessoires;
 import universite_paris8.iut.kkr.zelda.modele.Arme.Arme;
 import universite_paris8.iut.kkr.zelda.modele.Potion.Potion;
@@ -16,9 +15,17 @@ public class Link extends ActeurEnMouvement{
     private Arme armeActuelle;
     private Accessoires accessoireActuel;
     private int vitesse;
-    public Link(Environnement env) {
+    private DialogueController dialogue;
+    public Link(Environnement env, DialogueController dialogue) {
         super(80, 50, 10, env, 40, 10);
         this.inventaire = new Inventaire();
+        this.dialogue=dialogue;
+    }
+
+    public void demanderDialogue() {
+        if (dialogue!= null) {
+            dialogue.roueDialogue();
+        }
     }
 
     public void seDeplacer() {
@@ -147,6 +154,7 @@ public class Link extends ActeurEnMouvement{
         }
         else {
             Potion potion = (Potion) a;
+            System.out.println("utilisaton potion");
             potion.appliquerPotion();
 
         }

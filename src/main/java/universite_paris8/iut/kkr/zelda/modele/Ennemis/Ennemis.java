@@ -49,7 +49,7 @@ public abstract class Ennemis extends ActeurEnMouvement {
                 if (bfs.estAccessible(nouveauX, nouveauY)) {
                     setX(nouveauX);
                     setY(nouveauY);
-                    System.out.println("Ennemi se déplace" + getX() +  getY());
+//                    System.out.println("Ennemi se déplace" + getX() +  getY());
                 } else {
                     //si position non accesible il va a droite ou a gauche pour trouver un chemin accesible
                     int[] gauche = {-1, 0}; // Déplacement d'une tuile à gauche
