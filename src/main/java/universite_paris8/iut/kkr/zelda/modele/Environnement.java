@@ -4,57 +4,53 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis.*;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Environnement {
 
 	private int largeur, hauteur;
 	private ObservableList<Acteur> acteurs;
 	private ObservableList<ObjetEnvironnement> items;
-	private IntegerProperty nbToursProperty;
-
+	private int tourActuel = 0;
 	private int[][] tableauMap = {
 			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
 			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
 			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.EAU, Constantes.EAU, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.EAU, Constantes.EAU, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.HERBE, Constantes.HERBE, Constantes.EAU, Constantes.EAU, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.HERBE, Constantes.HERBE, Constantes.EAU, Constantes.EAU, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.PETIT_ROCHER, Constantes.ARBRES, Constantes.HERBE, Constantes.HERBE, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.GROS_ROCHER, Constantes.GROS_ROCHER, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.COFFRE, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
+			{Constantes.HERBE, Constantes.HERBE, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
+			{Constantes.HERBE, Constantes.HERBE , Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.EAU, Constantes.EAU, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
+			{Constantes.HERBE, Constantes.HERBE, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.EAU, Constantes.EAU, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
+			{Constantes.HERBE, Constantes.HERBE, Constantes.BUISSON, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.BUISSON, Constantes.BUISSON, Constantes.EAU, Constantes.EAU, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
+			{Constantes.HERBE, Constantes.HERBE, Constantes.BUISSON, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.BUISSON, Constantes.BUISSON, Constantes.EAU, Constantes.EAU, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
+			{Constantes.HERBE, Constantes.HERBE, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
+			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE,  Constantes.HERBE, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
+			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE,  Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
+			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.PETIT_ROCHER, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
+			{Constantes.GROS_ROCHER, Constantes.GROS_ROCHER, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
 			{Constantes.HERBE, Constantes.GROS_ROCHER, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, 4, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
+			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
 			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
 			{Constantes.HERBE, Constantes.HERBE, Constantes.VOITURE_ABANDONNEE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
 			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
 			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
 			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.LAVE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.POUBELLE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.PONT, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU},
-			{Constantes.LAVE, Constantes.HERBE, Constantes.HERBE, Constantes.CHEMIN_EN_PIERRE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.PONT, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU},
-			{Constantes.LAVE, Constantes.HERBE, Constantes.HERBE, Constantes.CHEMIN_EN_PIERRE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.PONT, Constantes.EAU, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.EAU, Constantes.EAU, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.EAU, Constantes.EAU, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.EAU, Constantes.EAU, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.EAU, Constantes.EAU, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-	};
+			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.POUBELLE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.PONT, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE},
+			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.CHEMIN_EN_PIERRE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.PONT, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE},
+			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.CHEMIN_EN_PIERRE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.LAVE},
+			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.HERBE, Constantes.HERBE, Constantes.COFFRE, Constantes.HERBE, Constantes.LAVE},
+			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.LAVE},
+			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE},
+			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE},};
 
 	public Environnement(int largeur, int hauteur) {
-		super();
 		this.largeur = largeur;
 		this.hauteur = hauteur;
-		this.nbToursProperty = new SimpleIntegerProperty(0);
 		this.acteurs = FXCollections.observableArrayList();
 		this.items = FXCollections.observableArrayList();
-
 	}
 
 	public int[][] getTableauMap() {
@@ -86,13 +82,12 @@ public class Environnement {
 	public void retirerActeur(Acteur a) {
 		acteurs.remove(a);
 	}
-
 	public void ajouterItem(ObjetEnvironnement a) {
 		items.add(a);
 	}
 
 	public int getTuile(int x, int y) {
-
+//Test
 		int colonneGrille = (x) / 30; // Calculer l'indice de la colonne de la grille correspondant à la position x
 		int ligneGrille = (y) / 30; // Calculer l'indice de la ligne de la grille correspondant à la position y
 //		System.out.println("[" + ligneGrille + "]" + "[" + colonneGrille + "]  = " + tableauMap[ligneGrille][colonneGrille]);
@@ -105,7 +100,7 @@ public class Environnement {
 
 
 	public boolean verifObstacle(int x, int y, ActeurEnMouvement a) {
-		int largeurPersonnage = 30; // Largeur du personnage en pixels
+		int largeurPersonnage = 20; // Largeur du personnage en pixels
 		int hauteurPersonnage = 30; // Hauteur du personnage en pixels
 
 		if (x < 0 || x + largeurPersonnage > largeur || y < 0 || y + hauteurPersonnage > hauteur) {
@@ -115,22 +110,24 @@ public class Environnement {
 		int tuile = getTuile(x, y);
 
 		switch (tuile) {
-			case 0: // Eau
+			case Constantes.EAU: // Eau
 				if (!(a instanceof Link)) {
 					return false;
 				}
 				break;
-			case 1: // Immeubles abandonnés
+			case Constantes.IMMEUBLES_ABANDONNES: // Immeubles abandonnés
 				return false;
-			case 2: // Arbres
+			case Constantes.ARBRES: // Arbres
 				return false;
-			case 8: // Voiture abandonnée
+			case Constantes.VOITURE_ABANDONNEE: // Voiture abandonnée
 				return false;
-			case 4: // Coffre
+			case Constantes.COFFRE: // Coffre
 				return false;
-			case 5: // Rocher
+			case Constantes.PETIT_ROCHER: // Rocher
 				return false;
-			case 6: // Poubelle
+			case Constantes.POUBELLE: // Poubelle
+				return false;
+			case Constantes.GROS_ROCHER:
 				return false;
 			default:
 				break;
@@ -139,28 +136,6 @@ public class Environnement {
 	}
 
 
-//	public void agir() {
-//		ActeurEnMouvement link = (ActeurEnMouvement) this.getLink();
-//		if (link != null) {
-//			if (!this.getActeurs().isEmpty()) {
-//				ArrayList<Acteur> acteurs = new ArrayList<>(this.getActeurs());
-//				for (Acteur acteur : acteurs) {
-//					if (acteur instanceof ActeurEnMouvement) {
-//						ActeurEnMouvement acteurEnMouvement = (ActeurEnMouvement) acteur;
-//						acteurEnMouvement.VerifEstVivant();
-//						if (acteurEnMouvement instanceof Ennemis) {
-//							Ennemis ennemi = (Ennemis) acteurEnMouvement;
-//							if (ennemi.estADistanceAttaque(link)) {
-//								ennemi.attaquer(link);
-//							} else {
-//								ennemi.seDeplacer();
-//							}
-//						}
-//					}
-//				}
-//			}
-//		}
-//	}
 
 	public void agir() {
 		ActeurEnMouvement link = (ActeurEnMouvement) this.getLink();
@@ -174,7 +149,7 @@ public class Environnement {
 					if (!ennemi.estFige()) {
 						if (ennemi.estADistanceAttaque(link)) {
 							ennemi.attaquer(link);
-						} else if (verifObstacle(link.getX(), link.getY(), ennemi)){
+						} else if (verifObstacle(link.getX(), link.getY(), ennemi)) {
 							ennemi.seDeplacer();
 						}
 					}
@@ -224,7 +199,53 @@ public class Environnement {
 		return ennemisProches;
 	}
 
-	public int getLargeur() {return largeur;}
+	public int getLargeur() {
+		return largeur;
+	}
 
-	public int getHauteur() {return hauteur;}
+	public int getHauteur() {
+		return hauteur;
+	}
+
+	public ActeurEnMouvement ennemisAleatoire(int x, int y) {
+		Random rand = new Random();
+		int aleatoire = rand.nextInt(100);
+		if (aleatoire < 50) {
+			return new Marcos(this);
+		} else if (aleatoire < 75) {
+			return new Reltih(this);
+		} else if (aleatoire < 90) {
+			return new Simonus(this);
+		} else {
+			return new Bonnoctus(this);
+		}
+	}
+
+	public boolean presdujoueur(int x, int y, int minDistance) {
+		Link link = getLink();
+		int dx = link.getX() - x;
+		int dy = link.getY() - y;
+		int distanceSquared = dx * dx + dy * dy;  // Carré de la distance
+		return distanceSquared < (minDistance * minDistance);
+	}
+
+
+	public void SpawnEnnemis() {
+		Random rand = new Random();
+		int x, y;
+		do {
+			x = rand.nextInt(largeur);
+			y = rand.nextInt(hauteur);
+		} while (!verifObstacle(x, y, null) || presdujoueur(x, y, 15));
+
+		ActeurEnMouvement ennemis = ennemisAleatoire(x, y);
+		ajouterActeur(ennemis);
+	}
+
+	public void incrementerTour() {
+		tourActuel++;
+		if (tourActuel % 150 == 0) { // Tous les 100 tours, générer un ennemi
+			SpawnEnnemis();
+		}
+	}
 }

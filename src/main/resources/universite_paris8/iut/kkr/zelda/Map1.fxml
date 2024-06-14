@@ -1,22 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<BorderPane  xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.kkr.zelda.Controleur.Controleur">
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0">
-   <children>
-      <Pane prefHeight="180.0" prefWidth="180.0" fx:id="panneauDeJeu">
-
-      <TilePane fx:id="tilepane" prefHeight="400.0" prefWidth="810" />
+<BorderPane stylesheets="@Map1.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.kkr.zelda.Controleur.Controleur">
+   <center>
+      <Pane fx:id="panneauDeJeu" prefHeight="180.0" prefWidth="180.0">
+         <TilePane fx:id="tilepane" prefHeight="400.0" prefWidth="810" />
       </Pane>
-      <Pane prefHeight="180.0" prefWidth="180.0" fx:id="panneauDeJeu2">
+   </center>
+   <bottom>
+      <HBox alignment="TOP_CENTER" prefHeight="1.0" prefWidth="200.0"  BorderPane.alignment="CENTER" >
+         <children>
+            <StackPane fx:id="emplacement1">
+               <ImageView fx:id="case1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"  styleClass="case-inventaire" />
+            </StackPane>
+            <StackPane fx:id="emplacement2">
+               <ImageView fx:id="case2" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" styleClass="case-inventaire" />
+            </StackPane>
+            <StackPane fx:id="emplacement3">
+               <ImageView fx:id="case3" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" styleClass="case-inventaire" />
+            </StackPane>
+            <StackPane fx:id="emplacement4">
+               <ImageView fx:id="case4" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" styleClass="case-inventaire"/>
+            </StackPane>
+         </children>
+      </HBox>
+   </bottom>
+   <top>
+      <HBox spacing="10" alignment="CENTER_LEFT">
+         <StackPane alignment="TOP_CENTER">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9fa0a1" height="20.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+            <Rectangle fx:id="barreVie" arcHeight="5.0" arcWidth="5.0" fill="#15b20d" height="15.0" stroke="BLACK" strokeType="INSIDE" width="95.0">
+               <StackPane.margin>
+                  <Insets top="2.0" />
+               </StackPane.margin>
+            </Rectangle>
+         </StackPane>
+         <Label fx:id="dialogueLabel" text="Salut! Je suis Link!" visible="false" style="-fx-background-color: white; -fx-border-color: black; -fx-padding: 5; -fx-border-width: 2; -fx-border-radius: 5;">
+            <HBox.margin>
+               <Insets left="10" />
+            </HBox.margin>
+         </Label>
+      </HBox>
+   </top>
 
-      </Pane>
-   </children>
-</Pane>
 
 </BorderPane>
+

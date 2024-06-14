@@ -8,7 +8,7 @@ public class Boomerang extends Arme {
     private int zoneDegats;
 
     public Boomerang(int x, int y) {
-        super("Boomerang du Vent Marin",80, x, y, 30);
+        super("Boomerang du Vent Marin",50, x, y, 30);
         this.zoneDegats = 10;
     }
 
@@ -29,10 +29,7 @@ public class Boomerang extends Arme {
         }
     }
 
-    @Override
-    public Environnement getE() {
-        return super.getE();
-    }
+
 
     public void setZoneDegats(int zoneDegats) {
         this.zoneDegats = zoneDegats;
@@ -40,6 +37,6 @@ public class Boomerang extends Arme {
 
     @Override
     public String toString() {
-        return "le boomerang";
+        return "le boomerang"  + super.toString();
     }
 }

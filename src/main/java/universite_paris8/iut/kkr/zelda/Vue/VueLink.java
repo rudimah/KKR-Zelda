@@ -15,7 +15,6 @@ import universite_paris8.iut.kkr.zelda.utils.Constantes;
 public class VueLink implements ChangeListener<Number>{
 
     boolean pied_droite = true;
-
     Environnement environnement;
     Link link;
     private Pane panneauDeJeu;
@@ -32,8 +31,8 @@ public class VueLink implements ChangeListener<Number>{
 
         imageView.setImage(image1);
         imageView.setViewport(new Rectangle2D(20, 13, 120, 160));
-        imageView.setFitWidth(20);
-        imageView.setFitHeight(30);
+        imageView.setFitWidth(link.getLargeur());
+        imageView.setFitHeight(link.getLongueur());
         imageView.setTranslateX(link.getX());
         imageView.setTranslateY(link.getY());
         panneauDeJeu.getChildren().add(imageView);
@@ -43,15 +42,14 @@ public class VueLink implements ChangeListener<Number>{
     @Override
     public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
 
-
-        this.panneauDeJeu.setTranslateX( panneauDeJeu.getPrefWidth() / 2 - link.getX()-(30/2));
-        this.panneauDeJeu.setTranslateY( panneauDeJeu.getPrefHeight() / 2 - link.getY()-(30/2));
-        panneauDeJeu.setTranslateX(panneauDeJeu.getPrefWidth() / 2 - link.getX()-(30/2));
-        panneauDeJeu.setTranslateY(panneauDeJeu.getPrefHeight() /2 - link.getY()-(30/2));
+        this.panneauDeJeu.setTranslateX( panneauDeJeu.getPrefWidth() / 2 - link.getX()-(30));
+        this.panneauDeJeu.setTranslateY( panneauDeJeu.getPrefHeight() / 2 - link.getY()-(30));
+        panneauDeJeu.setTranslateX(panneauDeJeu.getPrefWidth() / 2 - link.getX()-(30));
+        panneauDeJeu.setTranslateY(panneauDeJeu.getPrefHeight() /2 - link.getY()-(30));
 
 
         imageView.setTranslateX(link.getX());
-            imageView.setTranslateY(link.getY());
+        imageView.setTranslateY(link.getY());
             int position_image_x = 20, position_image_y = 13, position_image_eau = 0;
 
         direction = link.getDirection();

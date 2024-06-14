@@ -9,7 +9,8 @@ public class BottesAres extends Accessoires {
 
     @Override
     public void appliquerEffet(){
-
+        env.getLink().setVitesse(env.getLink().getVitesse()*2);
+        System.out.println("Vitesse doublé grâce au Bottes");
     }
 
 }

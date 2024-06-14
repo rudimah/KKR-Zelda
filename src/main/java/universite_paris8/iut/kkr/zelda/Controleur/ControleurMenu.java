@@ -21,8 +21,6 @@ import java.util.ResourceBundle;
 
 public class ControleurMenu implements Initializable {
     @FXML
-    ImageView imageFond;
-    @FXML
     VBox contenuRegles;
     @FXML
     VBox contenuBoutons;
@@ -41,7 +39,7 @@ public class ControleurMenu implements Initializable {
         try {
             Main main = new Main();
             main.start(new Stage());
-            Scene scene = ((Stage)((javafx.scene.Node)event.getSource()).getScene().getWindow()).getScene();
+            Scene scene = ((javafx.scene.Node)event.getSource()).getScene().getWindow().getScene();
             Stage stage = (Stage) scene.getWindow();
             stage.close();
         } catch (IOException e) {

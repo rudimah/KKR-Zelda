@@ -88,8 +88,8 @@ public class TerrainVue {
                         break;
                     case 13: // Pont
                         Image Pont = new Image("file:src/main/resources/image/pont.png");
-                        Image eau2 = new Image("file:src/main/resources/image/eau.jpg");
-                        imageDeFond.setImage(eau2);
+                        Image lave2 = new Image("file:src/main/resources/image/lave.png");
+                        imageDeFond.setImage(lave2);
                         images.setImage(Pont);
                         images.setRotate(90);
                     default:

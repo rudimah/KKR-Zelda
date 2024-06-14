@@ -1,8 +1,9 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-import javafx.collections.ObservableList;
+import universite_paris8.iut.kkr.zelda.Controleur.DialogueController;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Accessoires;
 import universite_paris8.iut.kkr.zelda.modele.Arme.Arme;
+import universite_paris8.iut.kkr.zelda.modele.Potion.Potion;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 import java.util.ArrayList;
 
@@ -14,9 +15,17 @@ public class Link extends ActeurEnMouvement{
     private Arme armeActuelle;
     private Accessoires accessoireActuel;
     private int vitesse;
-    public Link(Environnement env) {
+    private DialogueController dialogue;
+    public Link(Environnement env, DialogueController dialogue) {
         super(80, 50, 10, env, 40, 10);
         this.inventaire = new Inventaire();
+        this.dialogue=dialogue;
+    }
+
+    public void demanderDialogue() {
+        if (dialogue!= null) {
+            dialogue.roueDialogue();
+        }
     }
 
     public void seDeplacer() {
@@ -29,10 +38,12 @@ public class Link extends ActeurEnMouvement{
         yBas = nouveauY + 28;
 
         if (tileId == 0) { // Eau
-            vitesse = 1;
+            vitesse = 3;
             System.out.println("Link se déplace dans l'eau, vitesse réduite à 1");
-        }
-        else {
+        } else if (tileId == Constantes.LAVE) {
+            setPv(getPv()-1);
+            System.out.println("Link se déplace dans la lave, point de vie réduite à 1");
+        } else {
             vitesse = getVitesse();
         }
 
@@ -69,8 +80,9 @@ public class Link extends ActeurEnMouvement{
 //                System.out.println("Direction inconnue");
         }
         Direction = 0;
-
-        ramasserItem();
+        if(inventaire.getInventaire().size()<4){
+            ramasserItem();
+        }
 //        System.out.println("s'est déplacé en (" + getX() + ", " + getY() + ")");
 
     }
@@ -79,7 +91,7 @@ public class Link extends ActeurEnMouvement{
     public void ramasserItem() {
         ArrayList<ObjetEnvironnement> itemsARamasser = new ArrayList<>();
         for (ObjetEnvironnement item : env.getItems()) {
-            if (!item.EstRamassé() && estProcheDe(item)) {
+            if (!item.EstRamassé() && estProcheDe(item) ) {
                 itemsARamasser.add(item);
             }
         }
@@ -100,76 +112,51 @@ public class Link extends ActeurEnMouvement{
         if (estADistanceAttaque(acteurCible)) {
             acteurCible.decrementerPv(getPtAttaque());
         }
-        System.out.println("Link attaque " + acteurCible + " à mains nues ! Il lui reste " + acteurCible.getPv() + " pv.");
+        System.out.println("Link attaque " + acteurCible + " à mains nu ! Il lui reste " + acteurCible.getPv() + " pv ");
     }
     @Override
     public void attaquer(ActeurEnMouvement ennemi) {
         if (armeActuelle != null) {
             armeActuelle.attaquerAvecArme(ennemi); // Utilise l'arme actuelle pour attaquer l'ennemi
-            System.out.println("Link attaque " + ennemi + " avec " + armeActuelle.toString() + " ! Il reste " + ennemi.getPv() + " pv à l'ennemi.");
+            System.out.println("Link attaque " + ennemi + " avec " + armeActuelle.toString() + " Il reste " + ennemi.getPv() + " pv à l'ennemi");
         }
         else {
             attaquerAMainsNues(ennemi);
         }
     }
 
-    public void utilserAccessoire(){
+    public void utiliserAccessoire(){
         if(accessoireActuel != null){
             accessoireActuel.appliquerEffet();
         }
         else{
-            System.out.println("Link n'a pas d'accessoire équipé.");
+            System.out.println("Link n'a pas d'accessoire équipé ");
         }
     }
-
-    public void equiperArme() {
-        ObservableList<ObjetEnvironnement> inventaireCurrent = inventaire.getInventaire();
-        ArrayList<Arme> armes = new ArrayList<>();
-        for (ObjetEnvironnement objet : inventaireCurrent) {
-            if (objet instanceof Arme) {
-                armes.add((Arme) objet);
-            }
-        }
-        if (armes.size() == 1) {
-            armeActuelle = armes.get(0);
-        } else if (armes.size() > 1) {
-            int currentIndex = armes.indexOf(armeActuelle);
-            currentIndex = (currentIndex + 1) % armes.size();
-            armeActuelle = armes.get(currentIndex);
-        }
-        if (armeActuelle != null) {
-            System.out.println("Link a équipé l'arme : " + armeActuelle.getNom());
-        } else {
-            System.out.println("Link n'a pas d'arme à équiper.");
-        }
-    }
-
-    public void equiperAccessoire() {
-        ObservableList<ObjetEnvironnement> inventaireCurrent = inventaire.getInventaire();
-        ArrayList<Accessoires> accessoires = new ArrayList<>();
-        for (ObjetEnvironnement objet : inventaireCurrent) {
-            if (objet instanceof Accessoires) {
-                accessoires.add((Accessoires) objet);
-            }
-        }
-        if (accessoires.size() == 1) {
-            accessoireActuel = accessoires.get(0);
-        } else if (accessoires.size() > 1) {
-            int currentIndex = accessoires.indexOf(accessoireActuel);
-            currentIndex = (currentIndex + 1) % accessoires.size();
-            accessoireActuel = accessoires.get(currentIndex);
-        }
-        if (accessoireActuel != null) {
-            System.out.println("Link a équipé l'accessoire : " + accessoireActuel.getNom());
-        } else {
-            System.out.println("Link n'a pas d'accessoire à équiper.");
-        }
-    }
-
 
     public Arme getArme() {
         return armeActuelle;
     }
 
+    public Inventaire getInventaire() {
+        return inventaire;
+    }
 
+    public void utiliser(ObjetEnvironnement a){
+        if( a instanceof Arme){
+            if (armeActuelle!=null) inventaire.getInventaire().add(armeActuelle);
+            armeActuelle =  (Arme) a;
+            System.out.println("Link est équipé de l'arme : " + armeActuelle.getNom());
+
+        } else if (a instanceof Accessoires) {
+            accessoireActuel = (Accessoires) a;
+            System.out.println("Link est équipé de l'arme  : " + accessoireActuel.getNom());
+        }
+        else {
+            Potion potion = (Potion) a;
+            System.out.println("utilisaton potion");
+            potion.appliquerPotion();
+
+        }
+    }
 }

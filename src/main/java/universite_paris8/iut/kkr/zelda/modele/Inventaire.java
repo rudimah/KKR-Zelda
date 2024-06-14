@@ -22,14 +22,20 @@ public class Inventaire {
     }
 
     public void ajouterItemAInventaire(ObjetEnvironnement a){
-        inventaire.add(a);
+        if (inventaire.size()<4){
+            inventaire.add(a);
+        }
+        else{
+            System.out.println("Inventaire Pleins");
+        }
     }
 
     public void afficherInventaire(){
-        System.out.print('[');
+        System.out.print("[");
         for (ObjetEnvironnement item : inventaire){
-            System.out.print(item.getNom() + " , " );
+            System.out.print(item.getNom());
         }
-        System.out.println(']');
+        System.out.println("]");
     }
+
 }
