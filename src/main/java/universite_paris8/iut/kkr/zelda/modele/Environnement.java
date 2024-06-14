@@ -4,19 +4,19 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis.*;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Environnement {
 
 	private int largeur, hauteur;
 	private ObservableList<Acteur> acteurs;
 	private ObservableList<ObjetEnvironnement> items;
-	private IntegerProperty nbToursProperty;
-
+	private int tourActuel = 0;
 	private int[][] tableauMap = {
 			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
 			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
@@ -48,13 +48,10 @@ public class Environnement {
 	};
 
 	public Environnement(int largeur, int hauteur) {
-		super();
 		this.largeur = largeur;
 		this.hauteur = hauteur;
-		this.nbToursProperty = new SimpleIntegerProperty(0);
 		this.acteurs = FXCollections.observableArrayList();
 		this.items = FXCollections.observableArrayList();
-
 	}
 
 	public int[][] getTableauMap() {
@@ -105,7 +102,7 @@ public class Environnement {
 
 
 	public boolean verifObstacle(int x, int y, ActeurEnMouvement a) {
-		int largeurPersonnage = 30; // Largeur du personnage en pixels
+		int largeurPersonnage = 20; // Largeur du personnage en pixels
 		int hauteurPersonnage = 30; // Hauteur du personnage en pixels
 
 		if (x < 0 || x + largeurPersonnage > largeur || y < 0 || y + hauteurPersonnage > hauteur) {
@@ -174,7 +171,7 @@ public class Environnement {
 					if (!ennemi.estFige()) {
 						if (ennemi.estADistanceAttaque(link)) {
 							ennemi.attaquer(link);
-						} else if (verifObstacle(link.getX(), link.getY(), ennemi)){
+						} else if (verifObstacle(link.getX(), link.getY(), ennemi)) {
 							ennemi.seDeplacer();
 						}
 					}
@@ -224,7 +221,53 @@ public class Environnement {
 		return ennemisProches;
 	}
 
-	public int getLargeur() {return largeur;}
+	public int getLargeur() {
+		return largeur;
+	}
 
-	public int getHauteur() {return hauteur;}
+	public int getHauteur() {
+		return hauteur;
+	}
+
+	public ActeurEnMouvement ennemisAleatoire(int x, int y) {
+		Random rand = new Random();
+		int aleatoire = rand.nextInt(100);
+		if (aleatoire < 50) {
+			return new Marcos(this);
+		} else if (aleatoire < 75) {
+			return new Reltih(this);
+		} else if (aleatoire < 90) {
+			return new Simonus(this);
+		} else {
+			return new Bonnoctus(this);
+		}
+	}
+
+	public boolean presdujoueur(int x, int y, int minDistance) {
+		Link link = getLink();
+		int dx = link.getX() - x;
+		int dy = link.getY() - y;
+		int distanceSquared = dx * dx + dy * dy;  // Carré de la distance
+		return distanceSquared < (minDistance * minDistance);
+	}
+
+
+	public void SpawnEnnemis() {
+		Random rand = new Random();
+		int x, y;
+		do {
+			x = rand.nextInt(largeur);
+			y = rand.nextInt(hauteur);
+		} while (!verifObstacle(x, y, null) || presdujoueur(x, y, 15));
+
+		ActeurEnMouvement ennemis = ennemisAleatoire(x, y);
+		ajouterActeur(ennemis);
+	}
+
+	public void incrementerTour() {
+		tourActuel++;
+		if (tourActuel % 150 == 0) { // Tous les 100 tours, générer un ennemi
+			SpawnEnnemis();
+		}
+	}
 }

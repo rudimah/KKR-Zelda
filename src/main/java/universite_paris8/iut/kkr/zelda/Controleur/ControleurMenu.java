@@ -21,8 +21,6 @@ import java.util.ResourceBundle;
 
 public class ControleurMenu implements Initializable {
     @FXML
-    ImageView imageFond;
-    @FXML
     VBox contenuRegles;
     @FXML
     VBox contenuBoutons;

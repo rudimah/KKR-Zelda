@@ -17,31 +17,33 @@ public abstract class Ennemis extends ActeurEnMouvement {
     }
 
     public void seDeplacer() {
+        Acteur link = env.getLink(); //cible link
+
         if (toursFige > 0) {
             toursFige--;
             return;
         }
 
-        Acteur link = env.getLink();
+
         if (link != null) {
             int linkX = link.getX();
-            int linkY = link.getY();
+            int linkY = link.getY(); //recuperer position link
 
             List<int[]> chemin = bfs.cheminBFS(getX(), getY(), linkX, linkY);
-            if (chemin != null && !chemin.isEmpty() && chemin.size() > 1) {
-                int[] prochaineEtape = chemin.get(1);
+            if (chemin != null && !chemin.isEmpty()) { //si chemin n'est pas vide  null si le cheminna pas ete calculer
+                int[] prochaineEtape = chemin.get(1); //prochain position ennnemi car get(0) la ou est l'ennnemi
 
-                double dx = prochaineEtape[0] - getX();
-                double dy = prochaineEtape[1] - getY();
-                double distance = Math.sqrt(dx * dx + dy * dy);
+                int dx = prochaineEtape[0] - getX();  //prochaine position  positionCible- position actuel
+                int dy = prochaineEtape[1] - getY();
+                double distance = Math.sqrt(dx * dx + dy * dy); //distance que l'ennnemi parcours en verticale et horizontale
 
-                // Normaliser le vecteur de déplacement
-                double nx = dx / distance;
-                double ny = dy / distance;
+                // Normaliser le vecteur de déplacement permet de deplacer l'ennemi a une vitesse constante
+                double nx = dx/distance;
+                double ny = dy/distance;
 
-                // Calculer la nouvelle position en fonction de la vitesse
-                int nouveauX = (int) (getX() + nx * getVitesse());
-                int nouveauY = (int) (getY() + ny * getVitesse());
+                // Calculer la nouvelle position avec la vitesse de l'ennemi
+                int nouveauX = (int)(getX()+nx*getVitesse());
+                int nouveauY = (int)(getY()+ny*getVitesse());
 
                 // Vérifier si la nouvelle position est accessible
                 if (bfs.estAccessible(nouveauX, nouveauY)) {
@@ -49,13 +51,14 @@ public abstract class Ennemis extends ActeurEnMouvement {
                     setY(nouveauY);
                     System.out.println("Ennemi se déplace" + getX() +  getY());
                 } else {
+                    //si position non accesible il va a droite ou a gauche pour trouver un chemin accesible
                     int[] gauche = {-1, 0}; // Déplacement d'une tuile à gauche
                     int[] droite = {1, 0};  // Déplacement d'une tuile à droite
                     int nouveauXGauche = getX() + gauche[0];
                     int nouveauXDroite = getX() + droite[0];
-                    int y = getY();
+                    int y = getY(); //maintient la position en Y car il se deplace que en X
 
-                    if (bfs.estAccessible(nouveauXGauche, y)) {
+                    if (bfs.estAccessible(nouveauXGauche, y)) { //verifie les positions
                         setX(nouveauXGauche);
                     } else if (bfs.estAccessible(nouveauXDroite, y)) {
                         setX(nouveauXDroite);

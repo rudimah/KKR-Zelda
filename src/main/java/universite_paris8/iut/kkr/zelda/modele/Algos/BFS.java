@@ -31,10 +31,10 @@ public class BFS {
         // Parcourir le tableau d'obstacles pour voir si la tuile==obstacle
         for (int i=0; i<obstacles.length;i++) {
             if (tuile == obstacles[i]) {
-                return false; // La cellule est un obstacle
+                return false;
             }
         }
-        return true; // Aucun obstacle trouvé
+        return true;
     }
 
 
@@ -43,48 +43,48 @@ public class BFS {
             return Collections.emptyList(); // Destination non accessible
         }
 
-        Queue<int[]> file = new LinkedList<>();
-        Map<Integer, int[]> parentMap = new HashMap<>();
-        boolean[][] visite = new boolean[environnement.getLargeur()][environnement.getHauteur()];
+        Queue<int[]> file = new LinkedList<>();  //posiiton a explorer fifo
+        Map<Integer, int[]> vientde = new HashMap<>();
+        boolean[][] visite = new boolean[environnement.getLargeur()][environnement.getHauteur()]; //enregistre les position deja visite
 
-        file.add(new int[]{departX, departY});
-        visite[departX][departY] = true;
-        parentMap.put(departY * environnement.getLargeur() + departX, null);
+        file.add(new int[]{departX, departY}); //point de départ
+        visite[departX][departY] = true; //marquer visité
+        vientde.put(departX * environnement.getLargeur() + departY, null); //d'ou on vient encoder les indices dans une case et eviter les collision ex ; 1.3 et 3.1
 
         while (!file.isEmpty()) {
-            int[] courant = file.poll();
-            int x = courant[0];
-            int y = courant[1];
+            int[] positionactuel = file.poll();
+            int x = positionactuel[0];
+            int y = positionactuel[1];
 
             if (x == arriveeX && y == arriveeY) {
-                return reconstruireChemin(parentMap, courant); // Retourne le chemin complet en reconstruisant
+                return reconstruireChemin(vientde, positionactuel); // Retourne le chemin jsuqua l'arriver
             }
 
-            for (int[] direction : DIRECTIONS) {
+            for (int[] direction : DIRECTIONS) { //explore les direction depuis les coordonnées
                 int xSuivant = x + direction[0];
                 int ySuivant = y + direction[1];
 
-                if (estDanslimites(xSuivant, ySuivant) && !visite[xSuivant][ySuivant] && estAccessible(xSuivant, ySuivant)) {
-                    visite[xSuivant][ySuivant] = true;
-                    file.add(new int[]{xSuivant, ySuivant});
-                    parentMap.put(ySuivant * environnement.getLargeur() + xSuivant, courant);
+                if (estDanslimites(xSuivant, ySuivant) && !visite[xSuivant][ySuivant] && estAccessible(xSuivant, ySuivant)) { //vérif avant de passer a la position 1. si dans les limites
+                    visite[xSuivant][ySuivant] = true; //met la posiiton a true car considere visité
+                    file.add(new int[]{xSuivant, ySuivant}); // ajoute les coordoner a la file
+                    vientde.put(ySuivant * environnement.getLargeur() + xSuivant, positionactuel); //stock d'ou elle vient
                 }
             }
         }
 
-        return Collections.emptyList(); // Aucun chemin trouvé
+        return Collections.emptyList(); //renvoie la liste si vide ou non
     }
 
     public boolean estDanslimites(int x, int y) {
         return x >= 0 && x < environnement.getLargeur() && y >= 0 && y < environnement.getHauteur();
     }
 
-    private List<int[]> reconstruireChemin(Map<Integer, int[]> parentMap, int[] arrivee) {
+   public List<int[]> reconstruireChemin(Map<Integer,int[]> parentMap, int[] arrivee) {
         LinkedList<int[]> chemin = new LinkedList<>();
-        int[] etape = arrivee;
-        while (etape != null) {
-            chemin.addFirst(etape);
-            etape = parentMap.get(etape[1] * environnement.getLargeur() + etape[0]);
+        int[] pointdepart = arrivee; //depart de la reconstruction arriver -> départ ( cest la case d'arrivé)
+        while (pointdepart != null) { //tant que pt de depart non atteint
+            chemin.addFirst(pointdepart);
+            pointdepart = parentMap.get(pointdepart[1] * environnement.getLargeur() + pointdepart[0]); //vient de
         }
 
         return chemin;

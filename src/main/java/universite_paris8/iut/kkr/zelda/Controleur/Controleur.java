@@ -1,25 +1,21 @@
 package universite_paris8.iut.kkr.zelda.Controleur;
 
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.scene.control.Label;
 import javafx.animation.KeyFrame;
-import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
-import javafx.stage.Stage;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.kkr.zelda.Vue.TerrainVue;
 import universite_paris8.iut.kkr.zelda.Vue.VueLink;
 import universite_paris8.iut.kkr.zelda.modele.*;
@@ -36,8 +32,6 @@ public class Controleur implements Initializable {
     private TilePane tilepane;
     @FXML
     private Pane panneauDeJeu;
-    @FXML
-    private Pane panneauDeJeu2;
     private int vitesseNormale;
     private Link link;
     private TerrainVue terrainVue;
@@ -46,6 +40,10 @@ public class Controleur implements Initializable {
     private DialogueController roueDial;
 
     @FXML
+    private Rectangle barreVie;
+
+    @FXML
+    private Label dialogueLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -53,13 +51,13 @@ public class Controleur implements Initializable {
         terrainVue = new TerrainVue(env, tilepane);
         tilepane.setPrefColumns(env.getTableauMap()[0].length);
         tilepane.setPrefRows(env.getTableauMap().length);
-        roueDial=new DialogueController();
+        roueDial = new DialogueController(this);
         link = new Link(env, roueDial);
 
         this.vitesseNormale = link.getVitesse();
 
-        this.env.getItems().addListener(new Observateur(panneauDeJeu));
-        this.env.getActeurs().addListener(new ObservateurEnnemi(panneauDeJeu));
+        this.env.getItems().addListener(new ObservateurElement(panneauDeJeu));
+        this.env.getActeurs().addListener(new ObservateurPersonnage(panneauDeJeu));
         env.ajouterItem(new Epee(300, 300));
         env.ajouterItem(new Sabre(300, 450));
         env.ajouterItem(new Flute(500, 450, env));
@@ -77,18 +75,33 @@ public class Controleur implements Initializable {
 
         link.getXProperty().addListener(afficherlink);
         link.getYProperty().addListener(afficherlink);
+        barreVie.widthProperty().bind(link.pointDeVieProperty().multiply(100.0 / link.getPv()));
+        link.pointDeVieProperty().addListener((obs, old, nouv) -> couleurBarreDeVie(nouv));
 
         tilepane.setMaxWidth(panneauDeJeu.getMaxWidth());
         tilepane.setMaxHeight(panneauDeJeu.getMaxHeight());
 
         initAnimation();
-        tempsSprint = new Timeline(new KeyFrame(Duration.seconds(3), e -> stopSprint()));
-        tempsSprint.setCycleCount(2);
+        initSpawnEnnemis();
+
+
+
+    }
+
+    private void couleurBarreDeVie(Number pointvie) {
+        double pourcentagevie = pointvie.doubleValue() / 100.0; // Convertir en pourcentage
+
+        if (pourcentagevie > 0.7) {
+            barreVie.setFill(Color.LIMEGREEN);
+        } else if (pourcentagevie > 0.3) {
+            barreVie.setFill(Color.YELLOW);
+        } else {
+            barreVie.setFill(Color.RED);
+        }
     }
 
 
-
-    private void stopSprint() {
+    public void stopSprint() {
         link.setVitesse(vitesseNormale);
     }
 
@@ -129,7 +142,7 @@ public class Controleur implements Initializable {
                link.demanderDialogue();
                 break;
             default:
-                System.out.println("Autre Touche");
+                System.out.println("Autre Touche composé");
         }
     }
     private void handleKeyRelease(KeyEvent event) {
@@ -158,7 +171,7 @@ public class Controleur implements Initializable {
         }
     }
 
-    private void initAnimation() {
+    private void initAnimation() {{
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.15), event -> {
             env.agir();
             link.seDeplacer();
@@ -167,8 +180,29 @@ public class Controleur implements Initializable {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         gameLoop.play();
     }
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.15), event -> {
+            env.agir();
+            env.incrementerTour();
+            link.seDeplacer();
+        });
+        gameLoop = new Timeline(keyFrame);
+        gameLoop.setCycleCount(Timeline.INDEFINITE);
+        tempsSprint = new Timeline(new KeyFrame(Duration.seconds(3), e -> stopSprint()));
+        tempsSprint.setCycleCount(2);
+        gameLoop.play();
+    }
+
+        public void initSpawnEnnemis() {
+            Timeline tempsSpawn = new Timeline(new KeyFrame(Duration.seconds(15), e -> env.SpawnEnnemis()));
+            tempsSpawn.setCycleCount(Timeline.INDEFINITE);
+            tempsSpawn.play();
+        }
 
 
-
+    public void afficherDialogue(String message) {
+        dialogueLabel.setText("Link : " + message);
+        dialogueLabel.setVisible(true);
+        new Timeline(new KeyFrame(Duration.seconds(5), e -> dialogueLabel.setVisible(false))).play();
+    }
 
 }

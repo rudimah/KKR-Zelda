@@ -1,0 +1,12 @@
+.case-inventaire {
+    -fx-border-color: transparent;
+    -fx-border-width: 2;
+    -fx-padding: 2;
+}
+
+.case-inventaire-actuelle {
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-padding: 2;
+    -fx-border-radius : 10;
+}

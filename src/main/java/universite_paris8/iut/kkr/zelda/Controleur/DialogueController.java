@@ -8,30 +8,32 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class DialogueController implements InterfaceDialogue {
+public class DialogueController {
 
+    private Controleur controleur;
 
-    @Override
-    public void roueDialogue(Link link) {
+    public DialogueController(Controleur controleur) {
+        this.controleur = controleur;
+    }
+
+    public void roueDialogue() {
         Platform.runLater(() -> {
-            // Définition des choix disponibles pour Link
             List<String> choix = Arrays.asList(
                     "Salut ! Je suis Link !",
                     "Oh non ! À l'aide !",
                     "Tiens, prends ça !",
                     "Bien joué !",
-                    "Que se passe-t-il ?"
+                    "Que se passe-t-il ?",
+                    "Tu veux te battre ?! Alors viens !!ss"
             );
 
-            // Création du dialogue de choix
-            ChoiceDialog<String> dialog = new ChoiceDialog<>(choix.get(0), choix);
-            dialog.setTitle("Dialogue de Link");
-            dialog.setHeaderText("Link parle...");
-            dialog.setContentText("Choisissez une réplique:");
+            ChoiceDialog<String> choixdialogue = new ChoiceDialog<>(choix.get(0), choix); //prend la premiere replique
+            choixdialogue.setTitle("Dialogue de Link");
+            choixdialogue.setHeaderText("Link parle...");
+            choixdialogue.setContentText("Choisissez une réplique:");
 
-            // Affichage du dialogue et traitement de la réponse
-            Optional<String> result = dialog.showAndWait();
-            result.ifPresent(response -> System.out.println("Link dit : " + response));
+            Optional<String> choixutilisateur = choixdialogue.showAndWait();
+            choixutilisateur.ifPresent(reponse -> controleur.afficherDialogue(reponse));
         });
     }
 }

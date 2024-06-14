@@ -12,10 +12,10 @@ import universite_paris8.iut.kkr.zelda.modele.Arme.*;
 import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
 import universite_paris8.iut.kkr.zelda.modele.Potion.*;
 
-public class Observateur implements ListChangeListener<ObjetEnvironnement> {
+public class ObservateurElement implements ListChangeListener<ObjetEnvironnement> {
     private Pane panneauJeu;
 
-    public Observateur(Pane panneauJeu) {
+    public ObservateurElement(Pane panneauJeu) {
         super();
         this.panneauJeu = panneauJeu;
     }

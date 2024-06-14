@@ -17,15 +17,16 @@ public class Link extends ActeurEnMouvement{
     private Accessoires accessoireActuel;
     private int vitesse;
     private DialogueController dialogue;
+
     public Link(Environnement env, DialogueController dialogue) {
-        super(80, 50, 10, env, 100, 10);
+        super(80, 50, 10, env, 300, 10);
         this.inventaire = new Inventaire();
         this.dialogue=dialogue;
     }
 
     public void demanderDialogue() {
         if (dialogue!= null) {
-            dialogue.roueDialogue(this);
+            dialogue.roueDialogue();
         }
     }
 
@@ -172,27 +173,6 @@ public class Link extends ActeurEnMouvement{
             System.out.println("Link a équipé l'accessoire : " + accessoireActuel.getNom());
         } else {
             System.out.println("Link n'a pas d'accessoire à équiper ");
-        }
-    }
-
-    public String parler() {
-        Scanner sc = new Scanner(System.in);
-        int choix;
-        choix = sc.nextInt();
-        switch (choix) {
-            case 1:
-                return "Salut ! je suis Link !";
-            case 2:
-                return "Oh non ! à l'aide !";
-            case 3:
-                return "Tiens, Prend ça !";
-            case 4:
-                return "Bien joué !";
-            case 5:
-                return "Que se passe t-il ?";
-            default:
-                System.out.println("Choix incorrect");
-                return "Je n'ai rien à dire";
         }
     }
 
