@@ -42,15 +42,14 @@ public class VueLink implements ChangeListener<Number>{
     @Override
     public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
 
-
-        this.panneauDeJeu.setTranslateX( panneauDeJeu.getPrefWidth() / 2 - link.getX()-(30/2));
-        this.panneauDeJeu.setTranslateY( panneauDeJeu.getPrefHeight() / 2 - link.getY()-(30/2));
-        panneauDeJeu.setTranslateX(panneauDeJeu.getPrefWidth() / 2 - link.getX()-(30/2));
-        panneauDeJeu.setTranslateY(panneauDeJeu.getPrefHeight() /2 - link.getY()-(30/2));
+        this.panneauDeJeu.setTranslateX( panneauDeJeu.getPrefWidth() / 2 - link.getX()-(30));
+        this.panneauDeJeu.setTranslateY( panneauDeJeu.getPrefHeight() / 2 - link.getY()-(30));
+        panneauDeJeu.setTranslateX(panneauDeJeu.getPrefWidth() / 2 - link.getX()-(30));
+        panneauDeJeu.setTranslateY(panneauDeJeu.getPrefHeight() /2 - link.getY()-(30));
 
 
         imageView.setTranslateX(link.getX());
-            imageView.setTranslateY(link.getY());
+        imageView.setTranslateY(link.getY());
             int position_image_x = 20, position_image_y = 13, position_image_eau = 0;
 
         direction = link.getDirection();

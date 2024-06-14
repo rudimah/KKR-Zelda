@@ -26,6 +26,7 @@ import universite_paris8.iut.kkr.zelda.modele.*;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Flute;
 import universite_paris8.iut.kkr.zelda.modele.Arme.*;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis.Simonus;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionForce;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
@@ -66,12 +67,12 @@ public class Controleur implements Initializable {
         env.ajouterItem(new Arc(40, 30));
         env.ajouterItem(new Boomerang(500, 450));
         env.ajouterItem(new PotionForce(480, 203, env));
+
+
+        env.ajouterItem(new PotionAcide(200, 100, env));
         env.ajouterActeur(link);
 //        env.ajouterActeur(new Reltih(env));
 //        env.ajouterActeur(new Simonus(env));
-        env.ajouterItem(new PotionAcide(200, 100, env));
-        env.ajouterActeur(link);
-        // env.ajouterActeur(new Reltih(env, panneauDeJeu, tilepane));
         afficherlink = new VueLink(env, link, panneauDeJeu);
 
         imageViews.add(case1);imageViews.add(case2);imageViews.add(case3);imageViews.add(case4);
