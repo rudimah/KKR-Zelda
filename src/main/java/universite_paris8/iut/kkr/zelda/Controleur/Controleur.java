@@ -1,17 +1,24 @@
 package universite_paris8.iut.kkr.zelda.Controleur;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import universite_paris8.iut.kkr.zelda.Vue.TerrainVue;
 import universite_paris8.iut.kkr.zelda.Vue.VueLink;
@@ -74,9 +81,37 @@ public class Controleur implements Initializable {
 
         link.getXProperty().addListener(afficherlink);
         link.getYProperty().addListener(afficherlink);
+        link.getPvProperty().addListener((obs, oldVal, newVal) -> {
+            if (link.estMort()) {
+                finDeJeu();
+            }
+        });
         stackPanes.get(indexCaseActuelle).getStyleClass().add("case-inventaire-actuelle");
         initAnimation();
 
+    }
+    private void finDeJeu() {
+        gameLoop.stop();
+
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Game Over");
+            alert.setHeaderText(null);
+            alert.setContentText("Link est mort. Fin de Partie appuyer sur OK pour revenir sur le menue principal");
+
+            alert.setOnHidden(evt -> {
+                try {
+                    Stage primaryStage = (Stage) panneauDeJeu.getScene().getWindow();
+                    Parent root = FXMLLoader.load(getClass().getResource("/universite_paris8/iut/kkr/zelda/GameMenu.fxml"));
+                    Scene scene = new Scene(root, 800, 800);
+                    primaryStage.setScene(scene);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            alert.show();
+        });
     }
 
     private void gererTouch(KeyEvent event) {

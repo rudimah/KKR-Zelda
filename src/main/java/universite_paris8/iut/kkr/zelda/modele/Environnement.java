@@ -138,28 +138,6 @@ public class Environnement {
 	}
 
 
-//	public void agir() {
-//		ActeurEnMouvement link = (ActeurEnMouvement) this.getLink();
-//		if (link != null) {
-//			if (!this.getActeurs().isEmpty()) {
-//				ArrayList<Acteur> acteurs = new ArrayList<>(this.getActeurs());
-//				for (Acteur acteur : acteurs) {
-//					if (acteur instanceof ActeurEnMouvement) {
-//						ActeurEnMouvement acteurEnMouvement = (ActeurEnMouvement) acteur;
-//						acteurEnMouvement.VerifEstVivant();
-//						if (acteurEnMouvement instanceof Ennemis) {
-//							Ennemis ennemi = (Ennemis) acteurEnMouvement;
-//							if (ennemi.estADistanceAttaque(link)) {
-//								ennemi.attaquer(link);
-//							} else {
-//								ennemi.seDeplacer();
-//							}
-//						}
-//					}
-//				}
-//			}
-//		}
-//	}
 
 	public void agir() {
 		ActeurEnMouvement link = (ActeurEnMouvement) this.getLink();

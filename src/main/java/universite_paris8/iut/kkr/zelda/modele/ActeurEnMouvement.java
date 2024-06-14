@@ -1,15 +1,18 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 public abstract class ActeurEnMouvement extends Acteur {
     private int vitesse; // vitesse de déplacement
     private int ptAttaque;
-    private int pv;
+    private IntegerProperty pv = new SimpleIntegerProperty(0);
 
     public ActeurEnMouvement(int x, int y, int vitesse, Environnement env, int pv, int ptAttaque) {
         super(x, y, env);
         this.vitesse = vitesse;
         this.ptAttaque = ptAttaque;
-        this.pv = pv;
+        this.pv.setValue( pv);
     }
 
     public abstract void seDeplacer();
@@ -26,10 +29,10 @@ public abstract class ActeurEnMouvement extends Acteur {
 
     public void setPtAttaque(int ptAttaque) {this.ptAttaque = ptAttaque;}
 
-    public void setPv(int pv) {this.pv = pv;}
+    public void setPv(int pv) {this.pv.setValue(pv);}
 
-    public int getPv() {return pv;}
-
+    public int getPv() {return pv.get();}
+    public IntegerProperty getPvProperty() {return pv;}
     public void decrementerPv(int pointAttaque){
         setPv(getPv() - pointAttaque);
     }

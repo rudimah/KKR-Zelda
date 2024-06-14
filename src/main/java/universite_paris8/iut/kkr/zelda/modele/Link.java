@@ -19,7 +19,6 @@ public class Link extends ActeurEnMouvement{
     public Link(Environnement env) {
         super(80, 50, 10, env, 40, 10);
         this.inventaire = new Inventaire();
-
     }
 
     public void seDeplacer() {
@@ -34,8 +33,10 @@ public class Link extends ActeurEnMouvement{
         if (tileId == 0) { // Eau
             vitesse = 3;
             System.out.println("Link se déplace dans l'eau, vitesse réduite à 1");
-        }
-        else {
+        } else if (tileId == Constantes.LAVE) {
+            setPv(getPv()-1);
+            System.out.println("Link se déplace dans la lave, point de vie réduite à 1");
+        } else {
             vitesse = getVitesse();
         }
 
