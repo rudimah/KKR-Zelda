@@ -10,8 +10,8 @@
 
 <BorderPane stylesheets="@Map1.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.kkr.zelda.Controleur.Controleur">
    <center>
-      <Pane fx:id="panneauDeJeu" prefHeight="180.0" prefWidth="180.0">
-         <TilePane fx:id="tilepane" prefHeight="400.0" prefWidth="810" />
+      <Pane fx:id="panneauDeJeu" prefHeight="800" prefWidth="800">
+         <TilePane fx:id="tilepane" prefHeight="800" prefWidth="810" />
       </Pane>
    </center>
    <bottom>

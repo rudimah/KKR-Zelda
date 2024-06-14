@@ -1,13 +1,12 @@
 package universite_paris8.iut.kkr.zelda.modele.Ennemis;
 
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
+
 import universite_paris8.iut.kkr.zelda.modele.ActeurEnMouvement;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 
 public class Simonus extends Ennemis {
     public Simonus(Environnement env) {
-        super(0, 0, 3, env, 100, 0);
+        super(0, 0, 3, env, 100, 5);
     }
 
     @Override

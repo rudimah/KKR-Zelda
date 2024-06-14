@@ -102,6 +102,7 @@ public class TerrainVue {
 
 
                 this.tilepane.getChildren().add(stackPane);
+
             }
         }
     }

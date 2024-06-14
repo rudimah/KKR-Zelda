@@ -1,7 +1,6 @@
 package universite_paris8.iut.kkr.zelda.modele.Ennemis;
 
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
+
 import universite_paris8.iut.kkr.zelda.modele.ActeurEnMouvement;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 

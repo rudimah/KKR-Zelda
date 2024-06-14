@@ -46,21 +46,8 @@ public class Controleur implements Initializable {
     @FXML
     private Pane panneauDeJeu;
     @FXML
-    private ImageView case1;
-    @FXML
-    private ImageView case2;
-    @FXML
-    private ImageView case3;
-    @FXML
-    private ImageView case4;
-    @FXML
-    private StackPane emplacement1;
-    @FXML
-    private StackPane emplacement2;
-    @FXML
-    private StackPane emplacement3;
-    @FXML
-    private StackPane emplacement4;
+    private ImageView case1; @FXML private ImageView case2; @FXML private ImageView case3; @FXML private ImageView case4;
+    @FXML private StackPane emplacement1; @FXML private StackPane emplacement2; @FXML private StackPane emplacement3; @FXML private StackPane emplacement4;
     private ArrayList<ImageView> imageViews = new ArrayList<>();
     private ArrayList<StackPane> stackPanes = new ArrayList<>();
 
@@ -79,7 +66,7 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.env = new Environnement(800, 800);
+        env = new Environnement(800, 800);
         terrainVue = new TerrainVue(env, tilepane);
         tilepane.setPrefColumns(env.getTableauMap()[0].length);
         tilepane.setPrefRows(env.getTableauMap().length);
@@ -91,6 +78,7 @@ public class Controleur implements Initializable {
 
         this.env.getItems().addListener(new ObservateurElement(panneauDeJeu));
         this.env.getActeurs().addListener(new ObservateurPersonnage(panneauDeJeu));
+
         env.ajouterItem(new Epee(300, 300));
         env.ajouterItem(new Sabre(300, 450));
         env.ajouterItem(new Bouclier(500, 450, env));
@@ -98,25 +86,17 @@ public class Controleur implements Initializable {
         env.ajouterItem(new Boomerang(500, 450));
         env.ajouterItem(new PotionForce(480, 203, env));
         env.ajouterItem(new BottesAres(500,400,env));
-
-
         env.ajouterItem(new PotionAcide(200, 100, env));
         env.ajouterActeur(link);
         env.ajouterActeur(new Reltih(env));
         env.ajouterItem(new PotionAcide(200, 100, env));
 
         afficherlink = new VueLink(env, link, panneauDeJeu);
-
-        imageViews.add(case1);
-        imageViews.add(case2);
-        imageViews.add(case3);
-        imageViews.add(case4);
-        stackPanes.add(emplacement1);
-        stackPanes.add(emplacement2);
-        stackPanes.add(emplacement3);
-        stackPanes.add(emplacement4);
-        link.getInventaire().getInventaire().addListener(new observteurInventaire(imageViews));
         terrainVue.afficherMap();
+
+        link.getInventaire().getInventaire().addListener(new observteurInventaire(imageViews));
+        imageViews.add(case1); imageViews.add(case2); imageViews.add(case3); imageViews.add(case4);
+        stackPanes.add(emplacement1); stackPanes.add(emplacement2); stackPanes.add(emplacement3); stackPanes.add(emplacement4);
 
         panneauDeJeu.setFocusTraversable(true);
         panneauDeJeu.setOnKeyPressed(this::gererTouch);
@@ -161,7 +141,7 @@ public class Controleur implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Game Over");
             alert.setHeaderText(null);
-            alert.setContentText("Link est mort. Fin de Partie appuyer sur OK pour revenir sur le menue principal");
+            alert.setContentText("Link est mort. Fin de Partie appuyer sur OK pour revenir sur le menu principal");
 
 
             alert.setOnHidden(evt -> {
@@ -179,9 +159,7 @@ public class Controleur implements Initializable {
         });
     }
 
-    public void stopSprint() {
-        link.setVitesse(vitesseNormale);
-    }
+
 
     private void gererTouch(KeyEvent event) {
         KeyCode touchePresse = event.getCode();
@@ -192,11 +170,21 @@ public class Controleur implements Initializable {
             }
         }
         deplacementLink(touchePresse);
-        gererTouches(touchePresse);
+        mecaniqueTouche(touchePresse);
         event.consume();
     }
+    private void handleKeyRelease(KeyEvent event) {
+        if (event.getCode() == KeyCode.SHIFT) {
+            stopSprint();
+            tempsSprint.stop();
+        }
+    }
 
-    public void gererTouches(KeyCode touchePresse) {
+    public void stopSprint() {
+        link.setVitesse(vitesseNormale);
+    }
+
+    public void mecaniqueTouche(KeyCode touchePresse) {
         switch (touchePresse) {
             case A:
                 if (link.getInventaire().getInventaire().size() > indexCaseActuelle) {
@@ -226,7 +214,6 @@ public class Controleur implements Initializable {
         }
     }
 
-
     private void updateSelectedCase() {
         // Enleve les contours actuelle
         stackPanes.get(indexCaseActuelle).getStyleClass().remove("case-inventaire-actuelle");
@@ -235,13 +222,6 @@ public class Controleur implements Initializable {
         // Ajoute les contours à la nouvelle case
         stackPanes.get(indexCaseActuelle).getStyleClass().add("case-inventaire-actuelle");
 
-    }
-
-    private void handleKeyRelease(KeyEvent event) {
-        if (event.getCode() == KeyCode.SHIFT) {
-            stopSprint();
-            tempsSprint.stop();
-        }
     }
 
     public void deplacementLink(KeyCode touchePresse) {
@@ -281,7 +261,6 @@ public class Controleur implements Initializable {
         tempsSpawn.setCycleCount(Timeline.INDEFINITE);
         tempsSpawn.play();
     }
-
 
     public void afficherDialogue(String message) {
         dialogueLabel.setText("Link : " + message);
