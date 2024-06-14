@@ -113,22 +113,24 @@ public class Environnement {
 		int tuile = getTuile(x, y);
 
 		switch (tuile) {
-			case 0: // Eau
+			case Constantes.EAU: // Eau
 				if (!(a instanceof Link)) {
 					return false;
 				}
 				break;
-			case 1: // Immeubles abandonnés
+			case Constantes.IMMEUBLES_ABANDONNES: // Immeubles abandonnés
 				return false;
-			case 2: // Arbres
+			case Constantes.ARBRES: // Arbres
 				return false;
-			case 8: // Voiture abandonnée
+			case Constantes.VOITURE_ABANDONNEE: // Voiture abandonnée
 				return false;
-			case 4: // Coffre
+			case Constantes.COFFRE: // Coffre
 				return false;
-			case 5: // Rocher
+			case Constantes.PETIT_ROCHER: // Rocher
 				return false;
-			case 6: // Poubelle
+			case Constantes.POUBELLE: // Poubelle
+				return false;
+			case Constantes.GROS_ROCHER:
 				return false;
 			default:
 				break;
