@@ -6,13 +6,17 @@ import javafx.beans.property.SimpleIntegerProperty;
 public abstract class ActeurEnMouvement extends Acteur {
     private int vitesse; // vitesse de déplacement
     private int ptAttaque;
-    private IntegerProperty pv = new SimpleIntegerProperty(0);
+    private IntegerProperty pv ;
+    private int largeur, longueur;
+    private IntegerProperty pv;
 
     public ActeurEnMouvement(int x, int y, int vitesse, Environnement env, int pv, int ptAttaque) {
         super(x, y, env);
         this.vitesse = vitesse;
         this.ptAttaque = ptAttaque;
-        this.pv.setValue( pv);
+        this.pv = new SimpleIntegerProperty(pv);
+        this.largeur=20;
+        this.longueur=30;
     }
 
     public abstract void seDeplacer();
@@ -29,10 +33,14 @@ public abstract class ActeurEnMouvement extends Acteur {
 
     public void setPtAttaque(int ptAttaque) {this.ptAttaque = ptAttaque;}
 
-    public void setPv(int pv) {this.pv.setValue(pv);}
+    public final void setPv(int pv) {this.pv.setValue(pv);}
 
-    public int getPv() {return pv.get();}
-    public IntegerProperty getPvProperty() {return pv;}
+    public final int getPv() {return pv.getValue();}
+
+    public IntegerProperty pointDeVieProperty(){
+        return pv;
+    }
+
     public void decrementerPv(int pointAttaque){
         setPv(getPv() - pointAttaque);
     }
@@ -63,4 +71,11 @@ public abstract class ActeurEnMouvement extends Acteur {
     }
     public abstract void attaquer(ActeurEnMouvement acteurCible);
 
+    public int getLargeur(){
+        return largeur;
+    }
+
+    public int getLongueur() {
+        return longueur;
+    }
 }

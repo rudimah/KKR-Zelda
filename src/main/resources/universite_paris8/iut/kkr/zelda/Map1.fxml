@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -30,5 +32,40 @@
          </children>
       </HBox>
    </bottom>
+   </center>
+   <bottom>
+      <HBox alignment="TOP_CENTER" prefHeight="1.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane fx:id="emplacement1">
+               <ImageView fx:id="case1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" styleClass="case-inventaire" />
+            </StackPane>
+            <StackPane fx:id="emplacement2">
+               <ImageView fx:id="case2" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" styleClass="case-inventaire" />
+            </StackPane>
+            <StackPane fx:id="emplacement3">
+               <ImageView fx:id="case3" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" styleClass="case-inventaire" />
+            </StackPane>
+            <StackPane fx:id="emplacement4">
+               <ImageView fx:id="case4" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" styleClass="case-inventaire" />
+            </StackPane>
+         </children>
+      </HBox>
+   </bottom>
+   <top>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <StackPane alignment="TOP_CENTER">
+               <children>
+                  <Rectangle fx:id="ArrierePlan" arcHeight="5.0" arcWidth="5.0" fill="#9fa0a1" height="20.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+                  <Rectangle fx:id="barreVie" arcHeight="5.0" arcWidth="5.0" fill="#15b20d" height="15.0" stroke="BLACK" strokeType="INSIDE" width="95.0">
+                     <StackPane.margin>
+                        <Insets top="2.0" />
+                     </StackPane.margin>
+                  </Rectangle>
+               </children>
+            </StackPane>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>
 

@@ -84,7 +84,7 @@ public class Link extends ActeurEnMouvement{
     public void ramasserItem() {
         ArrayList<ObjetEnvironnement> itemsARamasser = new ArrayList<>();
         for (ObjetEnvironnement item : env.getItems()) {
-            if (!item.EstRamassé() && estProcheDe(item) && inventaire.getInventaire().size()<4) {
+            if (!item.EstRamassé() && estProcheDe(item) ) {
                 itemsARamasser.add(item);
             }
         }
@@ -105,25 +105,25 @@ public class Link extends ActeurEnMouvement{
         if (estADistanceAttaque(acteurCible)) {
             acteurCible.decrementerPv(getPtAttaque());
         }
-        System.out.println("Link attaque " + acteurCible + " à mains nues ! Il lui reste " + acteurCible.getPv() + " pv.");
+        System.out.println("Link attaque " + acteurCible + " à mains nu ! Il lui reste " + acteurCible.getPv() + " pv ");
     }
     @Override
     public void attaquer(ActeurEnMouvement ennemi) {
         if (armeActuelle != null) {
             armeActuelle.attaquerAvecArme(ennemi); // Utilise l'arme actuelle pour attaquer l'ennemi
-            System.out.println("Link attaque " + ennemi + " avec " + armeActuelle.toString() + " ! Il reste " + ennemi.getPv() + " pv à l'ennemi.");
+            System.out.println("Link attaque " + ennemi + " avec " + armeActuelle.toString() + " Il reste " + ennemi.getPv() + " pv à l'ennemi");
         }
         else {
             attaquerAMainsNues(ennemi);
         }
     }
 
-    public void utilserAccessoire(){
+    public void utiliserAccessoire(){
         if(accessoireActuel != null){
             accessoireActuel.appliquerEffet();
         }
         else{
-            System.out.println("Link n'a pas d'accessoire équipé.");
+            System.out.println("Link n'a pas d'accessoire équipé ");
         }
     }
 

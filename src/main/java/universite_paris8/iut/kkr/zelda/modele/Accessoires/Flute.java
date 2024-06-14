@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Flute extends Accessoires {
     public Flute(int x, int y, Environnement env) {
-        super("Flûte de Calliopé", x, y, 0, 0, 30,env); // Portée de base de 30
+        super("Flûte de Calliopé", x, y, 0, 0,env); // Portée de base de 30
     }
 
     @Override
