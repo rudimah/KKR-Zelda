@@ -27,6 +27,7 @@ import universite_paris8.iut.kkr.zelda.modele.Accessoires.Flute;
 import universite_paris8.iut.kkr.zelda.modele.Arme.*;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
+import universite_paris8.iut.kkr.zelda.modele.Potion.PotionForce;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 
 
@@ -62,6 +63,9 @@ public class Controleur implements Initializable {
         env.ajouterItem(new Epee(300,300));
         env.ajouterItem(new Sabre(300,450));
         env.ajouterItem(new Flute(500,450,env));
+        env.ajouterItem(new Arc(40, 30));
+        env.ajouterItem(new Boomerang(500, 450));
+        env.ajouterItem(new PotionForce(480, 203, env));
         env.ajouterActeur(link);
 //        env.ajouterActeur(new Reltih(env));
 //        env.ajouterActeur(new Simonus(env));

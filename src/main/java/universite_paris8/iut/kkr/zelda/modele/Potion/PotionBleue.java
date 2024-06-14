@@ -12,6 +12,14 @@ public class PotionBleue extends Potion {
     @Override
     public void appliquerPotion() {
         environnement.getLink().setPtAttaque(environnement.getLink().getPtAttaque()+2);
-        environnement.getLink().getArme().setPortee(environnement.getLink().getArme().getPortee()+5);
+
+        System.out.println("Potion Bleu utiliser : Point d'attaque augmenté de 2");
+        if (environnement.getLink().getArme()!=null) {
+            environnement.getLink().getArme().setPortee(environnement.getLink().getArme().getPortee() + 5);
+        }
+        else {
+            System.out.println("Vous n'avez pas d'arme : pas d'amélioration de portée");
+        }
+
     }
 }

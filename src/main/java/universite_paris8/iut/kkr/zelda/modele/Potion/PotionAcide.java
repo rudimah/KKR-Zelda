@@ -13,5 +13,6 @@ public class PotionAcide extends Potion {
     @Override
     public void appliquerPotion() {
         environnement.getLink().setPtAttaque(environnement.getLink().getPtAttaque()+2);
+        System.out.println("Potion Acide utiliser : Point d'attaque augmenté de 2");
     }
 }

@@ -73,8 +73,9 @@ public class Link extends ActeurEnMouvement{
 //                System.out.println("Direction inconnue");
         }
         Direction = 0;
-
-        ramasserItem();
+        if(inventaire.getInventaire().size()<4){
+            ramasserItem();
+        }
 //        System.out.println("s'est déplacé en (" + getX() + ", " + getY() + ")");
 
     }
@@ -83,7 +84,7 @@ public class Link extends ActeurEnMouvement{
     public void ramasserItem() {
         ArrayList<ObjetEnvironnement> itemsARamasser = new ArrayList<>();
         for (ObjetEnvironnement item : env.getItems()) {
-            if (!item.EstRamassé() && estProcheDe(item)) {
+            if (!item.EstRamassé() && estProcheDe(item) && inventaire.getInventaire().size()<4) {
                 itemsARamasser.add(item);
             }
         }
@@ -147,7 +148,7 @@ public class Link extends ActeurEnMouvement{
         else {
             Potion potion = (Potion) a;
             potion.appliquerPotion();
-            System.out.println( a.getNom() + " a été utiliser");
+
         }
     }
 }

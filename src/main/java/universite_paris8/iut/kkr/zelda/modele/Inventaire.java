@@ -22,7 +22,12 @@ public class Inventaire {
     }
 
     public void ajouterItemAInventaire(ObjetEnvironnement a){
-        inventaire.add(a);
+        if (inventaire.size()<4){
+            inventaire.add(a);
+        }
+        else{
+            System.out.println("Inventaire Pleins");
+        }
     }
 
     public void afficherInventaire(){
