@@ -216,6 +216,8 @@ public class Environnement {
 			return new Reltih(this);
 		} else if (aleatoire < 90) {
 			return new Simonus(this);
+		} else if (aleatoire < 25) {
+				return new Cataltos(this);
 		} else {
 			return new Bonnoctus(this);
 		}

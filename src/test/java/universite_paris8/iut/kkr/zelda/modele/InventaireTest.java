@@ -41,4 +41,48 @@ class InventaireTest {
 //
 //        assertTrue(link.getInventaire().getInventaire().contains(sabre));
     }
+
+    @Test
+    public void testAjouterItemAInventaire() {
+        ObjetEnvironnement item1 = new ObjetEnvironnement("Épée", 100, 100);
+        ObjetEnvironnement item2 = new ObjetEnvironnement("Bouclier", 200, 100);
+        inventaire.ajouterItemAInventaire(item1);
+        inventaire.ajouterItemAInventaire(item2);
+
+        // Vérifie que les deux items ont été ajoutés à l'inventaire
+        assertTrue(inventaire.getInventaire().contains(item1) && inventaire.getInventaire().contains(item2));
+        assertEquals(2, inventaire.getInventaire().size(), "L'inventaire a deux items");
+    }
+
+    @Test
+    public void testInventairePlein() {
+        // Ajout de 4 items à l'inventaire
+        for (int i = 0; i < 4; i++) {
+            ObjetEnvironnement item = new ObjetEnvironnement("Potion" + i, 100, 100);
+            inventaire.ajouterItemAInventaire(item);
+        }
+
+        // Essayer d'ajouter un cinquième item
+        ObjetEnvironnement item5 = new ObjetEnvironnement("Arc", 100, 100);
+        inventaire.ajouterItemAInventaire(item5);
+
+        // Vérifie que le cinquième item n'a pas été ajouté
+        assertFalse(inventaire.getInventaire().contains(item5), "L'inventaire est plein");
+        assertEquals(4, inventaire.getInventaire().size(), "L'inventaire est limité à quatre items");
+    }
+
+
+
+    @Test
+    public void testSelectionnerItem() {
+        ObjetEnvironnement item = new ObjetEnvironnement("Flèche", 100, 100);
+        inventaire.ajouterItemAInventaire(item);
+
+        // Sélectionner l'item par son ID
+        ObjetEnvironnement selected = inventaire.selectionnerItem(item.getId());
+
+        // Vérifie que l'item retourné est correct
+        assertNotNull(selected, "L'item sélectionné ne peut pas être nul");
+        assertEquals(item.getId(), selected.getId(), "L'ID de l'item sélectionné devrait ^etre l'accesoire selectionné");
+    }
 }

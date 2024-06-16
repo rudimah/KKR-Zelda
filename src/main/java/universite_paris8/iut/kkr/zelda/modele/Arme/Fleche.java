@@ -78,39 +78,4 @@ public class Fleche extends ObjetEnvironnement {
 }
 
 
-//package universite_paris8.iut.kkr.zelda.modele;
-//
-//import javafx.beans.property.IntegerProperty;
-//import javafx.beans.property.SimpleIntegerProperty;
-//
-//public class Ennemi {
-//    private final String nom;
-//    private final IntegerProperty pointsDeVie;
-//
-//    public Ennemi(String nom, int pointsDeVie) {
-//        this.nom = nom;
-//        this.pointsDeVie = new SimpleIntegerProperty(pointsDeVie);
-//    }
-//
-//    public String getNom() {
-//        return nom;
-//    }
-//
-//    public int getPointsDeVie() {
-//        return pointsDeVie.get();
-//    }
-//
-//    public void subirDegats(int degats) {
-//        pointsDeVie.set(pointsDeVie.get() - degats);
-//        if (pointsDeVie.get() < 0) {
-//            pointsDeVie.set(0);
-//        }
-//        System.out.println(nom + " a " + pointsDeVie.get() + " points de vie restants.");
-//    }
-//
-//    public IntegerProperty pointsDeVieProperty() {
-//        return pointsDeVie;
-//    }
-//}
 
-//methode mourir et recevoirdegat

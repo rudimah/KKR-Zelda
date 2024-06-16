@@ -3,13 +3,10 @@ import javafx.collections.ListChangeListener;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import universite_paris8.iut.kkr.zelda.Vue.VueEnnemi;
 import universite_paris8.iut.kkr.zelda.modele.Acteur;
 import universite_paris8.iut.kkr.zelda.modele.ActeurEnMouvement;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Simonus;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis.*;
 import universite_paris8.iut.kkr.zelda.modele.Link;
 
 
@@ -18,8 +15,7 @@ public class ObservateurPersonnage implements ListChangeListener<Acteur> {
     private ImageView imageView;
     public ObservateurPersonnage(Pane panneauDeJeu) {
         this.panneauJeu = panneauDeJeu;
-        imageView = new ImageView();
-        panneauJeu.getChildren().add(imageView);
+
     }
 
     @Override
@@ -39,16 +35,25 @@ public class ObservateurPersonnage implements ListChangeListener<Acteur> {
     }
     public void creerSprite(Acteur a) {
         // Vérifie si un sprite existe déjà
+        imageView = new ImageView();
         if (a instanceof Reltih){
             imageView.setImage(new Image("file:src/main/resources/image/Ennemie/Runner.png"));
         } else if (a instanceof Simonus) {
             imageView.setImage(new Image("file:src/main/resources/image/Ennemie/Titan.png"));
+        } else if (a instanceof Cataltos) {
+            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie3.png"));
+        } else if (a instanceof Marcos) {
+            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie4.png"));
+        } else if (a instanceof Bonnoctus) {
+            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie5.png"));
+
         }
         imageView.translateXProperty().bind(a.getXProperty());
         imageView.translateYProperty().bind(a.getYProperty());
-
+        panneauJeu.getChildren().add(imageView);
         if (a instanceof ActeurEnMouvement && !(a instanceof Link)) {
             new VueEnnemi((ActeurEnMouvement) a, panneauJeu);
+
         }
     }
 }
