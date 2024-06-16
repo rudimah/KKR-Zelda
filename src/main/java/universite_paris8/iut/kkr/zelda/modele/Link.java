@@ -138,6 +138,10 @@ public class Link extends ActeurEnMouvement{
         return armeActuelle;
     }
 
+    public Accessoires getAccessoireActuel() {
+        return accessoireActuel;
+    }
+
     public Inventaire getInventaire() {
         return inventaire;
     }
