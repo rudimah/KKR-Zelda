@@ -17,7 +17,7 @@ public class ObservateurPersonnage implements ListChangeListener<Acteur> {
         this.panneauJeu = panneauDeJeu;
 
     }
-
+    //creation du sprite de l'acteur
     @Override
     public void onChanged(Change<? extends Acteur> change) {
         while (change.next()) {
@@ -33,8 +33,9 @@ public class ObservateurPersonnage implements ListChangeListener<Acteur> {
             }
         }
     }
+
+    //cree le sprite des ennemis selon leur images
     public void creerSprite(Acteur a) {
-        // Vérifie si un sprite existe déjà
         imageView = new ImageView();
         if (a instanceof Reltih){
             imageView.setImage(new Image("file:src/main/resources/image/Ennemie/Runner.png"));

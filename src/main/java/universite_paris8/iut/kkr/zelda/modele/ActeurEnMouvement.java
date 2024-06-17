@@ -51,6 +51,8 @@ public abstract class ActeurEnMouvement extends Acteur {
         }
     }
     public boolean estMort(){return getPv() <= 0;}
+
+    //cette methode sert a savoir si des acteurs en mouvement est a porté d'une attaque.
     public boolean estADistanceAttaque(Acteur ActeurCible) {
         if(ActeurCible != null){
             int distanceX = Math.abs(getX() - ActeurCible.getX());

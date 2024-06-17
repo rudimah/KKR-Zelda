@@ -15,7 +15,7 @@ public abstract class Ennemis extends ActeurEnMouvement {
         super(x, y, vitesse, env, pointsDeVie, ptAttaque);
         this.bfs = new BFS(env);
     }
-
+    //Méthode avec lequel les ennemis se déplace
     public void seDeplacer() {
         Acteur link = env.getLink(); //cible link
 

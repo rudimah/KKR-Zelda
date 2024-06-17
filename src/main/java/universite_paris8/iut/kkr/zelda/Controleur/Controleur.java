@@ -38,6 +38,10 @@ import universite_paris8.iut.kkr.zelda.utils.Constantes;
 
 
 public class Controleur implements Initializable {
+
+
+    //// Déclarations de variables et éléments d'interface graphique (FXML)
+    // tel que initialisation de l'environnment ou autre objets
     private Timeline gameLoop;
     private Link link;
     private Environnement env;
@@ -63,6 +67,9 @@ public class Controleur implements Initializable {
 
     @FXML
     private Label dialogueLabel;
+
+    // Initialisation de l'environnement, des vues et bind/addlistener d'événements
+    // Ajout d'éléments et d'acteurs dans l'environnement
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -93,7 +100,7 @@ public class Controleur implements Initializable {
         afficherlink = new VueLink(env, link, panneauDeJeu);
         terrainVue.afficherMap();
 
-        link.getInventaire().getInventaire().addListener(new observteurInventaire(imageViews));
+        link.getInventaire().getInventaire().addListener(new ObservateurInventaire(imageViews));
         imageViews.add(case1); imageViews.add(case2); imageViews.add(case3); imageViews.add(case4);
         stackPanes.add(emplacement1); stackPanes.add(emplacement2); stackPanes.add(emplacement3); stackPanes.add(emplacement4);
 
@@ -118,7 +125,7 @@ public class Controleur implements Initializable {
         initSpawnEnnemis();
 
     }
-
+    //methode sur la couleur de la barre de vie de link
     private void couleurBarreDeVie(Number pointvie) {
         double pourcentagevie = pointvie.doubleValue() / 100.0; // Convertir en pourcentage
 
@@ -130,9 +137,9 @@ public class Controleur implements Initializable {
             barreVie.setFill(Color.RED);
         }
     }
-
+    //methode de fin de jeu afin de relancer le jeu sur le menu du départ
     private void finDeJeu() {
-        System.out.println(link.getX() + "dddddd"+ link.getY());
+
         if (link.estMort() || link.tileId == Constantes.COFFRE) {
             gameLoop.stop();
             Platform.runLater(() -> {
@@ -167,7 +174,7 @@ public class Controleur implements Initializable {
 
 
 
-
+    // Méthodes pour gérer les entrées utilisateur, comme les touches du clavier
     private void gererTouch(KeyEvent event) {
         KeyCode touchePresse = event.getCode();
         if (touchePresse == KeyCode.SHIFT) {
@@ -186,11 +193,11 @@ public class Controleur implements Initializable {
             tempsSprint.stop();
         }
     }
-
+    //méthode qui stop le sprint de Link, il a donc un sprint limité.
     public void stopSprint() {
         link.setVitesse(vitesseNormale);
     }
-
+    //méthode des entrées utilisateurs et leur fonctionnement sur chaque touche pressé
     public void mecaniqueTouche(KeyCode touchePresse) {
         switch (touchePresse) {
             case A:
@@ -230,7 +237,7 @@ public class Controleur implements Initializable {
         stackPanes.get(indexCaseActuelle).getStyleClass().add("case-inventaire-actuelle");
 
     }
-
+    //  Cette méthode modifie la direction (gauche, droite, haut et bas) de Link selon la touche du clavier utilisée.
     public void deplacementLink(KeyCode touchePresse) {
         switch (touchePresse) {
             case Z:
@@ -249,6 +256,8 @@ public class Controleur implements Initializable {
 
     }
 
+    //Cette méthode crée un cadre d'animation qui sera exécuté toutes les 0.15 secondes,
+// faisant agir l'environnement, incrémentant le tour de jeu, et déplaçant Link.
     private void initAnimation() {
 
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.15), event -> {
@@ -262,13 +271,13 @@ public class Controleur implements Initializable {
         tempsSprint.setCycleCount(2);
         gameLoop.play();
     }
-
+    //Les ennemis sont générés toutes les 15 secondes pour augmenter la difficulté du jeu avec un timer
     public void initSpawnEnnemis() {
         Timeline tempsSpawn = new Timeline(new KeyFrame(Duration.seconds(15), e -> env.SpawnEnnemis()));
         tempsSpawn.setCycleCount(Timeline.INDEFINITE);
         tempsSpawn.play();
     }
-
+//affichage du dialogue roue de dialogue
     public void afficherDialogue(String message) {
         dialogueLabel.setText("Link : " + message);
         dialogueLabel.setVisible(true);

@@ -121,7 +121,6 @@ public class Environnement {
 				return false;
 			case Constantes.VOITURE_ABANDONNEE: // Voiture abandonnée
 				return false;
-
 			case Constantes.PETIT_ROCHER: // Rocher
 				return false;
 			case Constantes.POUBELLE: // Poubelle
@@ -165,7 +164,7 @@ public class Environnement {
 		}
 		return null;
 	}
-
+//Trouve l'ennemi le plus proche dans une zone
 
 	public ActeurEnMouvement trouverEnnemiLePlusProche(int x, int y) {
 		ActeurEnMouvement ennemiLePlusProche = null;
@@ -206,6 +205,8 @@ public class Environnement {
 		return hauteur;
 	}
 
+
+	//genere des ennemis aleatoire
 	public ActeurEnMouvement ennemisAleatoire(int x, int y) {
 		Random rand = new Random();
 		int aleatoire = rand.nextInt(100);
@@ -221,7 +222,7 @@ public class Environnement {
 			return new Bonnoctus(this);
 		}
 	}
-
+//verifie le spawn si il est a cote de link
 	public boolean presdujoueur(int x, int y, int minDistance) {
 		Link link = getLink();
 		int dx = link.getX() - x;
@@ -230,7 +231,7 @@ public class Environnement {
 		return distanceSquared < (minDistance * minDistance);
 	}
 
-
+//fait spawn les ennemis spawn =apparaitre
 	public void SpawnEnnemis() {
 		Random rand = new Random();
 		int x, y;

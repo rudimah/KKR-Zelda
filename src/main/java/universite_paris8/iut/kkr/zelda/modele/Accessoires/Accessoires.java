@@ -9,7 +9,7 @@ public abstract class Accessoires extends ObjetEnvironnement {
 
     protected Environnement env;
 
-
+    //Classe Accessoire permettant de crée des items qui agit sur link.( cela lui donne un avantage sur ces caractéristiques)
     public Accessoires(String nom, int x, int y, int reductionDegats, int augmentationVitesse, int augmentationPortee, Environnement env) {
         super(nom, x, y);
         this.reductionDegats = reductionDegats;

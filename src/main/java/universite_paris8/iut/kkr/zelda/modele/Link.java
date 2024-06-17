@@ -125,14 +125,7 @@ public class Link extends ActeurEnMouvement{
         }
     }
 
-    public void utiliserAccessoire(){
-        if(accessoireActuel != null){
-            accessoireActuel.appliquerEffet();
-        }
-        else{
-            System.out.println("Link n'a pas d'accessoire équipé ");
-        }
-    }
+
 
     public Arme getArme() {
         return armeActuelle;

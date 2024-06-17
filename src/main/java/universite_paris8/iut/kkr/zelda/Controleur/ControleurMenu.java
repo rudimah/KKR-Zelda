@@ -32,7 +32,13 @@ public class ControleurMenu implements Initializable {
     Button boutonQuitter;
 
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+
+    //lance le jeu dès qu'on appuie sur jouer
     @FXML
     public void gererBoutonJouer(ActionEvent event) {
         System.out.println("Lancement du jeu...");
@@ -47,6 +53,7 @@ public class ControleurMenu implements Initializable {
         }
     }
 
+    //affiche les regle lorsqu'on appuie sur 'Règles'
     @FXML
     public void gererBoutonRegles(ActionEvent event){
         System.out.println("Affichage des règles...");
@@ -55,6 +62,8 @@ public class ControleurMenu implements Initializable {
         contenuRegles.setVisible(true);
     }
 
+
+    //affiche les crédits lorsqu'on appuie sur 'Crédits'
     @FXML
     public void gererBoutonCredits(ActionEvent event){
         System.out.println("Affichage des crédits en cours...");
@@ -63,6 +72,8 @@ public class ControleurMenu implements Initializable {
         contenuCredits.setVisible(true);
     }
 
+
+    //Permet de quitter le jeu quand on appuie sur 'Quitter'
     @FXML
     public void gererBoutonQuitter(ActionEvent event){
         System.out.println("Ouverture de la fenêtre de quittage...");
@@ -72,28 +83,29 @@ public class ControleurMenu implements Initializable {
         contenuQuitter.setVisible(true);
     }
 
+
+    //Gère l'action de retour au menu principal
     @FXML
     private void retourAuMenu(ActionEvent event) {
         cacherLeContenu();
     }
 
+
+    //Elle termine l'exécution de l'application
     @FXML
     private void confirmerQuitter() {
         System.out.println("Vous avez choisi de quitter...");
         System.exit(0);
     }
 
+
+    //reviens sur le menu du début
     @FXML
     private void annulerQuitter() {
         System.out.println("Fermeture de la fenêtre de quittage");
         cacherLeContenu();
     }
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
 
     private void cacherLeContenu() {
         contenuBoutons.setVisible(true);

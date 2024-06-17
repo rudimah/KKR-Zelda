@@ -6,6 +6,7 @@ import universite_paris8.iut.kkr.zelda.modele.Environnement;
 import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
 
 public class Arme extends ObjetEnvironnement {
+    //super classe des armes. chaque arme a sa facon d'attaquer
     private int ptAttaque;
     private int porteeArme;
     private Environnement e;

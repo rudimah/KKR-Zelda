@@ -16,6 +16,8 @@ public class DialogueController {
         this.controleur = controleur;
     }
 
+
+    //méthode pour la roue de dialogue et l'affichage d'une petit fenetre avec
     public void roueDialogue() {
         Platform.runLater(() -> {
             List<String> choix = Arrays.asList(

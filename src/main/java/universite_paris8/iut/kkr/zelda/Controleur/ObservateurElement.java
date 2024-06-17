@@ -69,10 +69,10 @@ public class ObservateurElement implements ListChangeListener<ObjetEnvironnement
             image  = new Image("file:src/main/resources/image/Potions & Armes/fleche.png");
         }
         else if (a instanceof BottesAres){
-           image  = new Image("file:src/main/resources/image/Potions & Armes/bottes.gif");
+            image  = new Image("file:src/main/resources/image/Potions & Armes/bottes.gif");
         }
         else if (a instanceof Bouclier){
-           image  = new Image("file:src/main/resources/image/Potions & Armes/bouclier.png");
+            image  = new Image("file:src/main/resources/image/Potions & Armes/bouclier.png");
         }
         else if (a instanceof Bouclier){
             image  = new Image("file:src/main/resources/image/Potions & Armes/flute.png");

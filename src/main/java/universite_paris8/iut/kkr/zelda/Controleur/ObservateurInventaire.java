@@ -3,17 +3,19 @@ package universite_paris8.iut.kkr.zelda.Controleur;
 import javafx.collections.ListChangeListener;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
 
 import java.util.ArrayList;
 
-public class observteurInventaire implements ListChangeListener<ObjetEnvironnement> {
+public class ObservateurInventaire implements ListChangeListener<ObjetEnvironnement> {
     private ArrayList<ImageView> cases;
 
-    public observteurInventaire(ArrayList<ImageView> cases){
+    //observe les ajout et les supressions des elements que link peut avoir dans l'inventaire
+    public ObservateurInventaire(ArrayList<ImageView> cases){
         this.cases = cases;
     }
+
+    //images des items dans les cases de l'inventaire
     private Image getImage(String nom){
         switch (nom){
             case "Potion Acide":
