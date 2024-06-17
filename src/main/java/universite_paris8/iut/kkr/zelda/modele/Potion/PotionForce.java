@@ -13,7 +13,7 @@ public class PotionForce extends Potion {
     public void appliquerPotion() {
         if (environnement.getLink().getArme()!=null){
             environnement.getLink().getArme().setPortee(environnement.getLink().getArme().getPortee()+3);
-            System.out.println("Potion de Froce utiliser : Point de portée augmenté de 3");
+            System.out.println("Potion de Force utiliser : Point de portée augmenté de 3");
         }
         else {
             System.out.println("Vous n'avez pas d'arme : Potion gaspiller");

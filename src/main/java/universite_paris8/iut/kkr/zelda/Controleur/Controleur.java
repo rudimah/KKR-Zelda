@@ -89,7 +89,6 @@ public class Controleur implements Initializable {
         env.ajouterItem(new PotionAcide(200, 100, env));
         env.ajouterActeur(link);
         env.ajouterActeur(new Reltih(env));
-        env.ajouterItem(new PotionAcide(200, 100, env));
 
         afficherlink = new VueLink(env, link, panneauDeJeu);
         terrainVue.afficherMap();
@@ -103,22 +102,20 @@ public class Controleur implements Initializable {
         panneauDeJeu.setOnKeyReleased(this::handleKeyRelease);
 
         link.getXProperty().addListener(afficherlink);
+        link.getXProperty().addListener((obs, oldVal, newVal) -> {finDeJeu();
+        });
         link.getYProperty().addListener(afficherlink);
+        link.getYProperty().addListener((obs, oldVal, newVal) -> {finDeJeu();});
         barreVie.widthProperty().bind(link.pointDeVieProperty().multiply(100.0 / link.getPv()));
         link.pointDeVieProperty().addListener((obs, old, nouv) -> couleurBarreDeVie(nouv));
 
         tilepane.setMaxWidth(panneauDeJeu.getMaxWidth());
         tilepane.setMaxHeight(panneauDeJeu.getMaxHeight());
 
-        link.pointDeVieProperty().addListener((obs, oldVal, newVal) -> {
-            if (link.estMort()) {
-                finDeJeu();
-            }
-        });
+        link.pointDeVieProperty().addListener((obs, oldVal, newVal) -> {finDeJeu();});
         stackPanes.get(indexCaseActuelle).getStyleClass().add("case-inventaire-actuelle");
         initAnimation();
-        //initSpawnEnnemis();
-
+        initSpawnEnnemis();
 
     }
 
@@ -135,31 +132,39 @@ public class Controleur implements Initializable {
     }
 
     private void finDeJeu() {
-        gameLoop.stop();
+        System.out.println(link.getX() + "dddddd"+ link.getY());
+        if (link.estMort() || link.tileId == Constantes.COFFRE) {
+            gameLoop.stop();
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Game Over");
+                alert.setHeaderText(null);
+                if (link.estMort()) {
+                    alert.setContentText("Link est mort. \nFin de Partie appuyer sur OK pour revenir sur le menu principal");
+                } else {
 
-        Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Game Over");
-            alert.setHeaderText(null);
-            alert.setContentText("Link est mort. Fin de Partie appuyer sur OK pour revenir sur le menu principal");
+                    alert.setContentText("Bien joué, Vous avez la clé. \nFin de Partie appuyer sur OK pour revenir sur le menu principal");
 
-
-            alert.setOnHidden(evt -> {
-                try {
-                    Stage primaryStage = (Stage) panneauDeJeu.getScene().getWindow();
-                    Parent root = FXMLLoader.load(getClass().getResource("/universite_paris8/iut/kkr/zelda/GameMenu.fxml"));
-                    Scene scene = new Scene(root, 800, 800);
-                    String css = getClass().getResource("/universite_paris8/iut/kkr/zelda/dark.css").toExternalForm();
-                    scene.getStylesheets().add(css);
-                    primaryStage.setScene(scene);
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
-            });
 
-            alert.show();
-        });
+                alert.setOnHidden(evt -> {
+                    try {
+                        Stage primaryStage = (Stage) panneauDeJeu.getScene().getWindow();
+                        Parent root = FXMLLoader.load(getClass().getResource("/universite_paris8/iut/kkr/zelda/GameMenu.fxml"));
+                        Scene scene = new Scene(root, 800, 800);
+                        String css = getClass().getResource("/universite_paris8/iut/kkr/zelda/dark.css").toExternalForm();
+                        scene.getStylesheets().add(css);
+                        primaryStage.setScene(scene);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                alert.show();
+            });
+        }
     }
+
 
 
 

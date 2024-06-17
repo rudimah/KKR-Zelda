@@ -121,8 +121,7 @@ public class Environnement {
 				return false;
 			case Constantes.VOITURE_ABANDONNEE: // Voiture abandonnée
 				return false;
-			case Constantes.COFFRE: // Coffre
-				return false;
+
 			case Constantes.PETIT_ROCHER: // Rocher
 				return false;
 			case Constantes.POUBELLE: // Poubelle

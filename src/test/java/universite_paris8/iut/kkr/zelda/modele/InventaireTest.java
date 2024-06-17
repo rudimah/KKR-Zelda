@@ -1,7 +1,10 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
 import org.junit.jupiter.api.Test;
+import universite_paris8.iut.kkr.zelda.Controleur.Controleur;
+import universite_paris8.iut.kkr.zelda.Controleur.DialogueController;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Bouclier;
+import universite_paris8.iut.kkr.zelda.modele.Arme.Arc;
 import universite_paris8.iut.kkr.zelda.modele.Arme.Sabre;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionForce;
 
@@ -35,11 +38,11 @@ class InventaireTest {
 
 
         //TEST2: En cas d'utilisation d'une deuxième arme, l'arme actuelle se trouve dans l'inventiare
-//        Link link = new Link(environnement, roueDial);
-//        link.utiliser(sabre); //arme actuelle
-//        link.utiliser(new Arc(80,30)); //Nouvelle arme en main de Link
-//
-//        assertTrue(link.getInventaire().getInventaire().contains(sabre));
+        Link link = new Link(environnement, new DialogueController(new Controleur()));
+        link.utiliser(sabre); //arme actuelle
+        link.utiliser(new Arc(80,30)); //Nouvelle arme en main de Link
+
+        assertTrue(link.getInventaire().getInventaire().contains(sabre));
     }
 
     @Test

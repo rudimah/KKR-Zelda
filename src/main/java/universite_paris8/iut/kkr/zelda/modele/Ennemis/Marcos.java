@@ -7,7 +7,7 @@ import universite_paris8.iut.kkr.zelda.modele.Environnement;
 public class Marcos extends Ennemis {
 
     public Marcos(Environnement env) {
-        super(0,0 , 2, env, 150, 5);
+        super(60,500 , 2, env, 150, 5);
     }
 
     @Override
