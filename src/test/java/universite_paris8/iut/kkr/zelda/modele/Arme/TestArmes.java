@@ -14,9 +14,9 @@ import universite_paris8.iut.kkr.zelda.modele.Potion.PotionForce;
 
 public class TestArmes {
     private Environnement env= new Environnement(800, 800);
-    private Boomerang boomerang= new Boomerang(100, 100);
-    private Sabre sabre= new Sabre(100, 100);
-    private Arc arc = new Arc(100, 100);
+    private Boomerang boomerang= new Boomerang(100, 100, env);
+    private Sabre sabre= new Sabre(100, 100, env);
+    private Arc arc = new Arc(100, 100, env);
     private Ennemis ennemi= new Bonnoctus(env);
 
 
@@ -42,10 +42,9 @@ public class TestArmes {
     }
     @Test
     void testPotionAcideAppliqueeAuSabre() {
-        Environnement env = new Environnement(800, 800);
-        Sabre sabre = new Sabre(100, 100);
+        Sabre sabre = new Sabre(100, 100, env);
         int attaqueInitiale = sabre.getPtAttaque();
-        PotionAcide potionAcide = new PotionAcide(100, 100);
+        PotionAcide potionAcide = new PotionAcide(100, 100, env);
         sabre.appliquerPotionAcide(potionAcide);
         assertEquals(attaqueInitiale + potionAcide.getPtAttaque(), sabre.getPtAttaque(), "Potion Acide augmente les points d'attaque du sabre de 2");
     }
@@ -54,10 +53,9 @@ public class TestArmes {
 
     @Test
     void testPotionForceAppliqueeALArc() {
-        Environnement env = new Environnement(800, 800);
-        Arc arc = new Arc(100, 100);
+        Arc arc = new Arc(100, 100, env);
         int porteeInitiale = arc.getPortee();
-        PotionForce potionForce = new PotionForce(100, 100);
+        PotionForce potionForce = new PotionForce(100, 100, env);
 
         arc.appliquerPotionDeForce(potionForce);
         assertEquals(porteeInitiale + potionForce.getPortee(), arc.getPortee(), "Potion de Force augmente la portée de l'arc de 3");

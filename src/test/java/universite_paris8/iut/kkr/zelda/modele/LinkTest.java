@@ -31,7 +31,7 @@ public class LinkTest {
 
     @Test
     public void testRamasserItem() {
-        Epee epee = new Epee(link.getX() + 10, link.getY() + 10);
+        Epee epee = new Epee(link.getX() + 10, link.getY() + 10, env);
         env.ajouterItem(epee);
         assertFalse(epee.EstRamassé(), "Item non ramasser");
         link.ramasserItem();
@@ -42,7 +42,7 @@ public class LinkTest {
     public void testAttaquerAvecArme() {
         Reltih ennemi = new Reltih(env);
         env.ajouterActeur(ennemi);
-        link.utiliser(new Epee(100, 100)); // Équipe Link avec une épée
+        link.utiliser(new Epee(100, 100, env)); // Équipe Link avec une épée
         link.attaquer(ennemi);
 
         assertTrue(ennemi.getPv() < 100, "Les PV de l'ennemi devraient être réduits après une attaque");
@@ -50,7 +50,7 @@ public class LinkTest {
 
     @Test
     public void testUtiliserAccessoire() {
-        Accessoires bottesAres = new BottesAres(100, 100);
+        Accessoires bottesAres = new BottesAres(100, 100, env);
         env.ajouterActeur(new Link(env, dialogueController));
         int vitesseInitiale = link.getVitesse();
         link.utiliser(bottesAres);
