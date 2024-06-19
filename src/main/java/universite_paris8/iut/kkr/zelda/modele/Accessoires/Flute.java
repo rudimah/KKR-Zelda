@@ -2,13 +2,13 @@ package universite_paris8.iut.kkr.zelda.modele.Accessoires;
 
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
-import universite_paris8.iut.kkr.zelda.modele.Link;
+
 
 import java.util.List;
 
 public class Flute extends Accessoires {
     public Flute(int x, int y, Environnement env) {
-        super("Flûte de Calliopé", x, y, 0, 0, 30,env); // Portée de base de 30
+        super("Flûte de Calliopé", x, y, 0, 0, 30, env); // Portée de base de 30
     }
 
     @Override

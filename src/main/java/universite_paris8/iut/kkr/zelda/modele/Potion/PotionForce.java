@@ -1,18 +1,18 @@
 package universite_paris8.iut.kkr.zelda.modele.Potion;
 
+
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 
 public class PotionForce extends Potion {
-    private Environnement environnement;
-    public PotionForce(int x, int y,   Environnement environnement) {
-        super("Potion de Force", x, y, 0, 0, 3);  // Augmente la portée de 3
-        this.environnement = environnement;
+
+    public PotionForce(int x, int y, Environnement env) {
+        super("Potion de Force", x, y, 0, 0, 3, env);  // Augmente la portée de 3
     }
 
     @Override
     public void appliquerPotion() {
-        if (environnement.getLink().getArme()!=null){
-            environnement.getLink().getArme().setPortee(environnement.getLink().getArme().getPortee()+3);
+        if (env.getLink().getArme()!=null){
+            env.getLink().getArme().setPortee(env.getLink().getArme().getPortee()+3);
             System.out.println("Potion de Force utiliser : Point de portée augmenté de 3");
         }
         else {

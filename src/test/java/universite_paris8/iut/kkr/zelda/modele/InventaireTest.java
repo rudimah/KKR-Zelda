@@ -12,15 +12,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class InventaireTest {
 
     Inventaire inventaire = new Inventaire();
-
+    Environnement environnement =  new Environnement(800, 800);
     @Test
     void ajouterItemAInventaire() {
-        Environnement environnement =  new Environnement(800, 800);
+
 
         //Element 1
         ObjetEnvironnement potion = new PotionForce(40, 30, environnement);
         //Element 2
-        ObjetEnvironnement sabre =  new Sabre(50,30);
+        ObjetEnvironnement sabre =  new Sabre(50,30, environnement);
         //Element 3
         ObjetEnvironnement flute = new Bouclier(60, 30, environnement);
         //Element 4
@@ -40,15 +40,15 @@ class InventaireTest {
         //TEST2: En cas d'utilisation d'une deuxième arme, l'arme actuelle se trouve dans l'inventiare
         Link link = new Link(environnement, new DialogueController(new Controleur()));
         link.utiliser(sabre); //arme actuelle
-        link.utiliser(new Arc(80,30)); //Nouvelle arme en main de Link
+        link.utiliser(new Arc(80,30, environnement)); //Nouvelle arme en main de Link
 
         assertTrue(link.getInventaire().getInventaire().contains(sabre));
     }
 
     @Test
     public void testAjouterItemAInventaire() {
-        ObjetEnvironnement item1 = new ObjetEnvironnement("Épée", 100, 100);
-        ObjetEnvironnement item2 = new ObjetEnvironnement("Bouclier", 200, 100);
+        ObjetEnvironnement item1 = new ObjetEnvironnement("Épée", 100, 100, environnement);
+        ObjetEnvironnement item2 = new ObjetEnvironnement("Bouclier", 200, 100 , environnement);
         inventaire.ajouterItemAInventaire(item1);
         inventaire.ajouterItemAInventaire(item2);
 
@@ -61,12 +61,12 @@ class InventaireTest {
     public void testInventairePlein() {
         // Ajout de 4 items à l'inventaire
         for (int i = 0; i < 4; i++) {
-            ObjetEnvironnement item = new ObjetEnvironnement("Potion" + i, 100, 100);
+            ObjetEnvironnement item = new ObjetEnvironnement("Potion" + i, 100, 100 , environnement);
             inventaire.ajouterItemAInventaire(item);
         }
 
         // Essayer d'ajouter un cinquième item
-        ObjetEnvironnement item5 = new ObjetEnvironnement("Arc", 100, 100);
+        ObjetEnvironnement item5 = new ObjetEnvironnement("Arc", 100, 100,  environnement);
         inventaire.ajouterItemAInventaire(item5);
 
         // Vérifie que le cinquième item n'a pas été ajouté
@@ -78,7 +78,7 @@ class InventaireTest {
 
     @Test
     public void testSelectionnerItem() {
-        ObjetEnvironnement item = new ObjetEnvironnement("Flèche", 100, 100);
+        ObjetEnvironnement item = new ObjetEnvironnement("Flèche", 100, 100 , environnement);
         inventaire.ajouterItemAInventaire(item);
 
         // Sélectionner l'item par son ID

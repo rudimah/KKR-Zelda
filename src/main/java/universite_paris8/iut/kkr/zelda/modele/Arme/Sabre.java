@@ -1,13 +1,14 @@
 package universite_paris8.iut.kkr.zelda.modele.Arme;
 
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
+import universite_paris8.iut.kkr.zelda.modele.Environnement;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
 
 public class Sabre extends Arme {
     private int degatsOrbe;
 
-    public Sabre(int x, int y) {
-        super("Sabre", 50,x, y, 2);
+    public Sabre(int x, int y, Environnement env) {
+        super("Sabre", 50,x, y, 2,env);
         this.degatsOrbe = 5;
     }
 

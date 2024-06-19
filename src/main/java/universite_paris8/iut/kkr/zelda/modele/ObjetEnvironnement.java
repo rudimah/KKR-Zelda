@@ -14,11 +14,12 @@ public class ObjetEnvironnement {
     private boolean estRamassé = false;
 
 
-    public ObjetEnvironnement(String nom, int x, int y) {
+    public ObjetEnvironnement(String nom, int x, int y, Environnement environnement) {
         this.nom = nom;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.id = "ObjetEnvironnement" + compteur++;
+        this.env = environnement;
     }
 
     public final int getX() { return x.getValue(); }

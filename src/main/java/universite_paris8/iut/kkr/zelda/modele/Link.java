@@ -138,6 +138,14 @@ public class Link extends ActeurEnMouvement{
     public Inventaire getInventaire() {
         return inventaire;
     }
+    public void utilserAccessoire(){
+        if(accessoireActuel != null){
+            accessoireActuel.appliquerEffet();
+        }
+        else{
+            System.out.println("Link n'a pas d'accessoire équipé.");
+        }
+    }
 
     public void utiliser(ObjetEnvironnement a){
         if( a instanceof Arme){
@@ -147,7 +155,8 @@ public class Link extends ActeurEnMouvement{
 
         } else if (a instanceof Accessoires) {
             accessoireActuel = (Accessoires) a;
-            System.out.println("Link est équipé de l'arme  : " + accessoireActuel.getNom());
+            accessoireActuel.appliquerEffet();
+            System.out.println("Link est équipé de l'acesoire  : " + accessoireActuel.getNom());
         }
         else {
             Potion potion = (Potion) a;

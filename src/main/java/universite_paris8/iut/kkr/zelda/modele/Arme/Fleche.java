@@ -4,6 +4,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import universite_paris8.iut.kkr.zelda.modele.Environnement;
 import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
 
 public class Fleche extends ObjetEnvironnement {
@@ -12,8 +13,8 @@ public class Fleche extends ObjetEnvironnement {
     private final IntegerProperty directionY;
     private boolean enflammee;
 
-    public Fleche(int x, int y, int directionX, int directionY, int degats, boolean enflammee) {
-        super("Fleche", x, y);
+    public Fleche(int x, int y, int directionX, int directionY, int degats, boolean enflammee, Environnement env) {
+        super("Fleche", x, y, env);
         this.degats = degats;
         this.directionX = new SimpleIntegerProperty(directionX);
         this.directionY = new SimpleIntegerProperty(directionY);

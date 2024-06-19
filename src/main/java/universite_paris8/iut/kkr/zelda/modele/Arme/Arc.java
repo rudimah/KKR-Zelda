@@ -1,13 +1,14 @@
 package universite_paris8.iut.kkr.zelda.modele.Arme;
 
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
+import universite_paris8.iut.kkr.zelda.modele.Environnement;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionForce;
 
 public class Arc extends Arme {
     private int degatsFeu;
 
-    public Arc(int x, int y) {
-        super("Arc du Héros",55, x, y, 15);
+    public Arc(int x, int y, Environnement env) {
+        super("Arc du Héros",55, x, y, 15, env);
         this.degatsFeu = 5;
     }
     public void appliquerPotionDeForce(PotionForce potion) {

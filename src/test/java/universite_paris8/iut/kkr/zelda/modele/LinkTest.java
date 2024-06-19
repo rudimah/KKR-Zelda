@@ -10,10 +10,13 @@ import universite_paris8.iut.kkr.zelda.modele.Arme.Epee;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 
+import java.sql.SQLOutput;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LinkTest {
     private Environnement env= new Environnement(800, 800);
+
     private DialogueController dialogueController= new DialogueController(null);
     private Link link= new Link(env, dialogueController);;
 
@@ -41,12 +44,14 @@ public class LinkTest {
         env.ajouterActeur(ennemi);
         link.utiliser(new Epee(100, 100)); // Équipe Link avec une épée
         link.attaquer(ennemi);
+
         assertTrue(ennemi.getPv() < 100, "Les PV de l'ennemi devraient être réduits après une attaque");
     }
 
     @Test
     public void testUtiliserAccessoire() {
-        Accessoires bottesAres = new BottesAres(100, 100, env);
+        Accessoires bottesAres = new BottesAres(100, 100);
+        env.ajouterActeur(new Link(env, dialogueController));
         int vitesseInitiale = link.getVitesse();
         link.utiliser(bottesAres);
         assertNotNull(link.getAccessoireActuel(), "Après utilisation, l'accessoire ne devrait pas être null");
