@@ -6,7 +6,7 @@ import universite_paris8.iut.kkr.zelda.modele.Environnement;
 
 public class Bonnoctus extends Ennemis {
     public Bonnoctus(Environnement env) {
-        super(70, 560, 3, env, 10000, 250);
+        super(650, 550, 3, env, 10000, 40);
     }
     @Override
     public void attaquer(ActeurEnMouvement acteurCible) {

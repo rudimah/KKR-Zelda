@@ -38,4 +38,5 @@ public class ObjetEnvironnement {
     public boolean EstRamassé() {return estRamassé;}
 
     public void setEstRamassé(boolean estRamassé) {this.estRamassé = estRamassé;}
+
 }

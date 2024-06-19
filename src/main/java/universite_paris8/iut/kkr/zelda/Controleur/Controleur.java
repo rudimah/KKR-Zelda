@@ -32,6 +32,7 @@ import universite_paris8.iut.kkr.zelda.modele.Accessoires.BottesAres;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Bouclier;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Flute;
 import universite_paris8.iut.kkr.zelda.modele.Arme.*;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis.Bonnoctus;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionForce;
@@ -88,17 +89,13 @@ public class Controleur implements Initializable {
         this.env.getActeurs().addListener(new ObservateurPersonnage(panneauDeJeu));
 
         env.ajouterItem(new Epee(300, 300, env));
-        env.ajouterItem(new Sabre(300, 450, env));
-        env.ajouterItem(new Bouclier(500, 450, env));
-        env.ajouterItem(new Arc(40, 30, env));
-        env.ajouterItem(new Boomerang(500, 450, env));
-        env.ajouterItem(new PotionForce(480, 203, env));
-        env.ajouterItem(new BottesAres(500,400, env));
-        env.ajouterItem(new PotionAcide(200, 100, env));
+        env.ajouterItem(new Sabre(650, 300, env));
+        env.ajouterItem(new Bouclier(600, 360, env));
+        env.ajouterItem(new PotionForce(300, 350, env));
+        env.ajouterItem(new BottesAres(100,280, env));
+        env.ajouterItem(new PotionAcide(700, 20, env));
         env.ajouterActeur(link);
         env.ajouterActeur(new Reltih(env));
-
-
 
         afficherlink = new VueLink(env, link, panneauDeJeu);
         terrainVue.afficherMap();
@@ -112,8 +109,8 @@ public class Controleur implements Initializable {
         panneauDeJeu.setOnKeyReleased(this::handleKeyRelease);
 
         link.getXProperty().addListener(afficherlink);
-        link.getXProperty().addListener((obs, oldVal, newVal) -> {finDeJeu();
-        });
+        link.getXProperty().addListener((obs, oldVal, newVal) -> {finDeJeu();});
+
         link.getYProperty().addListener(afficherlink);
         link.getYProperty().addListener((obs, oldVal, newVal) -> {finDeJeu();});
         barreVie.widthProperty().bind(link.pointDeVieProperty().multiply(100.0 / link.getPv()));
@@ -125,7 +122,7 @@ public class Controleur implements Initializable {
         link.pointDeVieProperty().addListener((obs, oldVal, newVal) -> {finDeJeu();});
         stackPanes.get(indexCaseActuelle).getStyleClass().add("case-inventaire-actuelle");
         initAnimation();
-        initSpawnEnnemis();
+
 
     }
     //methode sur la couleur de la barre de vie de link
@@ -174,7 +171,6 @@ public class Controleur implements Initializable {
             });
         }
     }
-
 
 
     // Méthodes pour gérer les entrées utilisateur, comme les touches du clavier
@@ -275,11 +271,7 @@ public class Controleur implements Initializable {
         gameLoop.play();
     }
     //Les ennemis sont générés toutes les 15 secondes pour augmenter la difficulté du jeu avec un timer
-    public void initSpawnEnnemis() {
-        Timeline tempsSpawn = new Timeline(new KeyFrame(Duration.seconds(15), e -> env.SpawnEnnemis()));
-        tempsSpawn.setCycleCount(Timeline.INDEFINITE);
-        tempsSpawn.play();
-    }
+
 //affichage du dialogue roue de dialogue
     public void afficherDialogue(String message) {
         dialogueLabel.setText("Link : " + message);

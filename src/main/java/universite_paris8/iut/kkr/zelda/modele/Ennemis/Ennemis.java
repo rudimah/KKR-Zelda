@@ -24,7 +24,6 @@ public abstract class Ennemis extends ActeurEnMouvement {
             return;
         }
 
-
         if (link != null) {
             int linkX = link.getX();
             int linkY = link.getY(); //recuperer position link
@@ -69,12 +68,6 @@ public abstract class Ennemis extends ActeurEnMouvement {
             System.out.println("Aucun chemin ");
 
         }
-    }
-
-
-    @Override
-    public Environnement getEnv() {
-        return super.getEnv();
     }
 
     public void figer(int nbTours) {

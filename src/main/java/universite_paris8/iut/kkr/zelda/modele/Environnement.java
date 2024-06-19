@@ -216,10 +216,8 @@ public class Environnement {
 			return new Reltih(this);
 		} else if (aleatoire < 90) {
 			return new Simonus(this);
-		} else if (aleatoire < 25) {
-				return new Cataltos(this);
 		} else {
-			return new Bonnoctus(this);
+			return new Cataltos(this);
 		}
 	}
 //verifie le spawn si il est a cote de link
@@ -246,8 +244,11 @@ public class Environnement {
 
 	public void incrementerTour() {
 		tourActuel++;
-		if (tourActuel % 150 == 0) { // Tous les 100 tours, générer un ennemi
+		if (tourActuel % 120 == 0) {
 			SpawnEnnemis();
+		}
+		if(tourActuel==120){
+			ajouterActeur(new Bonnoctus(this));
 		}
 	}
 }

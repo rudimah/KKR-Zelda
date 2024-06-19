@@ -47,8 +47,8 @@ public class ObservateurPersonnage implements ListChangeListener<Acteur> {
             imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie4.png"));
         } else if (a instanceof Bonnoctus) {
             imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie5.png"));
-
         }
+        imageView.setId(a.getId());
         imageView.translateXProperty().bind(a.getXProperty());
         imageView.translateYProperty().bind(a.getYProperty());
         panneauJeu.getChildren().add(imageView);

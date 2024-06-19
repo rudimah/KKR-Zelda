@@ -6,7 +6,7 @@ import universite_paris8.iut.kkr.zelda.modele.Environnement;
 public class Cataltos extends Ennemis {
 
     public Cataltos(Environnement env) {
-        super(700, 20, 2, env, 150, 5);
+        super(680, 45, 2, env, 150, 5);
     }
 
     @Override

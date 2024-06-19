@@ -3,7 +3,7 @@ package universite_paris8.iut.kkr.zelda.modele;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public abstract class ActeurEnMouvement extends Acteur {
+public abstract class   ActeurEnMouvement extends Acteur {
     private int vitesse; // vitesse de déplacement
     private int ptAttaque;
     private IntegerProperty pv ;
@@ -25,17 +25,25 @@ public abstract class ActeurEnMouvement extends Acteur {
         return vitesse;
     }
 
-    public int getPtAttaque() {return ptAttaque;}
-
     public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
     }
+
+    public int getPtAttaque() {return ptAttaque;}
 
     public void setPtAttaque(int ptAttaque) {this.ptAttaque = ptAttaque;}
 
     public final void setPv(int pv) {this.pv.setValue(pv);}
 
     public final int getPv() {return pv.getValue();}
+
+    public int getLargeur(){
+        return largeur;
+    }
+
+    public int getLongueur() {
+        return longueur;
+    }
 
     public IntegerProperty pointDeVieProperty(){
         return pv;
@@ -44,14 +52,13 @@ public abstract class ActeurEnMouvement extends Acteur {
     public void decrementerPv(int pointAttaque){
         setPv(getPv() - pointAttaque);
     }
-
     public void VerifEstVivant(){
         if(estMort()){
             env.retirerActeur(this);
         }
     }
-    public boolean estMort(){return getPv() <= 0;}
 
+    public boolean estMort(){return getPv() <= 0;}
     //cette methode sert a savoir si des acteurs en mouvement est a porté d'une attaque.
     public boolean estADistanceAttaque(Acteur ActeurCible) {
         if(ActeurCible != null){
@@ -71,13 +78,6 @@ public abstract class ActeurEnMouvement extends Acteur {
             System.out.println("Ennemi a maintenant " + getPv() + " points de vie.");
         }
     }
+
     public abstract void attaquer(ActeurEnMouvement acteurCible);
-
-    public int getLargeur(){
-        return largeur;
-    }
-
-    public int getLongueur() {
-        return longueur;
-    }
 }

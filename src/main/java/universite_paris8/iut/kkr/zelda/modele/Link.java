@@ -17,7 +17,7 @@ public class Link extends ActeurEnMouvement{
     private int vitesse;
     private DialogueController dialogue;
     public Link(Environnement env, DialogueController dialogue) {
-        super(80, 50, 10, env, 40, 10);
+        super(80, 50, 10, env, 150, 10);
         this.inventaire = new Inventaire();
         this.dialogue=dialogue;
     }
@@ -126,7 +126,6 @@ public class Link extends ActeurEnMouvement{
     }
 
 
-
     public Arme getArme() {
         return armeActuelle;
     }
@@ -138,14 +137,7 @@ public class Link extends ActeurEnMouvement{
     public Inventaire getInventaire() {
         return inventaire;
     }
-    public void utilserAccessoire(){
-        if(accessoireActuel != null){
-            accessoireActuel.appliquerEffet();
-        }
-        else{
-            System.out.println("Link n'a pas d'accessoire équipé.");
-        }
-    }
+
 
     public void utiliser(ObjetEnvironnement a){
         if( a instanceof Arme){

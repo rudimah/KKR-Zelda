@@ -7,7 +7,7 @@ import universite_paris8.iut.kkr.zelda.modele.Environnement;
 public class Reltih extends Ennemis {
 
     public Reltih(Environnement env) {
-        super(60, 60, 3, env, 100, 5);
+        super(500, 300, 3, env, 100, 3);
     }
 
     @Override

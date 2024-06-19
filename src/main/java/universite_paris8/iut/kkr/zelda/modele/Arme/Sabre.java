@@ -12,7 +12,7 @@ public class Sabre extends Arme {
         this.degatsOrbe = 5;
     }
 
-    public void appliquerPotionAcide(PotionAcide potion) {
+    public void utiliser(PotionAcide potion) {
         setPtAttaque(getPtAttaque() + potion.getPtAttaque());
     }
     public int getDegatsOrbe() {
