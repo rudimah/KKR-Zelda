@@ -86,17 +86,15 @@ public class Controleur implements Initializable {
 
         this.env.getItems().addListener(new ObservateurElement(panneauDeJeu));
         this.env.getActeurs().addListener(new ObservateurPersonnage(panneauDeJeu));
-        env.ajouterItem(new BottesAres(200, 100, env));
-        env.ajouterItem(new Bouclier(200, 150, env));
-        env.ajouterItem(new Flute(150, 200, env));
-//        env.ajouterItem(new Epee(300, 300, env));
-//        env.ajouterItem(new Sabre(300, 450, env));
-//        env.ajouterItem(new Bouclier(500, 450, env));
-//        env.ajouterItem(new Arc(40, 30, env));
-//        env.ajouterItem(new Boomerang(500, 450, env));
-//        env.ajouterItem(new PotionForce(480, 203, env));
-//        env.ajouterItem(new BottesAres(500,400, env));
-//        env.ajouterItem(new PotionAcide(200, 100, env));
+
+        env.ajouterItem(new Epee(300, 300, env));
+        env.ajouterItem(new Sabre(300, 450, env));
+        env.ajouterItem(new Bouclier(500, 450, env));
+        env.ajouterItem(new Arc(40, 30, env));
+        env.ajouterItem(new Boomerang(500, 450, env));
+        env.ajouterItem(new PotionForce(480, 203, env));
+        env.ajouterItem(new BottesAres(500,400, env));
+        env.ajouterItem(new PotionAcide(200, 100, env));
         env.ajouterActeur(link);
         env.ajouterActeur(new Reltih(env));
 
