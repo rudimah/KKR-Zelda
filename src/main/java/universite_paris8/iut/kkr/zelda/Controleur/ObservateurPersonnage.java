@@ -38,15 +38,15 @@ public class ObservateurPersonnage implements ListChangeListener<Acteur> {
     public void creerSprite(Acteur a) {
         imageView = new ImageView();
         if (a instanceof Reltih){
-            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/Runner.png"));
+            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/relith.png"));
         } else if (a instanceof Simonus) {
-            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/Titan.png"));
+            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/simonus.png"));
         } else if (a instanceof Cataltos) {
-            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie3.png"));
+            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/cataltos.png"));
         } else if (a instanceof Marcos) {
-            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie4.png"));
+            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/marcos.png"));
         } else if (a instanceof Bonnoctus) {
-            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie5.png"));
+            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/bonoctus.png"));
         }
         imageView.setId(a.getId());
         imageView.translateXProperty().bind(a.getXProperty());

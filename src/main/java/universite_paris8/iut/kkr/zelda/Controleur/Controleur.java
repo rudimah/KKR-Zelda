@@ -144,12 +144,13 @@ public class Controleur implements Initializable {
             gameLoop.stop();
             Platform.runLater(() -> {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Game Over");
+
                 alert.setHeaderText(null);
                 if (link.estMort()) {
+                    alert.setTitle("Game Over");
                     alert.setContentText("Link est mort. \nFin de Partie appuyer sur OK pour revenir sur le menu principal");
                 } else {
-
+                    alert.setTitle("Vous avez gagné");
                     alert.setContentText("Bien joué, Vous avez la clé. \nFin de Partie appuyer sur OK pour revenir sur le menu principal");
 
                 }
@@ -162,6 +163,8 @@ public class Controleur implements Initializable {
                         String css = getClass().getResource("/universite_paris8/iut/kkr/zelda/dark.css").toExternalForm();
                         scene.getStylesheets().add(css);
                         primaryStage.setScene(scene);
+                        primaryStage.setFullScreen(true);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

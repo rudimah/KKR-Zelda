@@ -21,6 +21,7 @@ public class MenuDebut extends Application {
         Font.loadFont(getClass().getResourceAsStream("/Police/Triforce.ttf"), 48);
         primaryStage.setTitle("Menu Principal");
         primaryStage.setScene(scene);
+        primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 
