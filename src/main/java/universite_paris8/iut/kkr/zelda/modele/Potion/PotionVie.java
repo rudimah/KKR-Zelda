@@ -11,7 +11,7 @@ public class PotionVie extends Potion {
     @Override
     public void appliquerPotion() {
         env.getLink().setPv(env.getLink().getPv()+5);
-        System.out.println("Potion Vie utiliser : Point de vie augmenté de 5");
+        System.out.println("Potion Vie utilisée : Point de vie augmenté de 5");
 
     }
 }

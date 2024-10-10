@@ -13,7 +13,7 @@ public class PotionBleue extends Potion {
     public void appliquerPotion() {
         env.getLink().setPtAttaque(env.getLink().getPtAttaque()+2);
 
-        System.out.println("Potion Bleu utiliser : Point d'attaque augmenté de 2");
+        System.out.println("Potion Bleu utilisée : Point d'attaque augmenté de 2");
 
         if (env.getLink().getArme()!=null) {
             env.getLink().getArme().setPortee(env.getLink().getArme().getPortee() + 5);

@@ -1,5 +1,6 @@
 package universite_paris8.iut.kkr.zelda.modele.Arme;
 
+import universite_paris8.iut.kkr.zelda.modele.ActeurEnMouvement;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
@@ -15,12 +16,14 @@ public class Sabre extends Arme {
     public void utiliser(PotionAcide potion) {
         setPtAttaque(getPtAttaque() + potion.getPtAttaque());
     }
+
     public int getDegatsOrbe() {
         return degatsOrbe;
     }
-    public void attaquer(Ennemis ennemi) {
-        super.attaquerAvecArme(ennemi);
-        ennemi.recevoirDegats(degatsOrbe);
+
+    //méthode visant à implémenter les spécificités d'attaques du sabre
+    public void attaquer(ActeurEnMouvement ennemi) {
+        ennemi.recevoirDegats(getPtAttaque() + degatsOrbe);
         System.out.println("Sabre inflige des dégâts d'orbe supplémentaires à l'ennemi");
     }
     @Override

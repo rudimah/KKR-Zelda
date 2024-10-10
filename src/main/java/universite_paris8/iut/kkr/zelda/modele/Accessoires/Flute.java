@@ -13,7 +13,7 @@ public class Flute extends Accessoires {
 
     @Override
     public void appliquerEffet() {
-        List<Ennemis> ennemisProches = env.getEnnemisProches(env.getLink().getX(), env.getLink().getY(),getPortee());
+        List<Ennemis> ennemisProches = env.listeEnnemisProcheDeLink(getPortee());
         if (!ennemisProches.isEmpty()){
             for(Ennemis ennemiProche : ennemisProches){
                 ennemiProche.figer(34);// equivalant à 5 sec vu que la gameLoop se réitère toutes les 0.15 secondes

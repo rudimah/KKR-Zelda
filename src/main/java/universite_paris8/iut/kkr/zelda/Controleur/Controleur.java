@@ -30,9 +30,7 @@ import universite_paris8.iut.kkr.zelda.Vue.VueLink;
 import universite_paris8.iut.kkr.zelda.modele.*;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.BottesAres;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Bouclier;
-import universite_paris8.iut.kkr.zelda.modele.Accessoires.Flute;
 import universite_paris8.iut.kkr.zelda.modele.Arme.*;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Bonnoctus;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionForce;
@@ -86,7 +84,7 @@ public class Controleur implements Initializable {
         this.vitesseNormale = link.getVitesse();
 
         this.env.getItems().addListener(new ObservateurElement(panneauDeJeu));
-        this.env.getActeurs().addListener(new ObservateurPersonnage(panneauDeJeu));
+        this.env.getListeActeurs().addListener(new ObservateurPersonnage(panneauDeJeu));
 
         env.ajouterItem(new Epee(300, 300, env));
         env.ajouterItem(new Sabre(650, 300, env));
@@ -139,19 +137,16 @@ public class Controleur implements Initializable {
     }
     //methode de fin de jeu afin de relancer le jeu sur le menu du départ
     private void finDeJeu() {
-
-        if (link.estMort() || link.tileId == Constantes.COFFRE) {
+        if (link.VerifierActeurMort() || link.tileId == Constantes.COFFRE) {
             gameLoop.stop();
             Platform.runLater(() -> {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Game Over");
                 alert.setHeaderText(null);
-                if (link.estMort()) {
+                if (link.VerifierActeurMort())
                     alert.setContentText("Link est mort. \nFin de Partie appuyer sur OK pour revenir sur le menu principal");
-                } else {
-
-                    alert.setContentText("Bien joué, Vous avez la clé. \nFin de Partie appuyer sur OK pour revenir sur le menu principal");
-
+                else {
+                alert.setContentText("Bien joué, Vous avez la clé. \nFin de Partie appuyer sur OK pour revenir sur le menu principal");
                 }
 
                 alert.setOnHidden(evt -> {
@@ -209,8 +204,8 @@ public class Controleur implements Initializable {
                 break;
 
             case F:
-                ActeurEnMouvement ennemiLePlusProche = env.trouverEnnemiLePlusProche(link.getX(), link.getY());
-                if (link.estADistanceAttaque(ennemiLePlusProche)) {
+                ActeurEnMouvement ennemiLePlusProche = env.ennemiProcheDeLink();
+                if (link.procheDe(ennemiLePlusProche.getX(), ennemiLePlusProche.getY(), 5)) {
                     link.attaquer(ennemiLePlusProche);
                 } else {
                     System.out.println("Aucun ennemi à attaquer à proximité.");

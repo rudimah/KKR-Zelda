@@ -7,7 +7,7 @@ import universite_paris8.iut.kkr.zelda.modele.Environnement;
 
 import java.util.List;
 
-public abstract class Ennemis extends ActeurEnMouvement {
+public abstract class   Ennemis extends ActeurEnMouvement {
     private int toursFige = 0;
     private BFS bfs;
 
@@ -29,7 +29,7 @@ public abstract class Ennemis extends ActeurEnMouvement {
             int linkY = link.getY(); //recuperer position link
 
             List<int[]> chemin = bfs.cheminBFS(getX(), getY(), linkX, linkY);
-            if (chemin != null && !chemin.isEmpty()) { //si chemin n'est pas vide  null si le cheminna pas ete calculer
+            if (chemin != null && !chemin.isEmpty()) { //si chemin n'est pas vide  null si le chemin na pas ete calculer
                 int[] prochaineEtape = chemin.get(1); //prochain position ennnemi car get(0) la ou est l'ennnemi
 
                 int dx = prochaineEtape[0] - getX();  //prochaine position  positionCible- position actuel

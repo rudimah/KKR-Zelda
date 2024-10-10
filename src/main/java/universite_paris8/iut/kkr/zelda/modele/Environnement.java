@@ -1,7 +1,5 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.*;
@@ -14,8 +12,8 @@ import java.util.Random;
 public class Environnement {
 
 	private int largeur, hauteur;
-	private ObservableList<Acteur> acteurs;
-	private ObservableList<ObjetEnvironnement> items;
+	private ObservableList<Acteur> listeActeurs;
+	private ObservableList<ObjetEnvironnement> listeItems;
 	private int tourActuel = 0;
 	private int[][] tableauMap = {
 			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
@@ -49,8 +47,8 @@ public class Environnement {
 	public Environnement(int largeur, int hauteur) {
 		this.largeur = largeur;
 		this.hauteur = hauteur;
-		this.acteurs = FXCollections.observableArrayList();
-		this.items = FXCollections.observableArrayList();
+		this.listeActeurs = FXCollections.observableArrayList();
+		this.listeItems = FXCollections.observableArrayList();
 	}
 
 	public int[][] getTableauMap() {
@@ -58,45 +56,46 @@ public class Environnement {
 	}
 
 
-	public ObservableList<Acteur> getActeurs() {
-		return acteurs;
+	public ObservableList<Acteur> getListeActeurs() {
+		return listeActeurs;
 	}
 
-	public Acteur getActeur(String id) {
-		for (Acteur a : this.acteurs) {
-			if (a.getId().equals(id)) {
-				return a;
-			}
-		}
-		return null;
-	}
 
-	public ObservableList<ObjetEnvironnement> getItems() {
-		return items;
+	public ObservableList<ObjetEnvironnement> getItems() { //liste d'item
+		return listeItems;
 	}
 
 	public void ajouterActeur(Acteur a) {
-		acteurs.add(a);
+		listeActeurs.add(a);
 	}
 
 	public void retirerActeur(Acteur a) {
-		acteurs.remove(a);
+		listeActeurs.remove(a);
 	}
 	public void ajouterItem(ObjetEnvironnement a) {
-		items.add(a);
+		listeItems.add(a);
+	}
+	public void retirerItem(ObjetEnvironnement a) {
+		listeItems.remove(a);
 	}
 
-	public int getTuile(int x, int y) {
-//Test
+	public int getLargeur() {
+		return largeur;
+	}
+
+	public int getHauteur() {
+		return hauteur;
+	}
+
+	public int getTuile(int x, int y) { //renommage
+
 		int colonneGrille = (x) / 30; // Calculer l'indice de la colonne de la grille correspondant à la position x
 		int ligneGrille = (y) / 30; // Calculer l'indice de la ligne de la grille correspondant à la position y
 //		System.out.println("[" + ligneGrille + "]" + "[" + colonneGrille + "]  = " + tableauMap[ligneGrille][colonneGrille]);
 		return tableauMap[ligneGrille][colonneGrille];
 	}
 
-	public void retirerItem(ObjetEnvironnement a) {
-		items.remove(a);
-	}
+
 
 
 	public boolean verifObstacle(int x, int y, ActeurEnMouvement a) {
@@ -136,16 +135,15 @@ public class Environnement {
 
 
 	public void agir() {
-		ActeurEnMouvement link = (ActeurEnMouvement) this.getLink();
+		ActeurEnMouvement link =  this.getLink();
 		if (link != null) {
-			ArrayList<Acteur> acteurs = new ArrayList<>(this.getActeurs());
+			ArrayList<Acteur> acteurs = new ArrayList<>(this.getListeActeurs());
 			for (Acteur acteur : acteurs) {
 				if (acteur instanceof Ennemis) {
 					Ennemis ennemi = (Ennemis) acteur;
-					ennemi.VerifEstVivant();
 					ennemi.decrementerToursFige();
 					if (!ennemi.estFige()) {
-						if (ennemi.estADistanceAttaque(link)) {
+						if (ennemi.procheDe(link.getX(), link.getY(), 5)) {
 							ennemi.attaquer(link);
 						} else if (verifObstacle(link.getX(), link.getY(), ennemi)) {
 							ennemi.seDeplacer();
@@ -157,57 +155,52 @@ public class Environnement {
 	}
 
 	public Link getLink() {
-		for (Acteur a : acteurs) {
+		for (Acteur a : listeActeurs) {
 			if (a instanceof Link) {
 				return (Link) a;
 			}
 		}
 		return null;
 	}
-//Trouve l'ennemi le plus proche dans une zone
 
-	public ActeurEnMouvement trouverEnnemiLePlusProche(int x, int y) {
-		ActeurEnMouvement ennemiLePlusProche = null;
-		double distanceMin = Double.MAX_VALUE;
-		for (Acteur acteur : acteurs) {
-			if (acteur instanceof Ennemis) {
-				double distance = Math.sqrt(Math.pow(acteur.getX() - x, 2) + Math.pow(acteur.getY() - y, 2));
-				if (distance < distanceMin) {
-					distanceMin = distance;
-					ennemiLePlusProche = (ActeurEnMouvement) acteur;
-				}
-			}
-		}
-		return ennemiLePlusProche;
+	public double ADistanceDeLink(int postionX, int postionY){
+
+		return Math.sqrt(Math.pow(postionX - getLink().getX(),2)+Math.pow(postionY - getLink().getY(),2));
 	}
 
-	public List<Ennemis> getEnnemisProches(int x, int y, int portee) {
+
+	public List<Ennemis> listeEnnemisProcheDeLink(int portee) {
+		//Retourne la liste d'ennemis proche de link
 		List<Ennemis> ennemisProches = new ArrayList<>();
-		for (Acteur acteur : acteurs) {
+		for (Acteur acteur : listeActeurs) {
 			if (acteur instanceof Ennemis) {
-				Ennemis ennemi = (Ennemis) acteur;
-				int distanceX = Math.abs(ennemi.getX() - x);
-				int distanceY = Math.abs(ennemi.getY() - y);
-				double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+				double distance = ADistanceDeLink(acteur.getX(), acteur.getY());
 				if (distance <= portee) {
-					ennemisProches.add(ennemi);
+					ennemisProches.add((Ennemis) acteur);
 				}
 			}
 		}
 		return ennemisProches;
 	}
 
-	public int getLargeur() {
-		return largeur;
+	public ActeurEnMouvement ennemiProcheDeLink(){
+		//Parmi la liste des ennemis  proches, la méthode retourne celui qui est plus proche de Link
+		List<Ennemis> listeEnnemisProche = listeEnnemisProcheDeLink(15);
+		double minDistance = ADistanceDeLink(listeEnnemisProche.get(0).getX(), listeEnnemisProche.get(0).getY());
+		Ennemis ennemisProche = listeEnnemisProche.get(0);
+		for (int i = 1; i < listeEnnemisProche.size(); i++){
+			double distance = ADistanceDeLink(listeEnnemisProche.get(i).getX(), listeEnnemisProche.get(i).getY());
+			if(distance< minDistance){
+				ennemisProche = listeEnnemisProche.get(i);
+				minDistance = distance;
+			}
+		}
+		return ennemisProche;
 	}
 
-	public int getHauteur() {
-		return hauteur;
-	}
 
-
-	//genere des ennemis aleatoire
-	public ActeurEnMouvement ennemisAleatoire(int x, int y) {
+	//Choisit l'ennemi à faire apparaitre et le crée.
+	public ActeurEnMouvement ennemisAleatoire() {
 		Random rand = new Random();
 		int aleatoire = rand.nextInt(100);
 		if (aleatoire < 50) {
@@ -220,25 +213,18 @@ public class Environnement {
 			return new Cataltos(this);
 		}
 	}
-//verifie le spawn si il est a cote de link
-	public boolean presdujoueur(int x, int y, int minDistance) {
-		Link link = getLink();
-		int dx = link.getX() - x;
-		int dy = link.getY() - y;
-		int distanceSquared = dx * dx + dy * dy;  // Carré de la distance
-		return distanceSquared < (minDistance * minDistance);
-	}
 
-//fait spawn les ennemis spawn =apparaitre
+//fait apparaitre les ennemis dans l'environnement a une distance de 15²(dans un rayon de 15 pixels) de Link
 	public void SpawnEnnemis() {
 		Random rand = new Random();
+		ActeurEnMouvement ennemis = ennemisAleatoire();
 		int x, y;
+
 		do {
 			x = rand.nextInt(largeur);
 			y = rand.nextInt(hauteur);
-		} while (!verifObstacle(x, y, null) || presdujoueur(x, y, 15));
+		} while (!verifObstacle(x, y, null) || ADistanceDeLink(x, y)<15*15);
 
-		ActeurEnMouvement ennemis = ennemisAleatoire(x, y);
 		ajouterActeur(ennemis);
 	}
 

@@ -7,7 +7,7 @@ public abstract class   ActeurEnMouvement extends Acteur {
     private int vitesse; // vitesse de déplacement
     private int ptAttaque;
     private IntegerProperty pv ;
-    private int largeur, longueur;
+    private int largeur, longueur; //taille tuile (hitbox)
 
 
     public ActeurEnMouvement(int x, int y, int vitesse, Environnement env, int pv, int ptAttaque) {
@@ -20,6 +20,8 @@ public abstract class   ActeurEnMouvement extends Acteur {
     }
 
     public abstract void seDeplacer();
+
+    public abstract void attaquer(ActeurEnMouvement acteurCible);
 
     public int getVitesse() {
         return vitesse;
@@ -52,32 +54,33 @@ public abstract class   ActeurEnMouvement extends Acteur {
     public void decrementerPv(int pointAttaque){
         setPv(getPv() - pointAttaque);
     }
-    public void VerifEstVivant(){
-        if(estMort()){
+
+    public boolean VerifierActeurMort(){ //Vérification s'il est mort
+        boolean estmort=false;
+        if(getPv() <= 0){
             env.retirerActeur(this);
+            estmort=true;
         }
+        return estmort;
     }
 
-    public boolean estMort(){return getPv() <= 0;}
+
+    public boolean procheDe(int x, int y, int portee){
+        /* Cette méthode regarde si les cordonnées passées en paramètre (qui correspond à des objets ou acteur) est proche de l’acteur.  */
+        return Math.abs(getX() - x) < portee && Math.abs(getY() - y )< portee;
+
+    }
+
     //cette methode sert a savoir si des acteurs en mouvement est a porté d'une attaque.
-    public boolean estADistanceAttaque(Acteur ActeurCible) {
-        if(ActeurCible != null){
-            int distanceX = Math.abs(getX() - ActeurCible.getX());
-            int distanceY = Math.abs(getY() - ActeurCible.getY());
-            int distanceManhattan = distanceX + distanceY;
 
-            return distanceManhattan <= 5;
-        }
-        return false;
-    }
     public void recevoirDegats(int degats) {
         setPv(getPv() - degats);
-        if (estMort()) {
+        if (VerifierActeurMort()) {
             System.out.println("Ennemi tué!");
         } else {
             System.out.println("Ennemi a maintenant " + getPv() + " points de vie.");
         }
     }
 
-    public abstract void attaquer(ActeurEnMouvement acteurCible);
+
 }

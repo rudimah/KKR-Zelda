@@ -33,9 +33,9 @@ public class Link extends ActeurEnMouvement{
         int nouveauX = getX(), nouveauY = getY();
         int xGauche, yHaut, yBas, xDroite;
         xGauche = nouveauX;
-        xDroite = nouveauX+28;
+        xDroite = nouveauX + 30;
         yHaut = nouveauY;
-        yBas = nouveauY + 28;
+        yBas = nouveauY + 30;
 
         if (tileId == 0) { // Eau
             vitesse = 3;
@@ -91,7 +91,7 @@ public class Link extends ActeurEnMouvement{
     public void ramasserItem() {
         ArrayList<ObjetEnvironnement> itemsARamasser = new ArrayList<>();
         for (ObjetEnvironnement item : env.getItems()) {
-            if (!item.EstRamassé() && estProcheDe(item) ) {
+            if (!item.EstRamassé() && procheDe(item.getX(), item.getY(), 15) ) {
                 itemsARamasser.add(item);
             }
         }
@@ -103,21 +103,15 @@ public class Link extends ActeurEnMouvement{
             inventaire.afficherInventaire();
         }
     }
-    public boolean estProcheDe(ObjetEnvironnement item) {
-        int distance = 15;
-        return Math.abs(getX() - item.getX()) < distance && Math.abs(getY() - item.getY()) < distance;
-    }
 
     public void attaquerAMainsNues(ActeurEnMouvement acteurCible) {
-        if (estADistanceAttaque(acteurCible)) {
-            acteurCible.decrementerPv(getPtAttaque());
-        }
-        System.out.println("Link attaque " + acteurCible + " à mains nu ! Il lui reste " + acteurCible.getPv() + " pv ");
+        acteurCible.recevoirDegats(getPtAttaque());
+        System.out.println("Link attaque " + acteurCible + " à mains nues ! Il lui reste " + acteurCible.getPv() + " pv ");
     }
     @Override
     public void attaquer(ActeurEnMouvement ennemi) {
         if (armeActuelle != null) {
-            armeActuelle.attaquerAvecArme(ennemi); // Utilise l'arme actuelle pour attaquer l'ennemi
+            armeActuelle.attaquer(ennemi); // Utilise l'arme actuelle pour attaquer l'ennemi
             System.out.println("Link attaque " + ennemi + " avec " + armeActuelle.toString() + " Il reste " + ennemi.getPv() + " pv à l'ennemi");
         }
         else {

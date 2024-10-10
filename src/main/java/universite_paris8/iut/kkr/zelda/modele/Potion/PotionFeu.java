@@ -12,6 +12,6 @@ public class PotionFeu extends Potion {
     @Override
     public void appliquerPotion() {
         env.getLink().setPtAttaque(env.getLink().getPtAttaque()+5);
-        System.out.println("Potion de Feu utiliser : Point d'attaque augmenté de 5");
+        System.out.println("Potion de Feu utilisée : Point d'attaque augmenté de 5");
     }
 }

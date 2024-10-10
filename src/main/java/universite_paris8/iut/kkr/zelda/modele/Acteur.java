@@ -46,11 +46,6 @@ public abstract class Acteur {
 	public String getId() {
 		return id;
 	}
-
-	public Environnement getEnv() {
-		return env;
-	}
-
 	@Override
 	public String toString() {
 		return "x=" + x + ", y=" + y + ", id=" + id;

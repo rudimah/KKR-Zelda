@@ -1,5 +1,6 @@
 package universite_paris8.iut.kkr.zelda.modele.Arme;
 
+import universite_paris8.iut.kkr.zelda.modele.ActeurEnMouvement;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 
@@ -14,11 +15,11 @@ public class Boomerang extends Arme {
 
     }
 
-    public void attaquer(Ennemis ennemi) {
-        super.attaquerAvecArme(ennemi);
-        for (Ennemis e : env.getEnnemisProches(getX(), getY(), zoneDegats)) {
+    ////méthode visant à implémenter les spécificités d'attaques du boomerang
+    public void attaquer(ActeurEnMouvement ennemi) {
+        for (Ennemis e : env.listeEnnemisProcheDeLink( zoneDegats)) {
             e.recevoirDegats(getPtAttaque());
-            System.out.println("Boomerang inflige des dégâts à tous les ennemis proches dans la zone de " + zoneDegats);
+            System.out.println("Boomerang inflige des dégâts à tous les ennemis proches dans un périmètre de " + zoneDegats);
         }
     }
 
