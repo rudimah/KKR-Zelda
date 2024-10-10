@@ -186,6 +186,9 @@ public class Environnement {
 	public ActeurEnMouvement ennemiProcheDeLink(){
 		//Parmi la liste des ennemis  proches, la méthode retourne celui qui est plus proche de Link
 		List<Ennemis> listeEnnemisProche = listeEnnemisProcheDeLink(15);
+		if (listeEnnemisProche.isEmpty()){
+			return null;
+		}
 		double minDistance = ADistanceDeLink(listeEnnemisProche.get(0).getX(), listeEnnemisProche.get(0).getY());
 		Ennemis ennemisProche = listeEnnemisProche.get(0);
 		for (int i = 1; i < listeEnnemisProche.size(); i++){

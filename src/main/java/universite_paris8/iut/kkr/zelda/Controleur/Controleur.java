@@ -205,11 +205,14 @@ public class Controleur implements Initializable {
 
             case F:
                 ActeurEnMouvement ennemiLePlusProche = env.ennemiProcheDeLink();
-                if (link.procheDe(ennemiLePlusProche.getX(), ennemiLePlusProche.getY(), 5)) {
-                    link.attaquer(ennemiLePlusProche);
-                } else {
+                if (ennemiLePlusProche == null) {
                     System.out.println("Aucun ennemi à attaquer à proximité.");
                 }
+                else {
+                    link.attaquer(ennemiLePlusProche);
+                }
+
+
                 break;
 
             case L:
