@@ -1,4 +1,4 @@
-module universite_paris8.iut.hrahman.loupmouton24 {
+module universite_paris8.iut.hrahman.KKRZelda {
     requires javafx.controls;
     requires javafx.fxml;
 
