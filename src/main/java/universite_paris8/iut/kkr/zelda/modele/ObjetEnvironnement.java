@@ -2,6 +2,7 @@ package universite_paris8.iut.kkr.zelda.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import universite_paris8.iut.kkr.zelda.modele.Pouvoir.Pouvoir;
 
 public class ObjetEnvironnement {
     private String nom;
@@ -12,14 +13,17 @@ public class ObjetEnvironnement {
 
     protected Environnement env;
     private boolean estRamassé = false;
+    private Pouvoir pouvoir;
+    private boolean reutilisable;
 
-
-    public ObjetEnvironnement(String nom, int x, int y, Environnement environnement) {
+    public ObjetEnvironnement(Environnement environnement, String nom, int x, int y, Pouvoir pouvoir, boolean reutilisable) {
         this.nom = nom;
         this.x = new SimpleIntegerProperty(x);
         this.y = new SimpleIntegerProperty(y);
         this.id = "ObjetEnvironnement" + compteur++;
         this.env = environnement;
+        this.reutilisable = reutilisable;
+        this.pouvoir = pouvoir;
     }
 
     public final int getX() { return x.getValue(); }
@@ -38,5 +42,13 @@ public class ObjetEnvironnement {
     public boolean EstRamassé() {return estRamassé;}
 
     public void setEstRamassé(boolean estRamassé) {this.estRamassé = estRamassé;}
+
+    public Environnement getEnv() {
+        return env;
+    }
+
+    public void utiliser() {
+        pouvoir.utiliser();
+    }
 
 }
