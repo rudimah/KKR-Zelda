@@ -11,3 +11,4 @@ L'objectif était de créer un jeu 2D de type **Zelda classique**.
 - **Langage** : Java
 - **Interface graphique** : JavaFX
 - **Styles** : CSS
+- **Maven**
