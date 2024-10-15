@@ -19,10 +19,6 @@ public abstract class   ActeurEnMouvement extends Acteur {
         this.longueur=30;
     }
 
-    public abstract void seDeplacer();
-
-    public abstract void attaquer(ActeurEnMouvement acteurCible);
-
     public int getVitesse() {
         return vitesse;
     }
@@ -64,11 +60,14 @@ public abstract class   ActeurEnMouvement extends Acteur {
         return estmort;
     }
 
+    public abstract void seDeplacer();
+
+    public abstract void attaquer(ActeurEnMouvement acteurCible);
+
 
     public boolean procheDe(int x, int y, int portee){
         /* Cette méthode regarde si les cordonnées passées en paramètre (qui correspond à des objets ou acteur) est proche de l’acteur.  */
         return Math.abs(getX() - x) < portee && Math.abs(getY() - y )< portee;
-
     }
 
     //cette methode sert a savoir si des acteurs en mouvement est a porté d'une attaque.

@@ -209,7 +209,7 @@ public class Controleur implements Initializable {
                     System.out.println("Aucun ennemi à attaquer à proximité.");
                 }
                 else {
-                    link.attaquer(ennemiLePlusProche);
+                    link.ajouterEnnemisAttaquer(ennemiLePlusProche);
                 }
 
 

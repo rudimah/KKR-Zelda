@@ -8,7 +8,6 @@ public class cumulPouvoirs implements Pouvoir{
         this.pouvoirs = pouvoirs;
     }
 
-
     @Override
     public void utiliser() {
         for (Pouvoir pouvoir : pouvoirs) {

@@ -3,6 +3,7 @@ package universite_paris8.iut.kkr.zelda.modele;
 import universite_paris8.iut.kkr.zelda.Controleur.DialogueController;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Accessoires;
 import universite_paris8.iut.kkr.zelda.modele.Arme.Arme;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
 import universite_paris8.iut.kkr.zelda.modele.Potion.Potion;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 import java.util.ArrayList;
@@ -16,9 +17,11 @@ public class Link extends ActeurEnMouvement{
     private Accessoires accessoireActuel;
     private int vitesse;
     private DialogueController dialogue;
+    private ArrayList<ActeurEnMouvement> ennemisAttaquer;
     public Link(Environnement env, DialogueController dialogue) {
         super(80, 50, 10, env, 150, 10);
         this.inventaire = new Inventaire();
+        ennemisAttaquer = new ArrayList();
         this.dialogue=dialogue;
     }
 
@@ -104,6 +107,14 @@ public class Link extends ActeurEnMouvement{
         }
     }
 
+    public void ajouterEnnemisAttaquer(ActeurEnMouvement acteurEnMouvement){
+        ennemisAttaquer.add(acteurEnMouvement);
+    }
+
+    public ArrayList<ActeurEnMouvement> getEnnemisAttaquer() {
+        return ennemisAttaquer;
+    }
+
     public void attaquerAMainsNues(ActeurEnMouvement acteurCible) {
         acteurCible.recevoirDegats(getPtAttaque());
         System.out.println("Link attaque " + acteurCible + " à mains nues ! Il lui reste " + acteurCible.getPv() + " pv ");
@@ -111,7 +122,8 @@ public class Link extends ActeurEnMouvement{
     @Override
     public void attaquer(ActeurEnMouvement ennemi) {
         if (armeActuelle != null) {
-            armeActuelle.attaquer(ennemi); // Utilise l'arme actuelle pour attaquer l'ennemi
+
+            armeActuelle.attaquer(); // Utilise l'arme actuelle pour attaquer l'ennemi
             System.out.println("Link attaque " + ennemi + " avec " + armeActuelle.toString() + " Il reste " + ennemi.getPv() + " pv à l'ennemi");
         }
         else {

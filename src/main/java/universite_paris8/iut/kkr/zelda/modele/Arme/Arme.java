@@ -24,7 +24,7 @@ public abstract class Arme extends ObjetEnvironnement {
     public int getPortee() {return porteeArme;}
 
     //permet d'attaquer par l'intermédiare d'une arme
-    public abstract void attaquer(ActeurEnMouvement ennemi);
+    public abstract void attaquer();
 
     //peut etre utiliser une methode utiliser abstract dans la classe armes pour que Link les prenne differemment
 

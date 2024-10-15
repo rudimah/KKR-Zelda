@@ -142,7 +142,7 @@ public class Environnement {
 				if (acteur instanceof Ennemis) {
 					Ennemis ennemi = (Ennemis) acteur;
 					ennemi.decrementerToursFige();
-					if (!ennemi.estFige()) {
+					if (!ennemi.estFige()) { //	TODO: mettre cette vérification dans les méthode qui sont appler ci dessus (attaquer/ se deplcaer)
 						if (ennemi.procheDe(link.getX(), link.getY(), 5)) {
 							ennemi.attaquer(link);
 						} else if (verifObstacle(link.getX(), link.getY(), ennemi)) {
@@ -164,7 +164,6 @@ public class Environnement {
 	}
 
 	public double ADistanceDeLink(int postionX, int postionY){
-
 		return Math.sqrt(Math.pow(postionX - getLink().getX(),2)+Math.pow(postionY - getLink().getY(),2));
 	}
 
