@@ -7,7 +7,7 @@ public abstract class   ActeurEnMouvement extends Acteur {
     private int vitesse; // vitesse de déplacement
     private int ptAttaque;
     private IntegerProperty pv ;
-    private int largeur, longueur; //taille tuile (hitbox)
+    private int largeur, hauteur; //taille tuile (hitbox)
 
 
     public ActeurEnMouvement(int x, int y, int vitesse, Environnement env, int pv, int ptAttaque) {
@@ -16,7 +16,7 @@ public abstract class   ActeurEnMouvement extends Acteur {
         this.ptAttaque = ptAttaque;
         this.pv = new SimpleIntegerProperty(pv);
         this.largeur=20;
-        this.longueur=30;
+        this.hauteur =30; //renommage
     }
 
     public abstract void seDeplacer();
@@ -43,8 +43,8 @@ public abstract class   ActeurEnMouvement extends Acteur {
         return largeur;
     }
 
-    public int getLongueur() {
-        return longueur;
+    public int getHauteur() {
+        return hauteur;
     }
 
     public IntegerProperty pointDeVieProperty(){

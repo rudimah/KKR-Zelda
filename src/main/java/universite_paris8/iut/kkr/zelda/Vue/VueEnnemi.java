@@ -35,7 +35,7 @@ public class VueEnnemi {
         // Bindings
         barreVie.widthProperty().bind(acteur.pointDeVieProperty().divide(2));
         fondBarreVie.translateXProperty().bind(acteur.getXProperty().subtract(acteur.getLargeur()/2));
-        fondBarreVie.translateYProperty().bind(acteur.getYProperty().subtract(acteur.getLongueur() + 10));
+        fondBarreVie.translateYProperty().bind(acteur.getYProperty().subtract(acteur.getHauteur() + 10));
         barreVie.translateXProperty().bind(fondBarreVie.translateXProperty());
         barreVie.translateYProperty().bind(fondBarreVie.translateYProperty());
 

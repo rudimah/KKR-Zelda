@@ -32,7 +32,7 @@ public class VueLink implements ChangeListener<Number>{
         imageView.setImage(image1);
         imageView.setViewport(new Rectangle2D(20, 13, 120, 160));
         imageView.setFitWidth(link.getLargeur());
-        imageView.setFitHeight(link.getLongueur());
+        imageView.setFitHeight(link.getHauteur());
         imageView.setTranslateX(link.getX());
         imageView.setTranslateY(link.getY());
         panneauDeJeu.getChildren().add(imageView);

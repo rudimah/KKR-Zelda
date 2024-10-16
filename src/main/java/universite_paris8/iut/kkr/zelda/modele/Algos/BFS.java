@@ -1,6 +1,7 @@
 package universite_paris8.iut.kkr.zelda.modele.Algos;
 
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
+import universite_paris8.iut.kkr.zelda.utils.Carte;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 
 import java.util.*;
@@ -19,6 +20,7 @@ public class BFS {
             Constantes.GROS_ROCHER, Constantes.LAVE
     };
     private Environnement environnement;
+    private Carte c1;     //implmentation de la carte pour getTuile()
 
     public BFS(Environnement env) {
         this.environnement = env;
@@ -26,7 +28,7 @@ public class BFS {
 
     // Vérifie si la position est accessible pour se déplacer
     public boolean estAccessible(int x, int y) {
-        int tuile = environnement.getTuile(x, y);
+        int tuile = c1.getTuile(x, y);
 
         // Parcourir le tableau d'obstacles pour voir si la tuile==obstacle
         for (int i=0; i<obstacles.length;i++) {

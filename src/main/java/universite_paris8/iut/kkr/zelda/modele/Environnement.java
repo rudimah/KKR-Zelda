@@ -2,8 +2,9 @@ package universite_paris8.iut.kkr.zelda.modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import universite_paris8.iut.kkr.zelda.modele.DeplacementStrategy.DeplacementBFSStrategy;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.*;
-import universite_paris8.iut.kkr.zelda.utils.Constantes;
+import universite_paris8.iut.kkr.zelda.utils.Carte;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,60 +16,49 @@ public class Environnement {
 	private ObservableList<Acteur> listeActeurs;
 	private ObservableList<ObjetEnvironnement> listeItems;
 	private int tourActuel = 0;
-	private int[][] tableauMap = {
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE , Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.EAU, Constantes.EAU, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.EAU, Constantes.EAU, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.BUISSON, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.BUISSON, Constantes.BUISSON, Constantes.EAU, Constantes.EAU, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.BUISSON, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.BUISSON, Constantes.BUISSON, Constantes.EAU, Constantes.EAU, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.EAU, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE,  Constantes.HERBE, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.BUISSON, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE,  Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.PETIT_ROCHER, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.GROS_ROCHER, Constantes.GROS_ROCHER, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.GROS_ROCHER, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.VOITURE_ABANDONNEE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.POUBELLE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.PONT, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.CHEMIN_EN_PIERRE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.PONT, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.CHEMIN_EN_PIERRE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.LAVE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.HERBE, Constantes.HERBE, Constantes.COFFRE, Constantes.HERBE, Constantes.LAVE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.LAVE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE},
-			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE},};
+	private Carte m;
+	private DeplacementBFSStrategy deplacement;//assigner la carte a un environnement
 
-	public Environnement(int largeur, int hauteur) {
+
+	//Constructeur
+	public Environnement(int largeur, int hauteur, Carte carte1) {
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		this.listeActeurs = FXCollections.observableArrayList();
 		this.listeItems = FXCollections.observableArrayList();
+		this.m = carte1;
 	}
 
-	public int[][] getTableauMap() {
-		return this.tableauMap;
-	}
 
+	//getters et setter
 
 	public ObservableList<Acteur> getListeActeurs() {
 		return listeActeurs;
 	}
-
-
 	public ObservableList<ObjetEnvironnement> getItems() { //liste d'item
 		return listeItems;
 	}
+	public int getLargeur() {
+		return largeur;
+	}
+	public int getHauteur() {
+		return hauteur;
+	}
 
+	public Link getLink() {
+		for (Acteur a : listeActeurs) {
+			if (a instanceof Link) {
+				return (Link) a;
+			}
+		}
+		return null;
+	}
+
+
+	//Ajouts et suppression dans les listes
 	public void ajouterActeur(Acteur a) {
 		listeActeurs.add(a);
 	}
-
 	public void retirerActeur(Acteur a) {
 		listeActeurs.remove(a);
 	}
@@ -79,60 +69,10 @@ public class Environnement {
 		listeItems.remove(a);
 	}
 
-	public int getLargeur() {
-		return largeur;
-	}
-
-	public int getHauteur() {
-		return hauteur;
-	}
-
-	public int getTuile(int x, int y) { //renommage
-
-		int colonneGrille = (x) / 30; // Calculer l'indice de la colonne de la grille correspondant à la position x
-		int ligneGrille = (y) / 30; // Calculer l'indice de la ligne de la grille correspondant à la position y
-//		System.out.println("[" + ligneGrille + "]" + "[" + colonneGrille + "]  = " + tableauMap[ligneGrille][colonneGrille]);
-		return tableauMap[ligneGrille][colonneGrille];
-	}
 
 
 
-
-	public boolean verifObstacle(int x, int y, ActeurEnMouvement a) {
-		int largeurPersonnage = 20; // Largeur du personnage en pixels
-		int hauteurPersonnage = 30; // Hauteur du personnage en pixels
-
-		if (x < 0 || x + largeurPersonnage > largeur || y < 0 || y + hauteurPersonnage > hauteur) {
-			return false;
-		}
-
-		int tuile = getTuile(x, y);
-
-		switch (tuile) {
-			case Constantes.EAU: // Eau
-				if (!(a instanceof Link)) {
-					return false;
-				}
-				break;
-			case Constantes.IMMEUBLES_ABANDONNES: // Immeubles abandonnés
-				return false;
-			case Constantes.ARBRES: // Arbres
-				return false;
-			case Constantes.VOITURE_ABANDONNEE: // Voiture abandonnée
-				return false;
-			case Constantes.PETIT_ROCHER: // Rocher
-				return false;
-			case Constantes.POUBELLE: // Poubelle
-				return false;
-			case Constantes.GROS_ROCHER:
-				return false;
-			default:
-				break;
-		}
-		return true;
-	}
-
-
+	//Méthode principaux de cette classe
 
 	public void agir() {
 		ActeurEnMouvement link =  this.getLink();
@@ -145,7 +85,7 @@ public class Environnement {
 					if (!ennemi.estFige()) {
 						if (ennemi.procheDe(link.getX(), link.getY(), 5)) {
 							ennemi.attaquer(link);
-						} else if (verifObstacle(link.getX(), link.getY(), ennemi)) {
+						} else if (deplacement.verificationObstacles(link.getX(), link.getY())) { //Deplacement des ennemis si j'ai bien compris alors coté DEplacementBFSSrategy
 							ennemi.seDeplacer();
 						}
 					}
@@ -154,20 +94,9 @@ public class Environnement {
 		}
 	}
 
-	public Link getLink() {
-		for (Acteur a : listeActeurs) {
-			if (a instanceof Link) {
-				return (Link) a;
-			}
-		}
-		return null;
-	}
-
 	public double ADistanceDeLink(int postionX, int postionY){
-
 		return Math.sqrt(Math.pow(postionX - getLink().getX(),2)+Math.pow(postionY - getLink().getY(),2));
 	}
-
 
 	public List<Ennemis> listeEnnemisProcheDeLink(int portee) {
 		//Retourne la liste d'ennemis proche de link
@@ -217,7 +146,7 @@ public class Environnement {
 		}
 	}
 
-//fait apparaitre les ennemis dans l'environnement a une distance de 15²(dans un rayon de 15 pixels) de Link
+	//fait apparaitre les ennemis dans l'environnement a une distance de 15²(dans un rayon de 15 pixels) de Link
 	public void SpawnEnnemis() {
 		Random rand = new Random();
 		ActeurEnMouvement ennemis = ennemisAleatoire();
@@ -226,7 +155,7 @@ public class Environnement {
 		do {
 			x = rand.nextInt(largeur);
 			y = rand.nextInt(hauteur);
-		} while (!verifObstacle(x, y, null) || ADistanceDeLink(x, y)<15*15);
+		} while (!deplacement.verificationObstacles(x, y) || ADistanceDeLink(x, y)<15*15); //vu que cest que cest les ennemis qui vérifie les obstacles jai mis la méthode verifObstacle avec BFS
 
 		ajouterActeur(ennemis);
 	}
