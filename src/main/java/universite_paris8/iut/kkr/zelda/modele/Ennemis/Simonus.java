@@ -10,9 +10,9 @@ public class Simonus extends Ennemis {
     }
 
     @Override
-    public void attaquer(ActeurEnMouvement acteurCible) {
-        acteurCible.decrementerPv(getPtAttaque());
-        System.out.println("Un Simonus attaque Link ! Il reste " + acteurCible.getPv() + " pv à Link");
+    public void attaquer() {
+        getEnnemiAttaque().decrementerPv(getPtAttaque());
+        System.out.println("Un Marcos lance un projectile !");
     }
 
     @Override

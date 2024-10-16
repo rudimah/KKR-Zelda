@@ -9,9 +9,9 @@ public class Bonnoctus extends Ennemis {
         super(650, 550, 3, env, 10000, 40);
     }
     @Override
-    public void attaquer(ActeurEnMouvement acteurCible) {
-        acteurCible.decrementerPv(getPtAttaque());
-        System.out.println("Un Bonnoctus attaque Link ! Il reste " + acteurCible.getPv() + " pv à Link");
+    public void attaquer() {
+        getEnnemiAttaque().decrementerPv(getPtAttaque());
+        System.out.println("Un Marcos lance un projectile !");
     }
     @Override
     public String toString() {return "Bonnoctus";}

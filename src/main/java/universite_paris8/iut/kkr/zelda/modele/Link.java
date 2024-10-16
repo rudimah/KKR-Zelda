@@ -1,10 +1,7 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
 import universite_paris8.iut.kkr.zelda.Controleur.DialogueController;
-import universite_paris8.iut.kkr.zelda.modele.Accessoires.Accessoires;
-import universite_paris8.iut.kkr.zelda.modele.Arme.Arme;
 import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
-import universite_paris8.iut.kkr.zelda.modele.Potion.Potion;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 import java.util.ArrayList;
 
@@ -13,15 +10,13 @@ public class Link extends ActeurEnMouvement{
     public int tileId = 9;
     private Inventaire inventaire;
     private int Direction ;
-    private Arme armeActuelle;
-    private Accessoires accessoireActuel;
+    private ObjetEnvironnement objetActuel;
     private int vitesse;
     private DialogueController dialogue;
-    private ArrayList<ActeurEnMouvement> ennemisAttaquer;
+    private Ennemis ennemisAttaqués;
     public Link(Environnement env, DialogueController dialogue) {
         super(80, 50, 10, env, 150, 10);
         this.inventaire = new Inventaire();
-        ennemisAttaquer = new ArrayList();
         this.dialogue=dialogue;
     }
 
@@ -107,60 +102,48 @@ public class Link extends ActeurEnMouvement{
         }
     }
 
-    public void ajouterEnnemisAttaquer(ActeurEnMouvement acteurEnMouvement){
-        ennemisAttaquer.add(acteurEnMouvement);
-    }
-
-    public ArrayList<ActeurEnMouvement> getEnnemisAttaquer() {
-        return ennemisAttaquer;
-    }
 
     public void attaquerAMainsNues(ActeurEnMouvement acteurCible) {
         acteurCible.recevoirDegats(getPtAttaque());
         System.out.println("Link attaque " + acteurCible + " à mains nues ! Il lui reste " + acteurCible.getPv() + " pv ");
     }
     @Override
-    public void attaquer(ActeurEnMouvement ennemi) {
-        if (armeActuelle != null) {
-
-            armeActuelle.attaquer(); // Utilise l'arme actuelle pour attaquer l'ennemi
-            System.out.println("Link attaque " + ennemi + " avec " + armeActuelle.toString() + " Il reste " + ennemi.getPv() + " pv à l'ennemi");
+    public void attaquer() {
+        if (objetActuel != null) {
+            objetActuel.utiliser(); // Utilise l'arme actuelle pour attaquer l'ennemi
+            System.out.println("Link utlise " + objetActuel.toString());
         }
         else {
-            attaquerAMainsNues(ennemi);
+//            attaquerAMainsNues(ennemi);
         }
     }
 
 
-    public Arme getArme() {
-        return armeActuelle;
+    public ObjetEnvironnement getObjetActuel() {
+        return objetActuel;
     }
 
-    public Accessoires getAccessoireActuel() {
-        return accessoireActuel;
-    }
 
     public Inventaire getInventaire() {
         return inventaire;
     }
 
-
-    public void utiliser(ObjetEnvironnement a){
-        if( a instanceof Arme){
-            if (armeActuelle!=null) inventaire.getInventaire().add(armeActuelle);
-            armeActuelle =  (Arme) a;
-            System.out.println("Link est équipé de l'arme : " + armeActuelle.getNom());
-
-        } else if (a instanceof Accessoires) {
-            accessoireActuel = (Accessoires) a;
-            accessoireActuel.appliquerEffet();
-            System.out.println("Link est équipé de l'acesoire  : " + accessoireActuel.getNom());
-        }
-        else {
-            Potion potion = (Potion) a;
-            System.out.println("utilisaton potion");
-            potion.appliquerPotion();
-
-        }
+//TODO:
+//    public void utiliser(ObjetEnvironnement a){
+//        if( a instanceof Arme){
+//            if (armeActuelle!=null) inventaire.getInventaire().add(armeActuelle);
+//            armeActuelle =  (Arme) a;
+//            System.out.println("Link est équipé de l'arme : " + armeActuelle.getNom());
+//
+//        } else if (a instanceof Accessoires) {
+//            accessoireActuel = (Accessoires) a;
+//            accessoireActuel.appliquerEffet();
+//            System.out.println("Link est équipé de l'acesoire  : " + accessoireActuel.getNom());
+//        }
+//        else {
+//            Potion potion = (Potion) a;
+//            System.out.println("utilisaton potion");
+//            potion.appliquerPotion();
+//
+//        }
     }
-}

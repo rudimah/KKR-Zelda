@@ -5,15 +5,14 @@ import universite_paris8.iut.kkr.zelda.modele.Environnement;
 public class attaqueEnnemi implements Pouvoir{
     Environnement environnement;
     int ptAttaque;
-    public attaqueEnnemi(Environnement objetEnvironnement, int ptAttaque) {
-        environnement = objetEnvironnement;
+    public attaqueEnnemi(Environnement environnement, int ptAttaque) {
+        environnement = environnement;
         this.ptAttaque = ptAttaque;
     }
 
     @Override
     public void utiliser() {
-        for (ActeurEnMouvement ennemis:environnement.getLink().getEnnemisAttaquer() ){
-            ennemis.setPv(ennemis.getPv()-ptAttaque);
-        }
+        ActeurEnMouvement ennemi = environnement.getLink().getEnnemiAttaque();
+        ennemi.setPv(ennemi.getPv()-ptAttaque);
     }
 }

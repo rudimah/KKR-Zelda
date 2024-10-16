@@ -10,10 +10,9 @@ public class Reltih extends Ennemis {
         super(500, 300, 3, env, 100, 3);
     }
 
-    @Override
-    public void attaquer(ActeurEnMouvement acteurCible) {
-        acteurCible.decrementerPv(getPtAttaque());
-        System.out.println("Un Reltih attaque Link ! Il reste " + acteurCible.getPv() + " pv à Link");
+    public void attaquer() {
+        getEnnemiAttaque().decrementerPv(getPtAttaque());
+        System.out.println("Un Marcos lance un projectile !");
     }
 
     @Override

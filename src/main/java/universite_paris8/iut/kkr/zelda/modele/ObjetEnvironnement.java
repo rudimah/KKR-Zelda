@@ -51,4 +51,7 @@ public class ObjetEnvironnement {
         pouvoir.utiliser();
     }
 
+
+
+
 }

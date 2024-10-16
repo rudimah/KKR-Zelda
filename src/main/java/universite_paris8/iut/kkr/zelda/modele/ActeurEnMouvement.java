@@ -2,12 +2,14 @@ package universite_paris8.iut.kkr.zelda.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
 
 public abstract class   ActeurEnMouvement extends Acteur {
     private int vitesse; // vitesse de déplacement
     private int ptAttaque;
     private IntegerProperty pv ;
-    private int largeur, longueur; //taille tuile (hitbox)
+    private int largeur, longueur;//taille tuile (hitbox)
+    private ActeurEnMouvement ennemiAttaque;
 
 
     public ActeurEnMouvement(int x, int y, int vitesse, Environnement env, int pv, int ptAttaque) {
@@ -22,6 +24,10 @@ public abstract class   ActeurEnMouvement extends Acteur {
     public int getVitesse() {
         return vitesse;
     }
+
+    public ActeurEnMouvement getEnnemiAttaque() {return ennemiAttaque;}
+
+    public void setEnnemiAttaque(ActeurEnMouvement ennemiAttaque) {this.ennemiAttaque = ennemiAttaque;}
 
     public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
@@ -62,7 +68,8 @@ public abstract class   ActeurEnMouvement extends Acteur {
 
     public abstract void seDeplacer();
 
-    public abstract void attaquer(ActeurEnMouvement acteurCible);
+    //TODO:
+    public abstract void attaquer();
 
 
     public boolean procheDe(int x, int y, int portee){
