@@ -28,8 +28,8 @@ import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.kkr.zelda.Vue.TerrainVue;
 import universite_paris8.iut.kkr.zelda.Vue.VueLink;
 import universite_paris8.iut.kkr.zelda.modele.*;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
 import universite_paris8.iut.kkr.zelda.modele.Pouvoir.*;
+import universite_paris8.iut.kkr.zelda.utils.Carte;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 
 
@@ -64,15 +64,17 @@ public class Controleur implements Initializable {
     @FXML
     private Label dialogueLabel;
 
+    private Carte c1;
+
     // Initialisation de l'environnement, des vues et bind/addlistener d'événements
     // Ajout d'éléments et d'acteurs dans l'environnement
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        env = new Environnement(800, 800);
+        env = new Environnement(800, 800, c1);
         terrainVue = new TerrainVue(env, tilepane);
-        tilepane.setPrefColumns(env.getTableauMap()[0].length);
-        tilepane.setPrefRows(env.getTableauMap().length);
+        tilepane.setPrefColumns(c1.getTableauMap()[0].length);
+        tilepane.setPrefRows(c1.getTableauMap().length);
         roueDial = new DialogueController(this);
         link = new Link(env, roueDial);
 
@@ -208,7 +210,7 @@ public class Controleur implements Initializable {
                     System.out.println("Aucun ennemi à attaquer à proximité.");
                 }
                 else {
-                    link.attaquer();
+                    link.attaquer(ennemiLePlusProche);
                 }
 
 

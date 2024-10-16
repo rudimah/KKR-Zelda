@@ -1,19 +1,30 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
 import universite_paris8.iut.kkr.zelda.modele.Algos.BFS;
-
 import java.util.List;
 
 public  class Ennemis extends ActeurEnMouvement {
     private int toursFige = 0;
     private BFS bfs;
-    private String nom;
     public Ennemis(String nom, int x, int y, int vitesse, Environnement env, int pointsDeVie, int ptAttaque) {
-        super(x, y, vitesse, env, pointsDeVie, ptAttaque);
-        this.nom = nom;
+        super(nom, x, y, vitesse, env, pointsDeVie, ptAttaque);
         this.bfs = new BFS(env);
-        setEnnemiAttaque(env.getLink());
     }
+
+
+    public void figer(int nbTours) {
+        toursFige = nbTours;
+    }
+    public boolean estFige() {
+        return toursFige > 0;
+    }
+
+    public void decrementerToursFige() {
+        if (toursFige > 0) {
+            toursFige--;
+        }
+    }
+
     //Méthode avec lequel les ennemis se déplace
     public void seDeplacer() {
         Acteur link = env.getLink(); //cible link
@@ -65,23 +76,9 @@ public  class Ennemis extends ActeurEnMouvement {
         }
     }
 
-    public void figer(int nbTours) {
-        toursFige = nbTours;
-    }
-
-    public boolean estFige() {
-        return toursFige > 0;
-    }
-
-    public void decrementerToursFige() {
-        if (toursFige > 0) {
-            toursFige--;
-        }
-    }
-
     @Override
-    public void attaquer(ActeurEnMouvement acteurCible) {
-        acteurCible.decrementerPv(getPtAttaque());
+    public void attaquer(ActeurEnMouvement acteurEnMouvement) {
+        acteurEnMouvement.decrementerPv(getPtAttaque());
     }
 
     @Override

@@ -1,7 +1,8 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
 import universite_paris8.iut.kkr.zelda.Controleur.DialogueController;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
+import universite_paris8.iut.kkr.zelda.modele.DeplacementStrategy.DeplacementStrategy;
+
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 import java.util.ArrayList;
 
@@ -12,29 +13,23 @@ public class Link extends ActeurEnMouvement{
     private ObjetEnvironnement objetActuel;
     private int vitesse;
     private DialogueController dialogue;
-    private Ennemis ennemisAttaqués;
+    private int Direction=0;
+    private ActeurEnMouvement ennemiAttaquer;
 
 
     //Constructeur
     public Link(Environnement env, DialogueController dialogue) {
-        super(80, 50, 10, env, 150, 10);
+        super("Link", 80, 50, 10, env, 150, 10);
         this.inventaire = new Inventaire();
         this.dialogue=dialogue;
     }
 
-    //getter et setters
     public int getDirection(){return Direction;}
     public void setDirection(int d){Direction = d;}
-    public Arme getArme() {
-        return armeActuelle;
-    }
-    public Accessoires getAccessoireActuel() {
-        return accessoireActuel;
-    }
     public Inventaire getInventaire() {
         return inventaire;
     }
-
+    public ActeurEnMouvement getEnnemiAttaquer() {return ennemiAttaquer;}
 
     //méthodes qui émet une action
 
@@ -50,6 +45,7 @@ public class Link extends ActeurEnMouvement{
             ramasserItem();
         }
     }
+
     public void ramasserItem() {
         ArrayList<ObjetEnvironnement> itemsARamasser = new ArrayList<>();
         for (ObjetEnvironnement item : env.getItems()) {
@@ -70,26 +66,22 @@ public class Link extends ActeurEnMouvement{
         acteurCible.recevoirDegats(getPtAttaque());
         System.out.println("Link attaque " + acteurCible + " à mains nues ! Il lui reste " + acteurCible.getPv() + " pv ");
     }
+
+
     @Override
-    public void attaquer() {
+    public void attaquer(ActeurEnMouvement ennemi) {
         if (objetActuel != null) {
+            ennemiAttaquer = ennemi;
             objetActuel.utiliser(); // Utilise l'arme actuelle pour attaquer l'ennemi
             System.out.println("Link utlise " + objetActuel.toString());
         }
         else {
-//            attaquerAMainsNues(ennemi);
+            attaquerAMainsNues(ennemi);
         }
     }
 
 
-    public ObjetEnvironnement getObjetActuel() {
-        return objetActuel;
-    }
 
-
-    public Inventaire getInventaire() {
-        return inventaire;
-    }
 
 
     public void utiliser(ObjetEnvironnement a){

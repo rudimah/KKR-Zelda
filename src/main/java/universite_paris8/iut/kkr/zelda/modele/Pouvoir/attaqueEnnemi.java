@@ -12,7 +12,7 @@ public class attaqueEnnemi implements Pouvoir{
 
     @Override
     public void utiliser() {
-        ActeurEnMouvement ennemi = environnement.getLink().getEnnemiAttaque();
+        ActeurEnMouvement ennemi = environnement.getLink().getEnnemiAttaquer();
         ennemi.setPv(ennemi.getPv()-ptAttaque);
     }
 }

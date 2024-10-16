@@ -2,18 +2,17 @@ package universite_paris8.iut.kkr.zelda.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
+
 
 public abstract class   ActeurEnMouvement extends Acteur {
     private int vitesse; // vitesse de déplacement
     private int ptAttaque;
     private IntegerProperty pv ;
     private int largeur, hauteur; //taille tuile (hitbox)
-    private ActeurEnMouvement ennemiAttaque;
 
 
-    public ActeurEnMouvement(int x, int y, int vitesse, Environnement env, int pv, int ptAttaque) {
-        super(x, y, env);
+    public ActeurEnMouvement(String nom, int x, int y, int vitesse, Environnement env, int pv, int ptAttaque) {
+        super(nom, x, y, env);
         this.vitesse = vitesse;
         this.ptAttaque = ptAttaque;
         this.pv = new SimpleIntegerProperty(pv);
@@ -21,21 +20,16 @@ public abstract class   ActeurEnMouvement extends Acteur {
         this.hauteur =30; //renommage
     }
 
-    public abstract void seDeplacer();
-
-    public abstract void attaquer(ActeurEnMouvement acteurCible);
 
     public int getVitesse() {
         return vitesse;
     }
 
-    public ActeurEnMouvement getEnnemiAttaque() {return ennemiAttaque;}
-
-    public void setEnnemiAttaque(ActeurEnMouvement ennemiAttaque) {this.ennemiAttaque = ennemiAttaque;}
-
     public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
     }
+
+
 
     public int getPtAttaque() {return ptAttaque;}
 
@@ -52,6 +46,8 @@ public abstract class   ActeurEnMouvement extends Acteur {
     public int getHauteur() {
         return hauteur;
     }
+
+    public abstract void seDeplacer();
 
     public IntegerProperty pointDeVieProperty(){
         return pv;
@@ -71,8 +67,7 @@ public abstract class   ActeurEnMouvement extends Acteur {
     }
 
 
-    //TODO:
-    public abstract void attaquer();
+    public abstract void attaquer(ActeurEnMouvement acteurEnMouvement);
 
 
     public boolean procheDe(int x, int y, int portee){

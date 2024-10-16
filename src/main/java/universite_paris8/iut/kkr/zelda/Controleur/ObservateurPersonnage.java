@@ -37,22 +37,22 @@ public class ObservateurPersonnage implements ListChangeListener<Acteur> {
     //cree le sprite des ennemis selon leur images
     public void creerSprite(Acteur a) {
         imageView = new ImageView();
-        if (a instanceof Reltih){
+        if (a.getNom() ==  "Reltih"){
             imageView.setImage(new Image("file:src/main/resources/image/Ennemie/Runner.png"));
-        } else if (a instanceof Simonus) {
+        } else if (a.getNom() ==  "Simonus") {
             imageView.setImage(new Image("file:src/main/resources/image/Ennemie/Titan.png"));
-        } else if (a instanceof Cataltos) {
+        } else if (a.getNom() == "Cataltos") {
             imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie3.png"));
-        } else if (a instanceof Marcos) {
+        } else if (a.getNom() ==  "Marcos") {
             imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie4.png"));
-        } else if (a instanceof Bonnoctus) {
+        } else if (a.getNom() ==  "Bonnoctus") {
             imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie5.png"));
         }
         imageView.setId(a.getId());
         imageView.translateXProperty().bind(a.getXProperty());
         imageView.translateYProperty().bind(a.getYProperty());
         panneauJeu.getChildren().add(imageView);
-        if (a instanceof ActeurEnMouvement && !(a instanceof Link)) {
+        if ( !(a.getNom() ==  "Link")) {
             new VueEnnemi((ActeurEnMouvement) a, panneauJeu);
 
         }
