@@ -31,7 +31,6 @@ import universite_paris8.iut.kkr.zelda.modele.*;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.BottesAres;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Bouclier;
 import universite_paris8.iut.kkr.zelda.modele.Arme.*;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionForce;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
@@ -93,7 +92,7 @@ public class Controleur implements Initializable {
         env.ajouterItem(new BottesAres(100,280, env));
         env.ajouterItem(new PotionAcide(700, 20, env));
         env.ajouterActeur(link);
-        env.ajouterActeur(new Reltih(env));
+        env.ajouterActeur(new Ennemis("Relith", 500, 300, 3, env, 100, 3));
 
         afficherlink = new VueLink(env, link, panneauDeJeu);
         terrainVue.afficherMap();

@@ -28,20 +28,17 @@ public class ObjetEnvironnement {
 
     public final int getX() { return x.getValue(); }
     public IntegerProperty xProperty() { return x; }
-
     public final void setX(int x) { this.x.setValue(x); }
-
     public final int getY() { return y.getValue(); }
     public IntegerProperty yProperty() { return y; }
-
     public final void setY(int y) { this.y.setValue(y); }
-
     public String getNom() { return nom; }
-
     public String getId() { return id; }
     public boolean EstRamassé() {return estRamassé;}
-
     public void setEstRamassé(boolean estRamassé) {this.estRamassé = estRamassé;}
+    public boolean isReutilisable() {
+        return reutilisable;
+    }
 
     public Environnement getEnv() {
         return env;

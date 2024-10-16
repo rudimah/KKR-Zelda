@@ -1,7 +1,6 @@
 package universite_paris8.iut.kkr.zelda.modele.Arme;
 
 import universite_paris8.iut.kkr.zelda.modele.ActeurEnMouvement;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
 

@@ -3,11 +3,7 @@ package universite_paris8.iut.kkr.zelda.modele.Arme;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import universite_paris8.iut.kkr.zelda.modele.Arme.Arc;
-import universite_paris8.iut.kkr.zelda.modele.Arme.Boomerang;
-import universite_paris8.iut.kkr.zelda.modele.Arme.Sabre;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Bonnoctus;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionAcide;
 import universite_paris8.iut.kkr.zelda.modele.Potion.PotionForce;
@@ -17,7 +13,7 @@ public class TestArmes {
     private Boomerang boomerang= new Boomerang(100, 100, env);
     private Sabre sabre= new Sabre(100, 100, env);
     private Arc arc = new Arc(100, 100, env);
-    private Ennemis ennemi= new Bonnoctus(env);
+    private Ennemis ennemi= new Ennemis("Bonnoctus", 650, 550, 3, env, 10000, 40);
 
 
     @Test

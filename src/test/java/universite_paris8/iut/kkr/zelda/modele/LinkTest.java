@@ -1,16 +1,11 @@
 package universite_paris8.iut.kkr.zelda.modele;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import universite_paris8.iut.kkr.zelda.Controleur.DialogueController;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.Accessoires;
 import universite_paris8.iut.kkr.zelda.modele.Accessoires.BottesAres;
-import universite_paris8.iut.kkr.zelda.modele.Arme.Arme;
 import universite_paris8.iut.kkr.zelda.modele.Arme.Epee;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
-
-import java.sql.SQLOutput;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,7 +35,7 @@ public class LinkTest {
 
     @Test
     public void testAttaquerAvecArme() {
-        Reltih ennemi = new Reltih(env);
+        Ennemis ennemi = new Ennemis("Relith", 500, 300, 3, env, 100, 3);
         env.ajouterActeur(ennemi);
         link.utiliser(new Epee(100, 100, env)); // Équipe Link avec une épée
         link.attaquer(ennemi);

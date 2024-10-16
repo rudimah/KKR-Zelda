@@ -2,7 +2,6 @@ package universite_paris8.iut.kkr.zelda.modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.*;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 
 import java.util.ArrayList;
@@ -206,13 +205,13 @@ public class Environnement {
 		Random rand = new Random();
 		int aleatoire = rand.nextInt(100);
 		if (aleatoire < 50) {
-			return new Marcos(this);
+			return new Ennemis("Marcos", 200,350 , 3, this, 150, 5);
 		} else if (aleatoire < 75) {
-			return new Reltih(this);
+			return  new Ennemis("Relith", 500, 300, 3, this, 100, 3);
 		} else if (aleatoire < 90) {
-			return new Simonus(this);
+			return new Ennemis("Simonus", 360, 450, 3, this, 100, 3);
 		} else {
-			return new Cataltos(this);
+			return new Ennemis("Cataltos", 680, 45, 2, this, 150, 5);
 		}
 	}
 
@@ -236,7 +235,7 @@ public class Environnement {
 			SpawnEnnemis();
 		}
 		if(tourActuel==120){
-			ajouterActeur(new Bonnoctus(this));
+			ajouterActeur(new Ennemis("Bonnoctus", 650, 550, 3, this, 10000, 4));
 		}
 	}
 }
