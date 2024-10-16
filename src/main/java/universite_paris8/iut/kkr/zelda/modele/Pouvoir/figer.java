@@ -1,6 +1,6 @@
 package universite_paris8.iut.kkr.zelda.modele.Pouvoir;
 
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 import java.util.List;
 

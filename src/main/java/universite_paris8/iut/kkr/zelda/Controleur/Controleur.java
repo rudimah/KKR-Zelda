@@ -91,7 +91,7 @@ public class Controleur implements Initializable {
         env.ajouterItem(new ObjetEnvironnement(env,"Potion Acide",700,20,new modifPtAttaque(env,3),false));
         env.ajouterItem(new ObjetEnvironnement(env,"Bottes d'Arès",100,280,new modifVitesse(env,3),false));
         env.ajouterActeur(link);
-        env.ajouterActeur(new Reltih(env));
+        env.ajouterActeur(new Ennemis("Relith", 500, 300, 3, env, 100, 3));
 
         afficherlink = new VueLink(env, link, panneauDeJeu);
         terrainVue.afficherMap();
