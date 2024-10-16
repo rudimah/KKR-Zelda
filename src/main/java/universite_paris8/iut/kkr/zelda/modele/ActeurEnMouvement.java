@@ -2,12 +2,14 @@ package universite_paris8.iut.kkr.zelda.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
 
 public abstract class   ActeurEnMouvement extends Acteur {
     private int vitesse; // vitesse de déplacement
     private int ptAttaque;
     private IntegerProperty pv ;
     private int largeur, hauteur; //taille tuile (hitbox)
+    private ActeurEnMouvement ennemiAttaque;
 
 
     public ActeurEnMouvement(int x, int y, int vitesse, Environnement env, int pv, int ptAttaque) {
@@ -26,6 +28,10 @@ public abstract class   ActeurEnMouvement extends Acteur {
     public int getVitesse() {
         return vitesse;
     }
+
+    public ActeurEnMouvement getEnnemiAttaque() {return ennemiAttaque;}
+
+    public void setEnnemiAttaque(ActeurEnMouvement ennemiAttaque) {this.ennemiAttaque = ennemiAttaque;}
 
     public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
@@ -65,10 +71,13 @@ public abstract class   ActeurEnMouvement extends Acteur {
     }
 
 
+    //TODO:
+    public abstract void attaquer();
+
+
     public boolean procheDe(int x, int y, int portee){
         /* Cette méthode regarde si les cordonnées passées en paramètre (qui correspond à des objets ou acteur) est proche de l’acteur.  */
         return Math.abs(getX() - x) < portee && Math.abs(getY() - y )< portee;
-
     }
 
     //cette methode sert a savoir si des acteurs en mouvement est a porté d'une attaque.

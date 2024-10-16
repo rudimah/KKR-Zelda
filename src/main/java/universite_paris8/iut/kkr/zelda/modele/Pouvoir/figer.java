@@ -1,19 +1,20 @@
-package universite_paris8.iut.kkr.zelda.modele.Accessoires;
+package universite_paris8.iut.kkr.zelda.modele.Pouvoir;
 
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
+import universite_paris8.iut.kkr.zelda.modele.Ennemis;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
-
-
 import java.util.List;
 
-public class Flute extends Accessoires {
-    public Flute(int x, int y, Environnement env) {
-        super("Flûte de Calliopé", x, y, 0, 0, 30, env); // Portée de base de 30
+public class figer implements Pouvoir{
+    Environnement environnement;
+    int portee;
+    public figer(Environnement objetEnvironnement, int portee) {
+        environnement = objetEnvironnement;
+        this.portee = portee;
     }
 
     @Override
-    public void appliquerEffet() {
-        List<Ennemis> ennemisProches = env.listeEnnemisProcheDeLink(getPortee());
+    public void utiliser() {
+        List<Ennemis> ennemisProches = environnement.listeEnnemisProcheDeLink(portee);
         if (!ennemisProches.isEmpty()){
             for(Ennemis ennemiProche : ennemisProches){
                 ennemiProche.figer(34);// equivalant à 5 sec vu que la gameLoop se réitère toutes les 0.15 secondes

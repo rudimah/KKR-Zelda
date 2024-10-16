@@ -5,11 +5,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-import universite_paris8.iut.kkr.zelda.modele.Accessoires.BottesAres;
-import universite_paris8.iut.kkr.zelda.modele.Accessoires.Bouclier;
-import universite_paris8.iut.kkr.zelda.modele.Arme.*;
 import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
-import universite_paris8.iut.kkr.zelda.modele.Potion.*;
+
 
 public class ObservateurElement implements ListChangeListener<ObjetEnvironnement> {
     private final Pane panneauJeu;
@@ -40,42 +37,36 @@ public class ObservateurElement implements ListChangeListener<ObjetEnvironnement
         element.setFitWidth(30);
         element.setFitHeight(30);
 
-        if (a instanceof PotionAcide){
+        if (a.getNom() == "Potion Acide"){
             image  = new Image("file:src/main/resources/image/Potions & Armes/pt3.png");
         }
-        else if (a instanceof PotionBleue){
+        else if (a.getNom() == "Potion Bleue"){
             image  = new Image("file:src/main/resources/image/Potions & Armes/pt2.png");
         }
-        else if (a instanceof PotionFeu){
+        else if (a.getNom() == "Potion Feu"){
             image  = new Image("file:src/main/resources/image/Potions & Armes/pt1.png");
         }
-        else if (a instanceof PotionForce){
+        else if (a.getNom() == "Potion Force"){
             image  = new Image("file:src/main/resources/image/Potions & Armes/pt4.png");
         }
-        else if (a instanceof Sabre){
+        else if (a.getNom() == "Sabre"){
             image  = new Image("file:src/main/resources/image/Potions & Armes/sabre.png");
         }
-        else if (a instanceof Epee){
+        else if (a.getNom() == "Epee"){
             image  = new Image("file:src/main/resources/image/Potions & Armes/epees.png");
 
         }
-        else if (a instanceof Arc){
+        else if (a.getNom() == "Arc"){
             image  = new Image("file:src/main/resources/image/Potions & Armes/Arc&Fleche.png");
         }
-        else if (a instanceof Boomerang){
+        else if (a.getNom() == "Boomerang"){
             image  = new Image("file:src/main/resources/image/Potions & Armes/boomerang.png");
         }
-        else if (a instanceof Fleche){
-            image  = new Image("file:src/main/resources/image/Potions & Armes/fleche.png");
-        }
-        else if (a instanceof BottesAres){
+        else if (a.getNom() == "Bottes d'Arès"){
             image  = new Image("file:src/main/resources/image/Potions & Armes/bottes.gif");
         }
-        else if (a instanceof Bouclier){
+        else if (a.getNom() == "Bouclier"){
             image  = new Image("file:src/main/resources/image/Potions & Armes/bouclier.png");
-        }
-        else if (a instanceof Bouclier){
-            image  = new Image("file:src/main/resources/image/Potions & Armes/flute.png");
         }
         element.setImage(image);
         element.setId(a.getId());

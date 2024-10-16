@@ -82,7 +82,7 @@ public class Environnement {
 				if (acteur instanceof Ennemis) {
 					Ennemis ennemi = (Ennemis) acteur;
 					ennemi.decrementerToursFige();
-					if (!ennemi.estFige()) {
+					if (!ennemi.estFige()) { //	TODO: mettre cette vérification dans les méthode qui sont appler ci dessus (attaquer/ se deplcaer)
 						if (ennemi.procheDe(link.getX(), link.getY(), 5)) {
 							ennemi.attaquer(link);
 						} else if (deplacement.verificationObstacles(link.getX(), link.getY())) { //Deplacement des ennemis si j'ai bien compris alors coté DEplacementBFSSrategy
@@ -136,13 +136,13 @@ public class Environnement {
 		Random rand = new Random();
 		int aleatoire = rand.nextInt(100);
 		if (aleatoire < 50) {
-			return new Marcos(this);
+			return new Ennemis("Marcos", 200,350 , 3, this, 150, 5);
 		} else if (aleatoire < 75) {
-			return new Reltih(this);
+			return  new Ennemis("Relith", 500, 300, 3, this, 100, 3);
 		} else if (aleatoire < 90) {
-			return new Simonus(this);
+			return new Ennemis("Simonus", 360, 450, 3, this, 100, 3);
 		} else {
-			return new Cataltos(this);
+			return new Ennemis("Cataltos", 680, 45, 2, this, 150, 5);
 		}
 	}
 
@@ -166,7 +166,7 @@ public class Environnement {
 			SpawnEnnemis();
 		}
 		if(tourActuel==120){
-			ajouterActeur(new Bonnoctus(this));
+			ajouterActeur(new Ennemis("Bonnoctus", 650, 550, 3, this, 10000, 4));
 		}
 	}
 }

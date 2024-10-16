@@ -11,8 +11,8 @@ public class Marcos extends Ennemis {
     }
 
     @Override
-    public void attaquer(ActeurEnMouvement acteurCible) {
-        acteurCible.decrementerPv(getPtAttaque());
+    public void attaquer() {
+        getEnnemiAttaque().decrementerPv(getPtAttaque());
         System.out.println("Un Marcos lance un projectile !");
     }
 

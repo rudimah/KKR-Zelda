@@ -1,20 +1,12 @@
-package universite_paris8.iut.kkr.zelda.modele.Ennemis;
-
+package universite_paris8.iut.kkr.zelda.modele;
 
 import org.junit.jupiter.api.Test;
-import universite_paris8.iut.kkr.zelda.Controleur.DialogueController;
-import universite_paris8.iut.kkr.zelda.modele.ActeurEnMouvement;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Cataltos;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Marcos;
-import universite_paris8.iut.kkr.zelda.modele.Environnement;
-import universite_paris8.iut.kkr.zelda.modele.Link;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EnnemisTest {
     private Environnement env= new Environnement(800, 800);
-    private Ennemis ennemi= new Marcos(env);
+    private Ennemis ennemi= new Ennemis("Marcos", 200,350 , 3, env, 150, 5);
 
 
     @Test
@@ -58,7 +50,7 @@ public class EnnemisTest {
                 return false; // Bloque tous les mouvements
             }
         };
-        Cataltos ennemi = new Cataltos(Env);
+        Ennemis ennemi = new Ennemis("Cataltos", 680, 45, 2, env, 150, 5);
         Link link = new Link(Env, null);
         ennemi.attaquer(link);
 
