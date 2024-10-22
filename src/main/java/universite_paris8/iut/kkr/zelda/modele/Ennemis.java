@@ -9,7 +9,7 @@ public  class Ennemis extends ActeurEnMouvement {
     private BFS bfs;
     private String nom;
     public Ennemis(String nom, int x, int y, int vitesse, Environnement env, int pointsDeVie, int ptAttaque) {
-        super(x, y, vitesse, env, pointsDeVie, ptAttaque);
+        super(nom, x, y, vitesse, env, pointsDeVie, ptAttaque);
         this.nom = nom;
         this.bfs = new BFS(env);
         setEnnemiAttaque(env.getLink());

@@ -28,7 +28,6 @@ import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.kkr.zelda.Vue.TerrainVue;
 import universite_paris8.iut.kkr.zelda.Vue.VueLink;
 import universite_paris8.iut.kkr.zelda.modele.*;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Reltih;
 import universite_paris8.iut.kkr.zelda.modele.Pouvoir.*;
 import universite_paris8.iut.kkr.zelda.utils.Constantes;
 
@@ -208,7 +207,7 @@ public class Controleur implements Initializable {
                     System.out.println("Aucun ennemi à attaquer à proximité.");
                 }
                 else {
-                    link.attaquer();
+                    link.attaquer(ennemiLePlusProche);
                 }
 
 

@@ -2,7 +2,7 @@ package universite_paris8.iut.kkr.zelda.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.Ennemis;
+
 
 public abstract class   ActeurEnMouvement extends Acteur {
     private int vitesse; // vitesse de déplacement
@@ -12,8 +12,8 @@ public abstract class   ActeurEnMouvement extends Acteur {
     private ActeurEnMouvement ennemiAttaque;
 
 
-    public ActeurEnMouvement(int x, int y, int vitesse, Environnement env, int pv, int ptAttaque) {
-        super(x, y, env);
+    public ActeurEnMouvement(String nom, int x, int y, int vitesse, Environnement env, int pv, int ptAttaque) {
+        super(nom, x, y, env);
         this.vitesse = vitesse;
         this.ptAttaque = ptAttaque;
         this.pv = new SimpleIntegerProperty(pv);
@@ -68,8 +68,8 @@ public abstract class   ActeurEnMouvement extends Acteur {
 
     public abstract void seDeplacer();
 
-    //TODO:
-    public abstract void attaquer();
+
+    public abstract void attaquer(ActeurEnMouvement acteurEnMouvement);
 
 
     public boolean procheDe(int x, int y, int portee){

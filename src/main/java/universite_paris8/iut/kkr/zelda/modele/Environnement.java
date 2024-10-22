@@ -143,7 +143,7 @@ public class Environnement {
 					ennemi.decrementerToursFige();
 					if (!ennemi.estFige()) { //	TODO: mettre cette vérification dans les méthode qui sont appler ci dessus (attaquer/ se deplcaer)
 						if (ennemi.procheDe(link.getX(), link.getY(), 5)) {
-							ennemi.attaquer();
+							ennemi.attaquer(link);
 						} else if (verifObstacle(link.getX(), link.getY(), ennemi)) {
 							ennemi.seDeplacer();
 						}

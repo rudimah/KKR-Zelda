@@ -37,15 +37,15 @@ public class ObservateurPersonnage implements ListChangeListener<Acteur> {
     //cree le sprite des ennemis selon leur images
     public void creerSprite(Acteur a) {
         imageView = new ImageView();
-        if (a instanceof Reltih){
+        if (a.getNom()== "Reltih"){
             imageView.setImage(new Image("file:src/main/resources/image/Ennemie/Runner.png"));
-        } else if (a instanceof Simonus) {
+        } else if (a.getNom()== "Simonus") {
             imageView.setImage(new Image("file:src/main/resources/image/Ennemie/Titan.png"));
-        } else if (a instanceof Cataltos) {
+        } else if (a.getNom() =="Cataltos") {
             imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie3.png"));
-        } else if (a instanceof Marcos) {
+        } else if (a.getNom()== "Marcos") {
             imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie4.png"));
-        } else if (a instanceof Bonnoctus) {
+        } else if (a.getNom() == "Bonnoctus") {
             imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie5.png"));
         }
         imageView.setId(a.getId());

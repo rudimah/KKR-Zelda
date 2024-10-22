@@ -10,13 +10,14 @@ public abstract class Acteur {
 	protected Environnement env;
 	public static int compteur = 0;
 	private String id;
-
-	public Acteur(int x, int y, Environnement env) {
+	private String nom;
+	public Acteur(String nom, int x, int y, Environnement env) {
 		this.x = new SimpleIntegerProperty(x);
 		this.y = new SimpleIntegerProperty(y);
 		this.env = env;
 		this.id = "Acteur" + compteur;
 		compteur++;
+		this.nom = nom;
 	}
 
 	public final void setX(int n) {
@@ -46,6 +47,11 @@ public abstract class Acteur {
 	public String getId() {
 		return id;
 	}
+
+	public String getNom() {
+		return nom;
+	}
+
 	@Override
 	public String toString() {
 		return "x=" + x + ", y=" + y + ", id=" + id;
