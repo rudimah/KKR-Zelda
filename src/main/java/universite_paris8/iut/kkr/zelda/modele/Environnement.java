@@ -14,6 +14,8 @@ public class Environnement {
 	private ObservableList<Acteur> listeActeurs;
 	private ObservableList<ObjetEnvironnement> listeItems;
 	private int tourActuel = 0;
+
+	public static Environnement uniqueInstance=null;
 	private int[][] tableauMap = {
 			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
 			{Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE},
@@ -64,20 +66,6 @@ public class Environnement {
 		return listeItems;
 	}
 
-	public void ajouterActeur(Acteur a) {
-		listeActeurs.add(a);
-	}
-
-	public void retirerActeur(Acteur a) {
-		listeActeurs.remove(a);
-	}
-	public void ajouterItem(ObjetEnvironnement a) {
-		listeItems.add(a);
-	}
-	public void retirerItem(ObjetEnvironnement a) {
-		listeItems.remove(a);
-	}
-
 	public int getLargeur() {
 		return largeur;
 	}
@@ -94,42 +82,32 @@ public class Environnement {
 		return tableauMap[ligneGrille][colonneGrille];
 	}
 
-
-
-
-	public boolean verifObstacle(int x, int y, ActeurEnMouvement a) {
-		int largeurPersonnage = 20; // Largeur du personnage en pixels
-		int hauteurPersonnage = 30; // Hauteur du personnage en pixels
-
-		if (x < 0 || x + largeurPersonnage > largeur || y < 0 || y + hauteurPersonnage > hauteur) {
-			return false;
+	public static Environnement getInstance(){
+		if (uniqueInstance==null){
+			uniqueInstance=new Environnement(800,800);
 		}
-
-		int tuile = getTuile(x, y);
-
-		switch (tuile) {
-			case Constantes.EAU: // Eau
-				if (!(a instanceof Link)) {
-					return false;
-				}
-				break;
-			case Constantes.IMMEUBLES_ABANDONNES: // Immeubles abandonnés
-				return false;
-			case Constantes.ARBRES: // Arbres
-				return false;
-			case Constantes.VOITURE_ABANDONNEE: // Voiture abandonnée
-				return false;
-			case Constantes.PETIT_ROCHER: // Rocher
-				return false;
-			case Constantes.POUBELLE: // Poubelle
-				return false;
-			case Constantes.GROS_ROCHER:
-				return false;
-			default:
-				break;
-		}
-		return true;
+		return uniqueInstance;
 	}
+
+	public void ajouterActeur(Acteur a) {
+		listeActeurs.add(a);
+	}
+
+	public void retirerActeur(Acteur a) {
+		listeActeurs.remove(a);
+	}
+	public void ajouterItem(ObjetEnvironnement a) {
+		listeItems.add(a);
+	}
+	public void retirerItem(ObjetEnvironnement a) {
+		listeItems.remove(a);
+	}
+
+
+
+
+
+
 
 
 
@@ -144,7 +122,7 @@ public class Environnement {
 					if (!ennemi.estFige()) { //	TODO: mettre cette vérification dans les méthode qui sont appler ci dessus (attaquer/ se deplcaer)
 						if (ennemi.procheDe(link.getX(), link.getY(), 5)) {
 							ennemi.attaquer(link);
-						} else if (verifObstacle(link.getX(), link.getY(), ennemi)) {
+						} else if (ennemi.getDep().verificationObstacles(ennemi.getX(), ennemi.getY())) {
 							ennemi.seDeplacer();
 						}
 					}
@@ -224,7 +202,7 @@ public class Environnement {
 		do {
 			x = rand.nextInt(largeur);
 			y = rand.nextInt(hauteur);
-		} while (!verifObstacle(x, y, null) || ADistanceDeLink(x, y)<15*15);
+		} while (!((Ennemis) ennemis).getDep().verificationObstacles(x, y) || ADistanceDeLink(x, y) < 15 * 15);
 
 		ajouterActeur(ennemis);
 	}

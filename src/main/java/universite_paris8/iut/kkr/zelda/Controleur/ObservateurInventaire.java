@@ -17,37 +17,24 @@ public class ObservateurInventaire implements ListChangeListener<ObjetEnvironnem
 
     //images des items dans les cases de l'inventaire
     private Image getImage(String nom){
-        switch (nom){
-            case "Potion Acide":
-                return new Image("file:src/main/resources/image/Potions & Armes/pt3.png");
-            case "Potion Bleue":
-                return new Image("file:src/main/resources/image/Potions & Armes/pt2.png");
-            case "Potion de Feu":
-                return new Image("file:src/main/resources/image/Potions & Armes/pt1.png");
-            case "Potion de Force":
-                return new Image("file:src/main/resources/image/Potions & Armes/pt4.png");
-            case "Sabre":
-                return new Image("file:src/main/resources/image/Potions & Armes/sabre.png");
-            case "Épée de Guerrier":
-                return new Image("file:src/main/resources/image/Potions & Armes/epees.png");
-            case "Arc du Héros":
-                return new Image("file:src/main/resources/image/Potions & Armes/Arc&Fleche.png");
-            case "Flûte de Calliopé":
-                return new Image("file:src/main/resources/image/Potions & Armes/flute.png");
-            case "Boomerang du Vent Marin":
-                return new Image("file:src/main/resources/image/Potions & Armes/boomerang.png");
-            case "Fleche":
-                return new Image("file:src/main/resources/image/Potions & Armes/fleche.png");
-            case "Bottes d'Arès":
-                return new Image("file:src/main/resources/image/Potions & Armes/bottes.gif");
-            case "Bouclier":
-                return new Image("file:src/main/resources/image/Potions & Armes/bouclier.png");
-
-        }
-        return null;
+        return switch (nom) {
+            case "Potion Acide" -> new Image("file:src/main/resources/image/Potions & Armes/pt3.png");
+            case "Potion Bleue" -> new Image("file:src/main/resources/image/Potions & Armes/pt2.png");
+            case "Potion de Feu" -> new Image("file:src/main/resources/image/Potions & Armes/pt1.png");
+            case "Potion de Force" -> new Image("file:src/main/resources/image/Potions & Armes/pt4.png");
+            case "Sabre" -> new Image("file:src/main/resources/image/Potions & Armes/sabre.png");
+            case "Épée de Guerrier" -> new Image("file:src/main/resources/image/Potions & Armes/epees.png");
+            case "Arc du Héros" -> new Image("file:src/main/resources/image/Potions & Armes/Arc&Fleche.png");
+            case "Flûte de Calliopé" -> new Image("file:src/main/resources/image/Potions & Armes/flute.png");
+            case "Boomerang du Vent Marin" -> new Image("file:src/main/resources/image/Potions & Armes/boomerang.png");
+            case "Fleche" -> new Image("file:src/main/resources/image/Potions & Armes/fleche.png");
+            case "Bottes d'Arès" -> new Image("file:src/main/resources/image/Potions & Armes/bottes.gif");
+            case "Bouclier" -> new Image("file:src/main/resources/image/Potions & Armes/bouclier.png");
+            default -> null;
+        };
     }
     @Override
-    public void onChanged(Change<? extends ObjetEnvironnement> change) {
+    public void onChanged(Change<? extends ObjetEnvironnement > change) {
         for (ImageView imageView:cases) {
             imageView.setImage(null);
         }

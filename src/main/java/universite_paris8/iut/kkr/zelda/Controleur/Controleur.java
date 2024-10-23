@@ -68,7 +68,7 @@ public class Controleur implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        env = new Environnement(800, 800);
+        env = Environnement.getInstance();
         terrainVue = new TerrainVue(env, tilepane);
         tilepane.setPrefColumns(env.getTableauMap()[0].length);
         tilepane.setPrefRows(env.getTableauMap().length);

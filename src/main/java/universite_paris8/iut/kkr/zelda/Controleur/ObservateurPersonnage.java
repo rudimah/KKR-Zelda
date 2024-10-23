@@ -37,24 +37,32 @@ public class ObservateurPersonnage implements ListChangeListener<Acteur> {
     //cree le sprite des ennemis selon leur images
     public void creerSprite(Acteur a) {
         imageView = new ImageView();
-        if (a.getNom()== "Reltih"){
-            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/Runner.png"));
-        } else if (a.getNom()== "Simonus") {
-            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/Titan.png"));
-        } else if (a.getNom() =="Cataltos") {
-            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie3.png"));
-        } else if (a.getNom()== "Marcos") {
-            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie4.png"));
-        } else if (a.getNom() == "Bonnoctus") {
-            imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie5.png"));
+        switch (a.getNom()) {
+            case "Reltih":
+                imageView.setImage(new Image("file:src/main/resources/image/Ennemie/Runner.png"));
+                break;
+            case "Simonus":
+                imageView.setImage(new Image("file:src/main/resources/image/Ennemie/Titan.png"));
+                break;
+            case "Cataltos":
+                imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie3.png"));
+                break;
+            case "Marcos":
+                imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie4.png"));
+                break;
+            case "Bonnoctus":
+                imageView.setImage(new Image("file:src/main/resources/image/Ennemie/enemie5.png"));
+                break;
         }
+
         imageView.setId(a.getId());
         imageView.translateXProperty().bind(a.getXProperty());
         imageView.translateYProperty().bind(a.getYProperty());
         panneauJeu.getChildren().add(imageView);
+
+        // Création de la vue pour les ennemis
         if (a instanceof ActeurEnMouvement && !(a instanceof Link)) {
             new VueEnnemi((ActeurEnMouvement) a, panneauJeu);
-
         }
     }
 }

@@ -26,7 +26,7 @@ public class DialogueController {
                     "Tiens, prends ça !",
                     "Bien joué !",
                     "Que se passe-t-il ?",
-                    "Tu veux te battre ?! Alors viens !!ss"
+                    "Tu veux te battre ?! Alors viens !!"
             );
 
             ChoiceDialog<String> choixdialogue = new ChoiceDialog<>(choix.get(0), choix); //prend la premiere replique

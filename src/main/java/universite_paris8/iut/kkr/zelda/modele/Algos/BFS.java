@@ -26,16 +26,22 @@ public class BFS {
 
     // Vérifie si la position est accessible pour se déplacer
     public boolean estAccessible(int x, int y) {
+        if (!estDanslimites(x, y)) {
+            return false;
+        }
+
         int tuile = environnement.getTuile(x, y);
 
-        // Parcourir le tableau d'obstacles pour voir si la tuile==obstacle
-        for (int i=0; i<obstacles.length;i++) {
-            if (tuile == obstacles[i]) {
+        // Vérifie si la tuile correspond à un obstacle
+        for (int obstacle : obstacles) {
+            if (tuile == obstacle) {
                 return false;
             }
         }
+
         return true;
     }
+
 
 
     public List<int[]> cheminBFS(int departX, int departY, int arriveeX, int arriveeY) {
