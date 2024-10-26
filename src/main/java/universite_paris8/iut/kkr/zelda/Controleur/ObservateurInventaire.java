@@ -7,7 +7,7 @@ import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
 
 import java.util.ArrayList;
 
-public class ObservateurInventaire implements ListChangeListener<ObjetEnvironnement> {
+public class  ObservateurInventaire implements ListChangeListener<ObjetEnvironnement> {
     private ArrayList<ImageView> cases;
 
     //observe les ajout et les supressions des elements que link peut avoir dans l'inventaire

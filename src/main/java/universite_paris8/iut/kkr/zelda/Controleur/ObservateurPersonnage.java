@@ -38,7 +38,7 @@ public class ObservateurPersonnage implements ListChangeListener<Acteur> {
     public void creerSprite(Acteur a) {
         imageView = new ImageView();
         switch (a.getNom()) {
-            case "Reltih":
+            case "Relith":
                 imageView.setImage(new Image("file:src/main/resources/image/Ennemie/Runner.png"));
                 break;
             case "Simonus":

@@ -16,7 +16,10 @@ public class modifPortee implements Pouvoir{
     public int getPortee() {
         return portee;
     }
-
+    @Override
+    public int modificateur() {
+        return portee;
+    }
     @Override
     public void utiliser() {
         setPortee(getPortee()+portee);

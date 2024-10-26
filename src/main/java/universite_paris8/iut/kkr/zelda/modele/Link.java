@@ -12,6 +12,7 @@ public class Link extends ActeurEnMouvement{
     private Inventaire inventaire;
     private int Direction ;
     private ObjetEnvironnement objetActuel;
+    private ObjetEnvironnement armeActuel;
     private int vitesse;
     private DialogueController dialogue;
     private Ennemis ennemisAttaqués;
@@ -23,26 +24,25 @@ public class Link extends ActeurEnMouvement{
         this.dep = new DeplacementLinkStrategy(this);//ininitialiser la stratégie ici
     }
 
-
-
     public DeplacementStrategy getDep() {
         return dep;
     }
     public int getDirection(){return Direction;}
     public void setDirection(int d){Direction = d;}
+    public ObjetEnvironnement getArmeActuel() {
+        return armeActuel;
+    }
+    public void setArmeActuel(ObjetEnvironnement armeActuel) {
+        this.armeActuel = armeActuel;
+    }
 
     public ObjetEnvironnement getObjetActuel() {
         return objetActuel;
     }
 
-
     public Inventaire getInventaire() {
         return inventaire;
     }
-
-
-    //-----------------------------
-
     public void demanderDialogue() {
         if (dialogue!= null) {
             dialogue.roueDialogue();
@@ -71,27 +71,20 @@ public class Link extends ActeurEnMouvement{
         }
     }
 
-
-    public void attaquerAMainsNues(ActeurEnMouvement acteurCible) {
-        acteurCible.recevoirDegats(getPtAttaque());
-        System.out.println("Link attaque " + acteurCible + " à mains nu !!! Il lui reste " + acteurCible.getPv() + " pv ");
-    }
     @Override
     public void attaquer(ActeurEnMouvement acteurEnMouvement) {
-        if (objetActuel != null) {
-            objetActuel.utiliser(); // Utilise l'arme actuelle pour attaquer l'ennemi
-            System.out.println("Link utlise " + objetActuel.toString());
+        if (armeActuel != null) {
+            acteurEnMouvement.recevoirDegats(armeActuel.getPouvoir().modificateur());
+            System.out.println("Link attaque " + acteurEnMouvement + " avec " + armeActuel.getNom() + "\n Il lui reste " + acteurEnMouvement.getPv() + " pv ");
         }
         else {
-//            attaquerAMainsNues(ennemi);
+            acteurEnMouvement.recevoirDegats(getPtAttaque());
+            System.out.println("Link attaque " + acteurEnMouvement + " à mains nues ! Il lui reste " + acteurEnMouvement.getPv() + " pv ");
         }
     }
 
-
-
-
     public void utiliser(ObjetEnvironnement a){
+        objetActuel = a;
         a.utiliser();
-        if (a.isReutilisable()) inventaire.getInventaire().add(a);
     }
 }

@@ -12,4 +12,9 @@ public class modifVitesse implements Pouvoir{
     public void utiliser() {
         environnement.getLink().setVitesse(environnement.getLink().getVitesse() + vitesse);
     }
+
+    @Override
+    public int modificateur() {
+        return vitesse;
+    }
 }

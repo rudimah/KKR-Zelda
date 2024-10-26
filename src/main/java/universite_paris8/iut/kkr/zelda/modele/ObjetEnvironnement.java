@@ -26,6 +26,10 @@ public class ObjetEnvironnement {
         this.pouvoir = pouvoir;
     }
 
+    public Pouvoir getPouvoir() {
+        return pouvoir;
+    }
+
     public final int getX() { return x.getValue(); }
     public IntegerProperty xProperty() { return x; }
     public final void setX(int x) { this.x.setValue(x); }

@@ -9,6 +9,10 @@ public class cumulPouvoirs implements Pouvoir{
     }
 
     @Override
+    public int modificateur() {
+        return 0;
+    }
+    @Override
     public void utiliser() {
         for (Pouvoir pouvoir : pouvoirs) {
             pouvoir.utiliser();

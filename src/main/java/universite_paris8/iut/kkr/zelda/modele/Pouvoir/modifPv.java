@@ -13,4 +13,9 @@ public class modifPv implements Pouvoir{
     public void utiliser() {
         environnement.getLink().setPv(environnement.getLink().getPv()+pv);
     }
+
+    @Override
+    public int modificateur() {
+        return pv;
+    }
 }
