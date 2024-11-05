@@ -34,7 +34,7 @@ public class DeplacementLinkStrategy implements DeplacementStrategy{
         if (verificationObstacles(nouveauX, nouveauY)) {
             link.setX(nouveauX);
             link.setY(nouveauY);
-            System.out.println("Link déplacé vers : X = " + nouveauX + " Y = " + nouveauY);
+            //System.out.println("Link déplacé vers : X = " + nouveauX + " Y = " + nouveauY);
         } else {
             System.out.println("Déplacement bloqué obstacle devant");
         }

@@ -80,11 +80,11 @@ public class Controleur implements Initializable {
 
         this.env.getItems().addListener(new ObservateurElement(panneauDeJeu));
         this.env.getListeActeurs().addListener(new ObservateurPersonnage(panneauDeJeu));
-        env.ajouterItem(new ObjetEnvironnement(env,"Epee",300,300,new attaqueEnnemi(env,35),true));
+        env.ajouterItem(new ObjetEnvironnement(env,"Epee",80,20,new attaqueEnnemi(env,35),true));
         ArrayList <Pouvoir> listPouvoirsSabre = new ArrayList<>();
         listPouvoirsSabre.add(new attaqueEnnemi(env,35));
         listPouvoirsSabre.add(new attaqueEnnemi(env,10));
-        env.ajouterItem(new ObjetEnvironnement(env,"Sabre",650,300,new cumulPouvoirs(listPouvoirsSabre),true));
+        env.ajouterItem(new ObjetEnvironnement(env,"Sabre",80,30,new cumulPouvoirs(listPouvoirsSabre),true));
         env.ajouterItem(new ObjetEnvironnement(env,"Bouclier",600,360,new modifPv(env,50),false));
         env.ajouterItem(new ObjetEnvironnement(env,"Potion de Force",300,350,new modifPortee(env,3),false));
         env.ajouterItem(new ObjetEnvironnement(env,"Potion Acide",700,20,new modifPtAttaque(env,3),false));
@@ -193,9 +193,7 @@ public class Controleur implements Initializable {
         switch (touchePresse) {
             case A:
                 if (link.getInventaire().getInventaire().size() > indexCaseActuelle) {
-                    //TODO:
-//                    link.utiliser(link.getInventaire().getInventaire().get(indexCaseActuelle));
-                    link.getInventaire().getInventaire().remove(indexCaseActuelle);
+                    link.utiliser(link.getInventaire().getInventaire().get(indexCaseActuelle));
                 } else {
                     System.out.println("Case vide");
                 }
@@ -209,7 +207,6 @@ public class Controleur implements Initializable {
                 else {
                     link.attaquer(ennemiLePlusProche);
                 }
-
 
                 break;
 

@@ -23,7 +23,7 @@ public class  ObservateurInventaire implements ListChangeListener<ObjetEnvironne
             case "Potion de Feu" -> new Image("file:src/main/resources/image/Potions & Armes/pt1.png");
             case "Potion de Force" -> new Image("file:src/main/resources/image/Potions & Armes/pt4.png");
             case "Sabre" -> new Image("file:src/main/resources/image/Potions & Armes/sabre.png");
-            case "Épée de Guerrier" -> new Image("file:src/main/resources/image/Potions & Armes/epees.png");
+            case "Epee" -> new Image("file:src/main/resources/image/Potions & Armes/epees.png");
             case "Arc du Héros" -> new Image("file:src/main/resources/image/Potions & Armes/Arc&Fleche.png");
             case "Flûte de Calliopé" -> new Image("file:src/main/resources/image/Potions & Armes/flute.png");
             case "Boomerang du Vent Marin" -> new Image("file:src/main/resources/image/Potions & Armes/boomerang.png");

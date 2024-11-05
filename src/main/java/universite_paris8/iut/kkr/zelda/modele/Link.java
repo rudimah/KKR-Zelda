@@ -18,7 +18,7 @@ public class Link extends ActeurEnMouvement{
     private Ennemis ennemisAttaqués;
     private DeplacementStrategy dep;
     public Link(Environnement env, DialogueController dialogue) {
-        super("Link", 80, 50, 10, env, 150, 10);
+        super("Link", 80, 10, 10, env, 150, 10);
         this.inventaire = new Inventaire();
         this.dialogue = dialogue;
         this.dep = new DeplacementLinkStrategy(this);//ininitialiser la stratégie ici
@@ -85,6 +85,8 @@ public class Link extends ActeurEnMouvement{
 
     public void utiliser(ObjetEnvironnement a){
         objetActuel = a;
+        System.out.println(a.getNom() + " est utilisé");
         a.utiliser();
+        getInventaire().getInventaire().remove(a);
     }
 }
