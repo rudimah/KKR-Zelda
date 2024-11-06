@@ -30,7 +30,7 @@ public class BFS {
             return false;
         }
 
-        int tuile = environnement.getTuile(x, y);
+        int tuile = environnement.getCarte().getTuile(x, y);
 
         // Vérifie si la tuile correspond à un obstacle
         for (int obstacle : obstacles) {

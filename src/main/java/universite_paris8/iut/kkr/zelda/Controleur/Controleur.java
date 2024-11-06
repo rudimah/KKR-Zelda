@@ -70,8 +70,8 @@ public class Controleur implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         env = Environnement.getInstance();
         terrainVue = new TerrainVue(env, tilepane);
-        tilepane.setPrefColumns(env.getTableauMap()[0].length);
-        tilepane.setPrefRows(env.getTableauMap().length);
+        tilepane.setPrefColumns(env.getCarte().getTableauMap()[0].length);
+        tilepane.setPrefRows(env.getCarte().getTableauMap().length);
         roueDial = new DialogueController(this);
         link = new Link(env, roueDial);
 

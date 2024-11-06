@@ -13,7 +13,6 @@ public class Link extends ActeurEnMouvement{
     private int Direction ;
     private ObjetEnvironnement objetActuel;
     private ObjetEnvironnement armeActuel;
-    private int vitesse;
     private DialogueController dialogue;
     private Ennemis ennemisAttaqués;
     private DeplacementStrategy dep;
@@ -22,6 +21,10 @@ public class Link extends ActeurEnMouvement{
         this.inventaire = new Inventaire();
         this.dialogue = dialogue;
         this.dep = new DeplacementLinkStrategy(this);//ininitialiser la stratégie ici
+    }
+
+    public int getVitesse(){
+        return super.getVitesse();
     }
 
     public DeplacementStrategy getDep() {

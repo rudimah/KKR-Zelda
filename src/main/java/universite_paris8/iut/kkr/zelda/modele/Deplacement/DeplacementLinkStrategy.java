@@ -34,7 +34,7 @@ public class DeplacementLinkStrategy implements DeplacementStrategy{
         if (verificationObstacles(nouveauX, nouveauY)) {
             link.setX(nouveauX);
             link.setY(nouveauY);
-            //System.out.println("Link déplacé vers : X = " + nouveauX + " Y = " + nouveauY);
+            System.out.println("Link déplacé vers : X = " + nouveauX + " Y = " + nouveauY + " vitesse" + vitesse);
         } else {
             System.out.println("Déplacement bloqué obstacle devant");
         }
@@ -48,7 +48,7 @@ public class DeplacementLinkStrategy implements DeplacementStrategy{
 
     @Override
     public boolean verificationObstacles(int x, int y) {
-        int tileID = env.getTuile(x, y);
+        int tileID = env.getCarte().getTuile(x, y);
 
         // Vérifier les limites du terrain pour éviter hors champ
         if (x < 0 || x >= env.getLargeur() || y < 0 || y >= env.getHauteur()) {
@@ -66,7 +66,7 @@ public class DeplacementLinkStrategy implements DeplacementStrategy{
                 break;
             case Constantes.LAVE:
                 link.setPv(link.getPv() - 1); // Link perd de la vie sur la lave
-                return false;
+                break;
             case Constantes.IMMEUBLES_ABANDONNES:
             case Constantes.ARBRES:
             case Constantes.VOITURE_ABANDONNEE:
