@@ -80,11 +80,11 @@ public class Controleur implements Initializable {
 
         this.env.getItems().addListener(new ObservateurElement(panneauDeJeu));
         this.env.getListeActeurs().addListener(new ObservateurPersonnage(panneauDeJeu));
-        env.ajouterItem(new ObjetEnvironnement(env,"Epee",80,20,new attaqueEnnemi(env,35),true));
+        env.ajouterItem(new ObjetEnvironnement(env,"Epee",300,300,new attaqueEnnemi(env,35),true));
         ArrayList <Pouvoir> listPouvoirsSabre = new ArrayList<>();
         listPouvoirsSabre.add(new attaqueEnnemi(env,35));
         listPouvoirsSabre.add(new attaqueEnnemi(env,10));
-        env.ajouterItem(new ObjetEnvironnement(env,"Sabre",80,30,new cumulPouvoirs(listPouvoirsSabre),true));
+        env.ajouterItem(new ObjetEnvironnement(env,"Sabre",600,300,new cumulPouvoirs(listPouvoirsSabre),true));
         env.ajouterItem(new ObjetEnvironnement(env,"Bouclier",600,360,new modifPv(env,50),false));
         env.ajouterItem(new ObjetEnvironnement(env,"Potion de Force",300,350,new modifPortee(env,3),false));
         env.ajouterItem(new ObjetEnvironnement(env,"Potion Acide",700,20,new modifPtAttaque(env,3),false));
@@ -134,7 +134,7 @@ public class Controleur implements Initializable {
     }
     //methode de fin de jeu afin de relancer le jeu sur le menu du départ
     private void finDeJeu() {
-        if (link.VerifierActeurMort() || link.tileId == Constantes.COFFRE) {
+        if (link.VerifierActeurMort() || env.getCarte().getTuile(link.getX(), link.getY()) == Constantes.COFFRE) {
             gameLoop.stop();
             Platform.runLater(() -> {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
