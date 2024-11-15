@@ -2,9 +2,8 @@ package universite_paris8.iut.kkr.zelda.modele;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import universite_paris8.iut.kkr.zelda.modele.DeplacementStrategy.DeplacementBFSStrategy;
-import universite_paris8.iut.kkr.zelda.modele.Ennemis.*;
 import universite_paris8.iut.kkr.zelda.utils.Carte;
+import universite_paris8.iut.kkr.zelda.utils.Constantes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,49 +15,54 @@ public class Environnement {
 	private ObservableList<Acteur> listeActeurs;
 	private ObservableList<ObjetEnvironnement> listeItems;
 	private int tourActuel = 0;
-	private Carte m;
-	private DeplacementBFSStrategy deplacement;//assigner la carte a un environnement
+	private Carte carte;
 
+	public static Environnement uniqueInstance=null;
 
-	//Constructeur
-	public Environnement(int largeur, int hauteur, Carte carte1) {
+	public Environnement(int largeur, int hauteur) {
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		this.listeActeurs = FXCollections.observableArrayList();
 		this.listeItems = FXCollections.observableArrayList();
-		this.m = carte1;
+		this.carte=new Carte();
 	}
 
 
-	//getters et setter
+	public Carte getCarte() {
+		return carte;
+	}
+
 
 	public ObservableList<Acteur> getListeActeurs() {
 		return listeActeurs;
 	}
+
+
+
 	public ObservableList<ObjetEnvironnement> getItems() { //liste d'item
 		return listeItems;
 	}
+
 	public int getLargeur() {
 		return largeur;
 	}
+
 	public int getHauteur() {
 		return hauteur;
 	}
 
-	public Link getLink() {
-		for (Acteur a : listeActeurs) {
-			if (a instanceof Link) {
-				return (Link) a;
-			}
+
+	public static Environnement getInstance(){
+		if (uniqueInstance==null){
+			uniqueInstance=new Environnement(800,800);
 		}
-		return null;
+		return uniqueInstance;
 	}
 
-
-	//Ajouts et suppression dans les listes
 	public void ajouterActeur(Acteur a) {
 		listeActeurs.add(a);
 	}
+
 	public void retirerActeur(Acteur a) {
 		listeActeurs.remove(a);
 	}
@@ -69,10 +73,6 @@ public class Environnement {
 		listeItems.remove(a);
 	}
 
-
-
-
-	//Méthode principaux de cette classe
 
 	public void agir() {
 		ActeurEnMouvement link =  this.getLink();
@@ -85,7 +85,7 @@ public class Environnement {
 					if (!ennemi.estFige()) { //	TODO: mettre cette vérification dans les méthode qui sont appler ci dessus (attaquer/ se deplcaer)
 						if (ennemi.procheDe(link.getX(), link.getY(), 5)) {
 							ennemi.attaquer(link);
-						} else if (deplacement.verificationObstacles(link.getX(), link.getY())) { //Deplacement des ennemis si j'ai bien compris alors coté DEplacementBFSSrategy
+						} else if (ennemi.getDep().verificationObstacles(ennemi.getX(), ennemi.getY())) {
 							ennemi.seDeplacer();
 						}
 					}
@@ -94,9 +94,19 @@ public class Environnement {
 		}
 	}
 
+	public Link getLink() {
+		for (Acteur a : listeActeurs) {
+			if (a instanceof Link) {
+				return (Link) a;
+			}
+		}
+		return null;
+	}
+
 	public double ADistanceDeLink(int postionX, int postionY){
 		return Math.sqrt(Math.pow(postionX - getLink().getX(),2)+Math.pow(postionY - getLink().getY(),2));
 	}
+
 
 	public List<Ennemis> listeEnnemisProcheDeLink(int portee) {
 		//Retourne la liste d'ennemis proche de link
@@ -146,7 +156,7 @@ public class Environnement {
 		}
 	}
 
-	//fait apparaitre les ennemis dans l'environnement a une distance de 15²(dans un rayon de 15 pixels) de Link
+//fait apparaitre les ennemis dans l'environnement a une distance de 15²(dans un rayon de 15 pixels) de Link
 	public void SpawnEnnemis() {
 		Random rand = new Random();
 		ActeurEnMouvement ennemis = ennemisAleatoire();
@@ -155,18 +165,18 @@ public class Environnement {
 		do {
 			x = rand.nextInt(largeur);
 			y = rand.nextInt(hauteur);
-		} while (!deplacement.verificationObstacles(x, y) || ADistanceDeLink(x, y)<15*15); //vu que cest que cest les ennemis qui vérifie les obstacles jai mis la méthode verifObstacle avec BFS
+		} while (!((Ennemis) ennemis).getDep().verificationObstacles(x, y) || ADistanceDeLink(x, y) < 15 * 15);
 
 		ajouterActeur(ennemis);
 	}
 
 	public void incrementerTour() {
 		tourActuel++;
-		if (tourActuel % 120 == 0) {
-			SpawnEnnemis();
-		}
-		if(tourActuel==120){
-			ajouterActeur(new Ennemis("Bonnoctus", 650, 550, 3, this, 10000, 4));
-		}
+//		if (tourActuel % 120 == 0) {
+//			SpawnEnnemis();
+//		}
+//		if(tourActuel==120){
+//			ajouterActeur(new Ennemis("Bonnoctus", 650, 550, 3, this, 10000, 4));
+//		}
 	}
 }

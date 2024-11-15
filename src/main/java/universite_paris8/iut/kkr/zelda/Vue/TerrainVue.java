@@ -22,7 +22,7 @@ public class TerrainVue {
 
 
     public void afficherMap() {
-        int[][] map = this.env.getTableauMap();
+        int[][] map = env.getCarte().getTableauMap();
         for (int x = 0; x < map.length; x++) {
             for (int y = 0; y < map[x].length; y++) {
                 StackPane stackPane = new StackPane();

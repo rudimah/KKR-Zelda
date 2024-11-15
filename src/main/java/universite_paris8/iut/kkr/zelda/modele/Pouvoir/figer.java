@@ -11,6 +11,10 @@ public class figer implements Pouvoir{
         environnement = objetEnvironnement;
         this.portee = portee;
     }
+    @Override
+    public int modificateur() {
+        return portee;
+    }
 
     @Override
     public void utiliser() {

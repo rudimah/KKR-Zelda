@@ -12,4 +12,8 @@ public class modifPtAttaque implements Pouvoir{
     public void utiliser() {
         objet.getLink().setPtAttaque( objet.getLink().getPtAttaque() + ptAttaque);
     }
+    @Override
+    public int modificateur() {
+        return ptAttaque;
+    }
 }

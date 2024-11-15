@@ -8,7 +8,8 @@ public abstract class   ActeurEnMouvement extends Acteur {
     private int vitesse; // vitesse de déplacement
     private int ptAttaque;
     private IntegerProperty pv ;
-    private int largeur, hauteur; //taille tuile (hitbox)
+    private int largeur, longueur;//taille tuile (hitbox)
+    private ActeurEnMouvement ennemiAttaque;
 
 
     public ActeurEnMouvement(String nom, int x, int y, int vitesse, Environnement env, int pv, int ptAttaque) {
@@ -17,19 +18,20 @@ public abstract class   ActeurEnMouvement extends Acteur {
         this.ptAttaque = ptAttaque;
         this.pv = new SimpleIntegerProperty(pv);
         this.largeur=20;
-        this.hauteur =30; //renommage
+        this.longueur=30;
     }
-
 
     public int getVitesse() {
         return vitesse;
     }
 
+    public ActeurEnMouvement getEnnemiAttaque() {return ennemiAttaque;}
+
+    public void setEnnemiAttaque(ActeurEnMouvement ennemiAttaque) {this.ennemiAttaque = ennemiAttaque;}
+
     public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
     }
-
-
 
     public int getPtAttaque() {return ptAttaque;}
 
@@ -43,11 +45,9 @@ public abstract class   ActeurEnMouvement extends Acteur {
         return largeur;
     }
 
-    public int getHauteur() {
-        return hauteur;
+    public int getLongueur() {
+        return longueur;
     }
-
-    public abstract void seDeplacer();
 
     public IntegerProperty pointDeVieProperty(){
         return pv;
@@ -65,6 +65,8 @@ public abstract class   ActeurEnMouvement extends Acteur {
         }
         return estmort;
     }
+
+    public abstract void seDeplacer();
 
 
     public abstract void attaquer(ActeurEnMouvement acteurEnMouvement);

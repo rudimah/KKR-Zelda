@@ -18,6 +18,7 @@ public abstract class Acteur {
 		this.id = "Acteur" + compteur;
 		this.nom = nom;
 		compteur++;
+		this.nom = nom;
 	}
 
 	public final void setX(int n) {
