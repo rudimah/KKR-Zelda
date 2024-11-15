@@ -49,7 +49,7 @@ public class ObservateurElement implements ListChangeListener<ObjetEnvironnement
                 case "Potion Feu":
                     image = new Image("file:src/main/resources/image/Potions & Armes/pt1.png");
                     break;
-                case "Potion Force":
+                case "Potion de Force":
                     image = new Image("file:src/main/resources/image/Potions & Armes/pt4.png");
                     break;
                 case "Sabre":
@@ -86,47 +86,4 @@ public class ObservateurElement implements ListChangeListener<ObjetEnvironnement
         panneauJeu.getChildren().add(element);
     }
 
-//    private void creerItem(ObjetEnvironnement a) {
-//        Image image = null;
-//        ImageView element = new ImageView();
-//        element.setFitWidth(30);
-//        element.setFitHeight(30);
-//
-//        if (a.getNom() == "Potion Acide"){
-//            image  = new Image("file:src/main/resources/image/Potions & Armes/pt3.png");
-//        }
-//        else if (a.getNom() == "Potion Bleue"){
-//            image  = new Image("file:src/main/resources/image/Potions & Armes/pt2.png");
-//        }
-//        else if (a.getNom() == "Potion Feu"){
-//            image  = new Image("file:src/main/resources/image/Potions & Armes/pt1.png");
-//        }
-//        else if (a.getNom() == "Potion Force"){
-//            image  = new Image("file:src/main/resources/image/Potions & Armes/pt4.png");
-//        }
-//        else if (a.getNom() == "Sabre"){
-//            image  = new Image("file:src/main/resources/image/Potions & Armes/sabre.png");
-//        }
-//        else if (a.getNom() == "Epee"){
-//            image  = new Image("file:src/main/resources/image/Potions & Armes/epees.png");
-//
-//        }
-//        else if (a.getNom() == "Arc"){
-//            image  = new Image("file:src/main/resources/image/Potions & Armes/Arc&Fleche.png");
-//        }
-//        else if (a.getNom() == "Boomerang"){
-//            image  = new Image("file:src/main/resources/image/Potions & Armes/boomerang.png");
-//        }
-//        else if (a.getNom() == "Bottes d'Arès"){
-//            image  = new Image("file:src/main/resources/image/Potions & Armes/bottes.gif");
-//        }
-//        else if (a.getNom() == "Bouclier"){
-//            image  = new Image("file:src/main/resources/image/Potions & Armes/bouclier.png");
-//        }
-//        element.setImage(image);
-//        element.setId(a.getId());
-//        element.translateXProperty().bind(a.xProperty());
-//        element.translateYProperty().bind(a.yProperty());
-//        panneauJeu.getChildren().add(element);
-//    }
 }
