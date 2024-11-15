@@ -1,21 +1,17 @@
 package universite_paris8.iut.kkr.zelda.modele.Pouvoir;
 import universite_paris8.iut.kkr.zelda.modele.Environnement ;
 
-public class modifPv implements Pouvoir{
-    Environnement  environnement;
+public class modifPv extends Pouvoir{
+
     int pv;
     public modifPv(Environnement environnement, int pv){
-        this.environnement = environnement;
-        this.pv = pv;
+        super(environnement, pv);
     }
 
     @Override
     public void utiliser() {
-        environnement.getLink().setPv(environnement.getLink().getPv()+pv);
+        getEnvironnement().getLink().setPv(getEnvironnement().getLink().getPv()+pv);
     }
 
-    @Override
-    public int modificateur() {
-        return pv;
-    }
+
 }

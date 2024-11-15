@@ -1,19 +1,17 @@
 package universite_paris8.iut.kkr.zelda.modele.Pouvoir;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 
-public class modifPtAttaque implements Pouvoir{
-    Environnement objet;
-    int ptAttaque;
+public class modifPtAttaque extends Pouvoir{
+
     public modifPtAttaque(Environnement environnement, int ptAttaque) {
-        objet = environnement;
-        this.ptAttaque = ptAttaque;
+        super(environnement, ptAttaque);
     }
     @Override
     public void utiliser() {
-        objet.getLink().setPtAttaque( objet.getLink().getPtAttaque() + ptAttaque);
+        if (getEnvironnement().getLink().getArmeActuel()!=null){
+            getEnvironnement().getLink().getArmeActuel().getPouvoir().setModificateur(getModificateur());
+        }
+        getEnvironnement().getLink().setPtAttaque( getEnvironnement().getLink().getPtAttaque() + getModificateur());
     }
-    @Override
-    public int modificateur() {
-        return ptAttaque;
-    }
+
 }

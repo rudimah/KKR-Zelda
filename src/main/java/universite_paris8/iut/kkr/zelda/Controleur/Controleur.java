@@ -84,9 +84,8 @@ public class Controleur implements Initializable {
         ArrayList <Pouvoir> listPouvoirsSabre = new ArrayList<>();
         listPouvoirsSabre.add(new attaqueEnnemi(env,35));
         listPouvoirsSabre.add(new attaqueEnnemi(env,10));
-        env.ajouterItem(new ObjetEnvironnement(env,"Sabre",80,30,new cumulPouvoirs(listPouvoirsSabre),true));
+        env.ajouterItem(new ObjetEnvironnement(env,"Sabre",80,30,new cumulPouvoirs(env,listPouvoirsSabre),true));
         env.ajouterItem(new ObjetEnvironnement(env,"Bouclier",600,360,new modifPv(env,50),false));
-        env.ajouterItem(new ObjetEnvironnement(env,"Potion de Force",300,350,new modifPortee(env,3),false));
         env.ajouterItem(new ObjetEnvironnement(env,"Potion Acide",700,20,new modifPtAttaque(env,3),false));
         env.ajouterItem(new ObjetEnvironnement(env,"Bottes d'Arès",100,280,new modifVitesse(env,3),false));
         env.ajouterActeur(link);
