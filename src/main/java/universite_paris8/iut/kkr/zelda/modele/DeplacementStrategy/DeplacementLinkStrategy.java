@@ -51,7 +51,7 @@ import universite_paris8.iut.kkr.zelda.utils.Constantes;
             int tileID = carte.getTuile(x, y);
 
             // Vérifie les limites du terrain pour éviter les mouvements hors champ
-            if (x < 0 || x + 20 > link.getLargeur() || y < 0 || y + 30 > link.getHauteur()) {
+            if (x < 0 || x + 20 > link.getLargeur() || y < 0 || y + 30 > link.getLongueur()) {
                 return false;
             }
 

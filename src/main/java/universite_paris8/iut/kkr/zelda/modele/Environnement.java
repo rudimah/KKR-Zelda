@@ -172,11 +172,11 @@ public class Environnement {
 
 	public void incrementerTour() {
 		tourActuel++;
-//		if (tourActuel % 120 == 0) {
-//			SpawnEnnemis();
-//		}
-//		if(tourActuel==120){
-//			ajouterActeur(new Ennemis("Bonnoctus", 650, 550, 3, this, 10000, 4));
-//		}
+		if (tourActuel % 120 == 0) {
+			SpawnEnnemis();
+		}
+		if(tourActuel==120){
+			ajouterActeur(new Ennemis("Bonnoctus", 650, 550, 3, this, 10000, 4));
+		}
 	}
 }
