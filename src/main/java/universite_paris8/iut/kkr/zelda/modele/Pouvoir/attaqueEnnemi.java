@@ -14,13 +14,5 @@ public class attaqueEnnemi extends Pouvoir{
     public void utiliser() {
         Link link = getEnvironnement().getLink();
         link.setArmeActuel(link.getObjetActuel());
-//        if (link.getArmeActuel()!=null) {
-//            link.getInventaire().getInventaire().add(link.getArmeActuel());
-//            link.setArmeActuel(link.getObjetActuel());
-//        }
-//        else{
-//            link.setArmeActuel(link.getObjetActuel());
-//            System.out.println("premier");
-//        }
     }
 }

@@ -1,5 +1,6 @@
 package universite_paris8.iut.kkr.zelda.modele.Pouvoir;
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
+import universite_paris8.iut.kkr.zelda.modele.Link;
 
 public class modifPtAttaque extends Pouvoir{
 
@@ -8,10 +9,13 @@ public class modifPtAttaque extends Pouvoir{
     }
     @Override
     public void utiliser() {
-        if (getEnvironnement().getLink().getArmeActuel()!=null){
-            getEnvironnement().getLink().getArmeActuel().getPouvoir().setModificateur(getModificateur());
+        Link link = getEnvironnement().getLink();
+        if (link.getArmeActuel()!=null){
+            link.getArmeActuel().getPouvoir().setModificateur(link.getArmeActuel().getPouvoir().getModificateur() + getModificateur());
         }
-        getEnvironnement().getLink().setPtAttaque( getEnvironnement().getLink().getPtAttaque() + getModificateur());
+        else {
+            link.setPtAttaque(getEnvironnement().getLink().getPtAttaque() + getModificateur());
+        }
     }
 
 }

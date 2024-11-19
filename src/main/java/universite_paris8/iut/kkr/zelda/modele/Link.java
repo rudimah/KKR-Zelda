@@ -89,6 +89,9 @@ public class Link extends ActeurEnMouvement{
     public void utiliser(ObjetEnvironnement a){
         objetActuel = a;
         System.out.println(a.getNom() + " est utilisé");
+        if(armeActuel != null && a.isReutilisable()){
+            getInventaire().getInventaire().add(armeActuel);
+        }
         a.utiliser();
         getInventaire().getInventaire().remove(a);
     }
