@@ -1,67 +1,59 @@
-package universite_paris8.iut.kkr.zelda.modele;
+package universite_paris8.iut.kkr.zelda.modele.Arme;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+import universite_paris8.iut.kkr.zelda.modele.Ennemis;
+import universite_paris8.iut.kkr.zelda.modele.Environnement;
+import universite_paris8.iut.kkr.zelda.modele.Link;
+import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
+import universite_paris8.iut.kkr.zelda.modele.Pouvoir.Pouvoir;
+import universite_paris8.iut.kkr.zelda.modele.Pouvoir.attaqueEnnemi;
+import universite_paris8.iut.kkr.zelda.modele.Pouvoir.cumulPouvoirs;
+import universite_paris8.iut.kkr.zelda.modele.Pouvoir.modifPtAttaque;
+
+import java.util.ArrayList;
+
+
 public class EnnemisTest {
-    private Environnement env= new Environnement(800, 800);
-    private Ennemis ennemi= new Ennemis("Marcos", 200,350 , 3, env, 150, 5);
+    private Environnement env;
+    private ObjetEnvironnement boomerang;
+    private ObjetEnvironnement sabre;
+    private ArrayList<Pouvoir> listPouvoirs;
+    private Ennemis ennemi;
+    private int initialPv;
+    private Link link;
 
-
-    @Test
-    public void testSeDeplacerVersLink() {
-        Link link = new Link(env, null);
-        env.ajouterActeur(link);
-        ennemi.seDeplacer();
-        // Vérifiez que l'ennemi s'est rapproché de Link
-        assertTrue(Math.abs(ennemi.getX() - link.getX()) < 100);
-        assertTrue(Math.abs(ennemi.getY() - link.getY()) < 100);
+    @BeforeEach
+    public void setUp(){
+        env = new Environnement(800, 800);
+        listPouvoirs = new ArrayList<>();
+        listPouvoirs.add(new attaqueEnnemi(env,55));
+        listPouvoirs.add(new attaqueEnnemi(env,15));
+        boomerang = new ObjetEnvironnement(env,"boomerang",100, 100,new attaqueEnnemi(env,25),true);
+        sabre = new ObjetEnvironnement(env,"sabre", 100,100,new cumulPouvoirs(env,listPouvoirs),true);
+        ennemi = new Ennemis("Bonnoctus", 100, 102, 3, env, 10000, 40);
+        initialPv = ennemi.getPv();
     }
 
     @Test
-    public void testFigerEnnemi() {
-        ennemi.figer(3);
-        assertTrue(ennemi.estFige(), "L'ennemi doit être figé");
-        ennemi.decrementerToursFige();
-        ennemi.decrementerToursFige();
-        assertTrue(ennemi.estFige(), "L'ennemi doit toujours être figé");
-        ennemi.decrementerToursFige();
-        assertFalse(ennemi.estFige(), "L'ennemi ne doit plus être figé");
+    void testBoomerangAttaque() {
+        boomerang.utiliser();
+        assertTrue(ennemi.getPv() < initialPv, "Boomerang should damage enemies");
     }
-    @Test
-    public void seDeplacer() {
-        int nouvposX = ennemi.getX();
-        int nouvposY = ennemi.getY();
-
-        //  vérifier si le nouvel emplacement est accessible
-        if (env.verifObstacle(nouvposX, nouvposY, ennemi)) {
-            ennemi.setX(nouvposX);
-            ennemi.setY(nouvposY);
-        }
-    }
-
 
     @Test
-    public void testObstacleBloqueEnnemi() {
-        Environnement Env = new Environnement(800, 800) {
-            @Override
-            public boolean verifObstacle(int x, int y, ActeurEnMouvement a) {
-                return false; // Bloque tous les mouvements
-            }
-        };
-        Ennemis ennemi = new Ennemis("Cataltos", 680, 45, 2, env, 150, 5);
-        Link link = new Link(Env, null);
-        ennemi.attaquer(link);
-
-        int posX = ennemi.getX();
-        int posY = ennemi.getY();
-
-        ennemi.seDeplacer();
-
-
-        assertEquals(posX, ennemi.getX(), "L'ennemi ne doit pas se déplacer en X");
-        assertEquals(posY, ennemi.getY(), "L'ennemi ne doit pas se déplacer en Y");
+    void testSabreAttaqueAvecOrbe() {
+        sabre.utiliser();
+        assertTrue(ennemi.getPv() < initialPv - 70, "Sabre inflige des dégat d'orbes");
     }
 
+    @Test
+    void testPotionAcide() {
+        int attaqueInitiale = 70;
+        ObjetEnvironnement potionAcide = new ObjetEnvironnement(env,"Potion Acide", 100,100,new modifPtAttaque(env,5),false);
+        potionAcide.utiliser();
+        assertEquals(attaqueInitiale + potionAcide.getPouvoir().getModificateur(), sabre.getPouvoir().getModificateur(), "Potion Acide augmente les points d'attaque du sabre de 2");
+    }
 }

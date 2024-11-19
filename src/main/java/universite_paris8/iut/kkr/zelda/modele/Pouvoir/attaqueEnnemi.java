@@ -3,23 +3,16 @@ import universite_paris8.iut.kkr.zelda.modele.Environnement;
 import universite_paris8.iut.kkr.zelda.modele.Link;
 import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
 
-public class attaqueEnnemi implements Pouvoir{
-    Environnement environnement;
-    int ptAttaque;
+public class attaqueEnnemi extends Pouvoir{
+
     ObjetEnvironnement ancienArme = null;
     public attaqueEnnemi(Environnement environnement, int ptAttaque) {
-        this.environnement = environnement;
-        this.ptAttaque = ptAttaque;
-    }
-
-    @Override
-    public int modificateur() {
-        return ptAttaque;
+        super(environnement, ptAttaque);
     }
 
     @Override
     public void utiliser() {
-        Link link = environnement.getLink();
+        Link link = getEnvironnement().getLink();
         link.setArmeActuel(link.getObjetActuel());
     }
 }

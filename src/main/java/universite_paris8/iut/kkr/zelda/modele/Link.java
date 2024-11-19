@@ -77,7 +77,7 @@ public class Link extends ActeurEnMouvement{
     @Override
     public void attaquer(ActeurEnMouvement acteurEnMouvement) {
         if (armeActuel != null) {
-            acteurEnMouvement.recevoirDegats(armeActuel.getPouvoir().modificateur());
+            acteurEnMouvement.recevoirDegats(armeActuel.getPouvoir().getModificateur());
             System.out.println("Link attaque " + acteurEnMouvement + " avec " + armeActuel.getNom() + "\n Il lui reste " + acteurEnMouvement.getPv() + " pv ");
         }
         else {

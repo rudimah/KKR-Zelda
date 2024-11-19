@@ -2,19 +2,14 @@ package universite_paris8.iut.kkr.zelda.modele.Pouvoir;
 
 import universite_paris8.iut.kkr.zelda.modele.Environnement;
 
-public class modifVitesse implements Pouvoir{
-    Environnement environnement;
-    int vitesse;
-    public modifVitesse(Environnement objetEnvironnement, int vitesse) {
-        environnement = objetEnvironnement;
-        this.vitesse = vitesse;
+public class modifVitesse extends Pouvoir{
+
+    public modifVitesse(Environnement environnement, int vitesse) {
+        super(environnement, vitesse);
     }
     public void utiliser() {
-        environnement.getLink().setVitesse(environnement.getLink().getVitesse() + vitesse);
+        getEnvironnement().getLink().setVitesse(getEnvironnement().getLink().getVitesse() + getModificateur());
     }
 
-    @Override
-    public int modificateur() {
-        return vitesse;
-    }
+
 }
