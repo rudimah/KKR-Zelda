@@ -82,7 +82,7 @@ public class Environnement {
 				if (acteur instanceof Ennemis) {
 					Ennemis ennemi = (Ennemis) acteur;
 					ennemi.decrementerToursFige();
-					if (!ennemi.estFige()) { //	TODO: mettre cette vérification dans les méthode qui sont appler ci dessus (attaquer/ se deplcaer)
+					if (!ennemi.estFige()) {
 						if (ennemi.procheDe(link.getX(), link.getY(), 5)) {
 							ennemi.attaquer(link);
 						} else if (ennemi.getDep().verificationObstacles(ennemi.getX(), ennemi.getY())) {
