@@ -57,7 +57,6 @@ public class DeplacementBFSStrategy implements DeplacementStrategy {
         }
     }
 
-
     @Override
     public boolean verificationObstacles(int x, int y) {
         return bfs.estAccessible(x, y);

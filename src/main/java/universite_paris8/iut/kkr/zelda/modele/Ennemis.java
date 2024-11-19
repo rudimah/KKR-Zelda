@@ -18,21 +18,16 @@ public  class Ennemis extends ActeurEnMouvement {
         setEnnemiAttaque(env.getLink());
         this.dep = new DeplacementBFSStrategy(env, this);
     }
-    //Méthode avec lequel les ennemis se déplace
-    public void seDeplacer() {
-       dep.deplacementDeBase();
-    }
-
     public DeplacementStrategy getDep() {
         return dep;
     }
 
-    public void figer(int nbTours) {
-        toursFige = nbTours;
-    }
-
     public boolean estFige() {
         return toursFige > 0;
+    }
+
+    public void figer(int nbTours) {
+        toursFige = nbTours;
     }
 
     public void decrementerToursFige() {
@@ -41,9 +36,14 @@ public  class Ennemis extends ActeurEnMouvement {
         }
     }
 
+    //Méthode avec lequel les ennemis se déplace
+    public void seDeplacer() {
+       dep.deplacementDeBase();
+    }
+
     @Override
     public void attaquer(ActeurEnMouvement acteurCible) {
-        acteurCible.decrementerPv(getPtAttaque());
+        acteurCible.recevoirDegats(getPtAttaque());
     }
 
     @Override

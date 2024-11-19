@@ -21,21 +21,21 @@ public abstract class   ActeurEnMouvement extends Acteur {
         this.longueur=30;
     }
 
-    public int getVitesse() {
-        return vitesse;
-    }
-
-    public ActeurEnMouvement getEnnemiAttaque() {return ennemiAttaque;}
-
-    public void setEnnemiAttaque(ActeurEnMouvement ennemiAttaque) {this.ennemiAttaque = ennemiAttaque;}
-
     public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
     }
 
-    public int getPtAttaque() {return ptAttaque;}
+    public int getVitesse() {
+        return vitesse;
+    }
+
+    public void setEnnemiAttaque(ActeurEnMouvement ennemiAttaque) {this.ennemiAttaque = ennemiAttaque;}
+
+    public ActeurEnMouvement getEnnemiAttaque() {return ennemiAttaque;}
 
     public void setPtAttaque(int ptAttaque) {this.ptAttaque = ptAttaque;}
+
+    public int getPtAttaque() {return ptAttaque;}
 
     public final void setPv(int pv) {this.pv.setValue(pv);}
 
@@ -53,8 +53,18 @@ public abstract class   ActeurEnMouvement extends Acteur {
         return pv;
     }
 
-    public void decrementerPv(int pointAttaque){
-        setPv(getPv() - pointAttaque);
+    public boolean procheDe(int x, int y, int portee){
+        /* Cette méthode regarde si les cordonnées passées en paramètre (qui correspond à des objets ou acteur) est proche de l’acteur.  */
+        return Math.abs(getX() - x) < portee && Math.abs(getY() - y )< portee;
+    }
+
+    public void recevoirDegats(int degats) {
+        setPv(getPv() - degats);
+        if (VerifierActeurMort()) {
+            System.out.println("Ennemi tué!");
+        } else {
+            System.out.println("Ennemi a maintenant " + getPv() + " points de vie.");
+        }
     }
 
     public boolean VerifierActeurMort(){ //Vérification s'il est mort
@@ -68,25 +78,5 @@ public abstract class   ActeurEnMouvement extends Acteur {
 
     public abstract void seDeplacer();
 
-
     public abstract void attaquer(ActeurEnMouvement acteurEnMouvement);
-
-
-    public boolean procheDe(int x, int y, int portee){
-        /* Cette méthode regarde si les cordonnées passées en paramètre (qui correspond à des objets ou acteur) est proche de l’acteur.  */
-        return Math.abs(getX() - x) < portee && Math.abs(getY() - y )< portee;
-    }
-
-    //cette methode sert a savoir si des acteurs en mouvement est a porté d'une attaque.
-
-    public void recevoirDegats(int degats) {
-        setPv(getPv() - degats);
-        if (VerifierActeurMort()) {
-            System.out.println("Ennemi tué!");
-        } else {
-            System.out.println("Ennemi a maintenant " + getPv() + " points de vie.");
-        }
-    }
-
-
 }

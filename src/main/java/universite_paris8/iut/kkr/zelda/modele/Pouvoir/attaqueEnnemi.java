@@ -5,7 +5,7 @@ import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
 
 public class attaqueEnnemi extends Pouvoir{
 
-    ObjetEnvironnement ancienArme = null;
+
     public attaqueEnnemi(Environnement environnement, int ptAttaque) {
         super(environnement, ptAttaque);
     }

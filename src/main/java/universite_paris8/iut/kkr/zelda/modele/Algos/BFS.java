@@ -42,8 +42,6 @@ public class BFS {
         return true;
     }
 
-
-
     public List<int[]> cheminBFS(int departX, int departY, int arriveeX, int arriveeY) {
         if (!estAccessible(arriveeX, arriveeY)) {
             return Collections.emptyList(); // Destination non accessible
@@ -95,6 +93,5 @@ public class BFS {
 
         return chemin;
     }
-
 
 }

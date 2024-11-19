@@ -11,7 +11,6 @@ import universite_paris8.iut.kkr.zelda.modele.ObjetEnvironnement;
 public class ObservateurElement implements ListChangeListener<ObjetEnvironnement> {
     private final Pane panneauJeu;
 
-
     public ObservateurElement(Pane panneauJeu) {
         this.panneauJeu = panneauJeu;
     }
@@ -78,7 +77,6 @@ public class ObservateurElement implements ListChangeListener<ObjetEnvironnement
             System.out.println("Erreur lors du chargement de l'image pour l'objet: " + a.getNom());
 
         }
-
         element.setImage(image);
         element.setId(a.getId());
         element.translateXProperty().bind(a.xProperty());

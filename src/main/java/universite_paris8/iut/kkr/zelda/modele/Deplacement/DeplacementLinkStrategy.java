@@ -10,7 +10,6 @@ public class DeplacementLinkStrategy implements DeplacementStrategy{
     private boolean dansEau=false;
     private int vitesseInit;
 
-
     public DeplacementLinkStrategy(Link link){
         this.env = Environnement.getInstance();
         this.link=link;
@@ -45,46 +44,6 @@ public class DeplacementLinkStrategy implements DeplacementStrategy{
         // Réinitialiser la direction après le mouvement
         link.setDirection(0);
     }
-
-
-
-
-//    @Override
-//    public boolean verificationObstacles(int x, int y) {
-//        int tileID = env.getCarte().getTuile(x, y);
-//
-//        // Vérifier les limites du terrain pour éviter hors champ
-//        if (x < 0 || x >= env.getLargeur() || y < 0 || y >= env.getHauteur()) {
-//            return false;
-//        }
-//
-//        // Gestion des différents types d'obstacles
-//        switch (tileID) {
-//            case Constantes.EAU:
-//                link.setVitesse(3); // Link peut bouger sur l'eau, mais plus lentement
-//                break;
-//            case Constantes.HERBE:
-//            case Constantes.CHEMIN_EN_PIERRE:
-//                link.setVitesse(link.getVitesse()); // Réinitialiser la vitesse après l'eau
-//                break;
-//            case Constantes.LAVE:
-//                link.setPv(link.getPv() - 1); // Link perd de la vie sur la lave
-//                break;
-//            case Constantes.IMMEUBLES_ABANDONNES:
-//            case Constantes.ARBRES:
-//            case Constantes.VOITURE_ABANDONNEE:
-//            case Constantes.PETIT_ROCHER:
-//            case Constantes.POUBELLE:
-//            case Constantes.GROS_ROCHER:
-//                return false; // Ce sont des obstacles
-//            default:
-//                break;
-//        }
-//
-//        return true;
-//    }
-//
-
 
 
         @Override

@@ -29,7 +29,6 @@ public class ObjetEnvironnement {
     public Pouvoir getPouvoir() {
         return pouvoir;
     }
-
     public final int getX() { return x.getValue(); }
     public IntegerProperty xProperty() { return x; }
     public final void setX(int x) { this.x.setValue(x); }
@@ -43,7 +42,6 @@ public class ObjetEnvironnement {
     public boolean isReutilisable() {
         return reutilisable;
     }
-
     public Environnement getEnv() {
         return env;
     }

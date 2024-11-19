@@ -30,8 +30,6 @@ public class Carte {
             {Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE},
             {Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.HERBE, Constantes.ARBRES, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE, Constantes.LAVE},};
 
-
-
     public int[][] getTableauMap() {
         return this.tableauMap;
     }

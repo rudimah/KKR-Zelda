@@ -31,12 +31,10 @@ public class ControleurMenu implements Initializable {
     @FXML
     Button boutonQuitter;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-
 
     //lance le jeu dès qu'on appuie sur jouer
     @FXML
@@ -72,7 +70,6 @@ public class ControleurMenu implements Initializable {
         contenuCredits.setVisible(true);
     }
 
-
     //Permet de quitter le jeu quand on appuie sur 'Quitter'
     @FXML
     public void gererBoutonQuitter(ActionEvent event){
@@ -83,13 +80,11 @@ public class ControleurMenu implements Initializable {
         contenuQuitter.setVisible(true);
     }
 
-
     //Gère l'action de retour au menu principal
     @FXML
     private void retourAuMenu(ActionEvent event) {
         cacherLeContenu();
     }
-
 
     //Elle termine l'exécution de l'application
     @FXML
@@ -98,14 +93,12 @@ public class ControleurMenu implements Initializable {
         System.exit(0);
     }
 
-
     //reviens sur le menu du début
     @FXML
     private void annulerQuitter() {
         System.out.println("Fermeture de la fenêtre de quittage");
         cacherLeContenu();
     }
-
 
     private void cacherLeContenu() {
         contenuBoutons.setVisible(true);

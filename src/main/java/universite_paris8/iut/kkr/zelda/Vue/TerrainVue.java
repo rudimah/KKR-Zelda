@@ -19,8 +19,6 @@ public class TerrainVue {
         this.env = env;
     }
 
-
-
     public void afficherMap() {
         int[][] map = env.getCarte().getTableauMap();
         for (int x = 0; x < map.length; x++) {
@@ -99,7 +97,6 @@ public class TerrainVue {
 
                 stackPane.getChildren().add(imageDeFond);
                 stackPane.getChildren().add(images);
-
 
                 this.tilepane.getChildren().add(stackPane);
 

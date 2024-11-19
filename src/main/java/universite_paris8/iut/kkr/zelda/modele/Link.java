@@ -26,26 +26,24 @@ public class Link extends ActeurEnMouvement{
     public int getVitesse(){
         return super.getVitesse();
     }
-
     public DeplacementStrategy getDep() {
         return dep;
     }
-    public int getDirection(){return Direction;}
     public void setDirection(int d){Direction = d;}
-    public ObjetEnvironnement getArmeActuel() {
-        return armeActuel;
-    }
+    public int getDirection(){return Direction;}
     public void setArmeActuel(ObjetEnvironnement armeActuel) {
         this.armeActuel = armeActuel;
     }
-
+    public ObjetEnvironnement getArmeActuel() {
+        return armeActuel;
+    }
     public ObjetEnvironnement getObjetActuel() {
         return objetActuel;
     }
-
     public Inventaire getInventaire() {
         return inventaire;
     }
+
     public void demanderDialogue() {
         if (dialogue!= null) {
             dialogue.roueDialogue();

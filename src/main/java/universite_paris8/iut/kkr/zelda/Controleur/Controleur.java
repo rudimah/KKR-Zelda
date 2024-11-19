@@ -1,7 +1,5 @@
 package universite_paris8.iut.kkr.zelda.Controleur;
 import java.io.IOException;
-
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -33,7 +31,6 @@ import universite_paris8.iut.kkr.zelda.utils.Constantes;
 
 
 public class Controleur implements Initializable {
-
 
     //// Déclarations de variables et éléments d'interface graphique (FXML)
     // tel que initialisation de l'environnment ou autre objets
@@ -86,7 +83,6 @@ public class Controleur implements Initializable {
         listPouvoirsSabre.add(new attaqueEnnemi(env,10));
         env.ajouterItem(new ObjetEnvironnement(env,"Sabre",80,30,new cumulPouvoirs(env,listPouvoirsSabre),true));
         env.ajouterItem(new ObjetEnvironnement(env,"Bouclier",600,360,new modifPv(env,50),false));
-        env.ajouterItem(new ObjetEnvironnement(env,"Potion de Force",300,350,new modifPortee(env,3),false));
         env.ajouterItem(new ObjetEnvironnement(env,"Potion Acide",700,20,new modifPtAttaque(env,3),false));
         env.ajouterItem(new ObjetEnvironnement(env,"Bottes d'Arès",100,280,new modifVitesse(env,3),false));
         env.ajouterActeur(link);
@@ -117,7 +113,6 @@ public class Controleur implements Initializable {
         link.pointDeVieProperty().addListener((obs, oldVal, newVal) -> {finDeJeu();});
         stackPanes.get(indexCaseActuelle).getStyleClass().add("case-inventaire-actuelle");
         initAnimation();
-
 
     }
     //methode sur la couleur de la barre de vie de link
@@ -198,7 +193,6 @@ public class Controleur implements Initializable {
                     System.out.println("Case vide");
                 }
                 break;
-
             case F:
                 ActeurEnMouvement ennemiLePlusProche = env.ennemiProcheDeLink();
                 if (ennemiLePlusProche == null) {
@@ -207,16 +201,13 @@ public class Controleur implements Initializable {
                 else {
                     link.attaquer(ennemiLePlusProche);
                 }
-
                 break;
-
             case L:
                 updateSelectedCase();
                 break;
             case T:
                 link.demanderDialogue();
                 break;
-
         }
     }
 
@@ -227,7 +218,6 @@ public class Controleur implements Initializable {
         indexCaseActuelle = (indexCaseActuelle + 1) % imageViews.size();
         // Ajoute les contours à la nouvelle case
         stackPanes.get(indexCaseActuelle).getStyleClass().add("case-inventaire-actuelle");
-
     }
     //  Cette méthode modifie la direction (gauche, droite, haut et bas) de Link selon la touche du clavier utilisée.
     public void deplacementLink(KeyCode touchePresse) {
@@ -245,7 +235,6 @@ public class Controleur implements Initializable {
                 link.setDirection(Constantes.Gauche);
                 break;
         }
-
     }
 
     //Cette méthode crée un cadre d'animation qui sera exécuté toutes les 0.15 secondes,
