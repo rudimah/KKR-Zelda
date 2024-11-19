@@ -27,7 +27,7 @@ public class ArmesPotionsTest {
 
     @BeforeEach
     public void setUp(){
-        env = new Environnement(800, 800);
+        env = Environnement.getInstance();
         link = new Link(env,new DialogueController(new Controleur()));
         listPouvoirs = new ArrayList<>();
         listPouvoirs.add(new attaqueEnnemi(env,55));

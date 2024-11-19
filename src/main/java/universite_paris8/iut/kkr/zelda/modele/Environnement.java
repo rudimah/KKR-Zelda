@@ -19,9 +19,9 @@ public class Environnement {
 
 	public static Environnement uniqueInstance=null;
 
-	public Environnement(int largeur, int hauteur) {
-		this.largeur = largeur;
-		this.hauteur = hauteur;
+	private Environnement() {
+		this.largeur = 800;
+		this.hauteur = 800;
 		this.listeActeurs = FXCollections.observableArrayList();
 		this.listeItems = FXCollections.observableArrayList();
 		this.carte=new Carte();
@@ -54,7 +54,7 @@ public class Environnement {
 
 	public static Environnement getInstance(){
 		if (uniqueInstance==null){
-			uniqueInstance=new Environnement(800,800);
+			uniqueInstance=new Environnement();
 		}
 		return uniqueInstance;
 	}

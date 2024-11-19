@@ -7,7 +7,7 @@ import universite_paris8.iut.kkr.zelda.utils.Constantes;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LinkTest {
-    private Environnement env= new Environnement(800, 800);
+    private Environnement env= Environnement.getInstance();
 
     private DialogueController dialogueController= new DialogueController(null);
     private Link link= new Link(env, dialogueController);;

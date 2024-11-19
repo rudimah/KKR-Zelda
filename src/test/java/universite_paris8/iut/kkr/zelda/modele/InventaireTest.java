@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class InventaireTest {
 
     Inventaire inventaire = new Inventaire();
-    Environnement environnement =  new Environnement(800, 800);
+    Environnement environnement = Environnement.getInstance();
 
     @Test
     void testAjoutEtBlocageInventaire() {
