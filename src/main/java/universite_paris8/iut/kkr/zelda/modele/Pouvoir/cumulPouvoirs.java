@@ -10,6 +10,13 @@ public class cumulPouvoirs extends Pouvoir{
         super(env, 0);
         this.pouvoirs = pouvoirs;
     }
+    public int getModificateur(){
+        int cumulModificateur = 0;
+        for (Pouvoir pouvoir : pouvoirs) {
+            cumulModificateur += pouvoir.getModificateur();
+        }
+        return cumulModificateur;
+    }
 
 
     @Override
